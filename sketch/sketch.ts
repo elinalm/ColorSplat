@@ -1,5 +1,5 @@
 let gameController: GameController;
-let layer1: p5
+
 /**
  * Built in preload function in P5
  * This is a good place to load assets such as
@@ -19,13 +19,11 @@ function preload() {
  */
 function setup() {
     createCanvas(windowWidth, windowHeight)
-    frameRate(60)
+    frameRate(1)
     noCursor()
     fullscreen()
     gameController = new GameController();
-    layer1 = createGraphics(windowWidth/2, windowWidth/2)
-    //gameController.printText('typescript test text!');
-
+    // gameController.adressStartMenu()
 }
 
 /**
@@ -34,12 +32,7 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
-    background('blue')
-    fill('red')
-    stroke('white')
-    circle(width * .5, height * .5, width * 0.2)
-    //gameController.printText('typescript test text!');
-    image(gameController.showLayer(layer1), 0,0);
+    
 }
 
 
