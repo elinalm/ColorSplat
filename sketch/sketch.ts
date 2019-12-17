@@ -1,3 +1,5 @@
+let gameController: GameController;
+
 /**
  * Built in preload function in P5
  * This is a good place to load assets such as
@@ -17,9 +19,11 @@ function preload() {
  */
 function setup() {
     createCanvas(windowWidth, windowHeight)
-    frameRate(60)
+    frameRate(1)
     noCursor()
     fullscreen()
+    gameController = new GameController();
+    // gameController.adressStartMenu()
 }
 
 /**
@@ -28,10 +32,7 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
-    background('blue')
-    fill('red')
-    stroke('white')
-    circle(width * .5, height * .5, width * 0.2)
+    
 }
 
 
