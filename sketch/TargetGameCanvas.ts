@@ -2,7 +2,7 @@ class TargetGameCanvas implements MovingObject {
     // Class attributes
     velX: number
     velY: number
-    splashList: Array<{posX:number, posY:number}>
+    splashList: Array<{posX:number, posY:number, color: string}>
     targetCanvasPosX: number = 0;
     targetCanvasDirection: boolean = false;
 
@@ -20,6 +20,7 @@ class TargetGameCanvas implements MovingObject {
         this.drawBackground();
         this.drawTargetBoard();
         this.drawSplash();
+        //this.testMissile();
     }
 
     public updatePos(): number {
@@ -53,6 +54,7 @@ class TargetGameCanvas implements MovingObject {
         circle(windowWidth/2,windowHeight/2,80);
         
         for(let splash of this.splashList){
+            fill(splash.color);
             circle(splash.posX, splash.posY,60);
         }
         pop()
@@ -60,7 +62,8 @@ class TargetGameCanvas implements MovingObject {
 
     //TODO is click inside target box and full side to side motion.
     public mouseClicked(){
-        this.splashList.push({posX:mouseX-this.targetCanvasPosX,posY:mouseY})
+        this.isMissileInsideTarget(mouseX,mouseY)
+        
         if(this.splashList.length > 3){
             this.splashList.shift();
         }
@@ -84,5 +87,24 @@ class TargetGameCanvas implements MovingObject {
             this.targetCanvasPosX -=1;
         }
     }
+
+    //grey blob inside box, blue outside target canvas
+    private isMissileInsideTarget(hitPosX:number, hitPosY:number){
+        console.log(hitPosX,hitPosY);
+        if(hitPosX > this.targetCanvasPosX + windowWidth/4 && hitPosX < this.targetCanvasPosX + windowWidth*0.75
+            && hitPosY > windowHeight/4 && hitPosY < windowHeight*0.75)
+            {
+            this.splashList.push({posX:mouseX-this.targetCanvasPosX,posY:mouseY,color:'grey'})
+        }
+        else{
+            this.splashList.push({posX:mouseX-this.targetCanvasPosX,posY:mouseY,color:'blue'})
+        }
+    }
+
+    /* TODO P5 play
+    private testMissile(){
+        rect(0,this.targetCanvasPosX,60,60)
+        let circle = createSprite(100,100)
+    }*/
 
 }
