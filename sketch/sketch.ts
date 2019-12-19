@@ -6,6 +6,7 @@ let gameController: GameController;
  * sound files, images etc...
  */
 function preload() {
+
     // Tyvärr har jag inte fått till den globala typningen för
     // inladdningen av ljud men fungerar bra enligt nedan..
     // sound = (window as any).loadSound('../assets/mySound.wav');
@@ -20,10 +21,9 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight)
     frameRate(1)
-    noCursor()
+    // noCursor()
     fullscreen()
     gameController = new GameController();
-    // gameController.adressStartMenu()
 }
 
 /**
@@ -32,7 +32,7 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
-    
+    gameController.game()
 }
 
 

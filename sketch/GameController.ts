@@ -1,6 +1,9 @@
 class GameController {
     // Class attributes //
     private startMenu =  new StartMenu();
+    private twoPlayers = new Button();
+    private threePlayers = new Button();
+    private fourPlayers = new Button();
     // private timer = new Timer();
     // private scoreboard = new Scoreboard();
     // private target = new TargetGameCanvas( Behöver velX värde och velY värde );
@@ -10,13 +13,12 @@ class GameController {
     // Class constructor //
 
     // Class functions //
-    public adressStartMenu() {
+    public getPlayers() {
+        return this.startMenu.getPlayers()
+    }
+
+    public game(): void {
         this.startMenu.draw()
     }
-
-    public startGame(): void {
-        // This function starts the game and should be called in StartMenu via the StartGame interface
-        
-    }
-
 }
+

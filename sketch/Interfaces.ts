@@ -1,12 +1,7 @@
 
 interface DrawableObject {
     // Interface functions
-    draw(): void
-}
-
-interface Player extends DrawableObject {
-    // Interface attributes
-    color: string
+    draw(x?: number, y?: number): void
 }
 
 interface MovingObject extends DrawableObject {
@@ -17,3 +12,4 @@ interface MovingObject extends DrawableObject {
     //Interface functions
     updatePos(): number
 }
+
