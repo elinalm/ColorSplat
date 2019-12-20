@@ -19,11 +19,10 @@ function preload() {
  */
 function setup() {
     createCanvas(windowWidth, windowHeight)
-    frameRate(1)
-    noCursor()
+    frameRate(60)
+    //noCursor()
     fullscreen()
     gameController = new GameController();
-    // gameController.adressStartMenu()
 }
 
 /**
@@ -32,7 +31,7 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
-    
+    gameController.createStartMenu()
 }
 
 
