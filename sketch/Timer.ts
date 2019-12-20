@@ -20,6 +20,7 @@ class Timer implements DrawableObject {
         this.posY = posY
         
     }
+    
     //Class functions
     public draw(): void {
       this.min = floor(this.timer / 60)

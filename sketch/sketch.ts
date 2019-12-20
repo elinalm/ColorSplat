@@ -37,7 +37,7 @@ function setup() {
  */
 function draw() {
     gameController.startGame()
-    gameController.drawTimer()
+    //gameController.drawTimer()
 }
 
 /**
