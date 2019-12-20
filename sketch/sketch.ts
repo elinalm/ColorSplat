@@ -36,17 +36,9 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
-
-    image(img, 0, 0)
-    background(img);
-    gameController.adressStartMenu()
+    gameController.startGame()
     gameController.drawTimer()
-
-    gameController.createStartMenu()
-    gameController.drawFrame();
-
 }
-
 
 /**
  *  Built in windowResize listener function in P5

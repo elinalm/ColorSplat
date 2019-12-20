@@ -21,7 +21,7 @@ class StartMenu implements DrawableObject{
     }
 
     // Class functions
-    public draw(): void {
+    public draw(): boolean {
         fill(0, 0, 0)
         // rectMode(CENTER)
         rect(windowWidth/4, 0, windowWidth / 2, windowHeight);
@@ -106,10 +106,12 @@ class StartMenu implements DrawableObject{
 
     //private activateStartGame(): void {
         this.startButton.handleMousePressed()
+        this.startButton.draw()
     
-       if (!this.startGame) {
-            this.startButton.draw()
+       if (this.startGame) {
+           return true
         }
+        return false
     } 
 
     

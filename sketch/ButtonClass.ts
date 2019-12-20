@@ -40,7 +40,7 @@ class Button implements DrawableObject {
 
     
     public handleMousePressed(): boolean{    
-        if (this.isMouseDown && this.isMouseDown && (
+        if (!mouseIsPressed && this.isMouseDown && (
             mouseX > this.x-this.width/2 &&
             mouseX < this.x + this.width/2 &&
             mouseY > this.y &&
