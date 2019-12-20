@@ -3,49 +3,41 @@ class GameController {
     private startMenu =  new StartMenu(); 
     private isGameStarted = false
     // private timer = new Timer();
+
     private timer = new Timer(50, width / 2, height * 1/6);
     private noOfPlayers: number = 4 // istället för 3 så kommer input av användaren
     private powerup = new PowerUp(random(0, windowWidth), -50, 0, 0, random(15, 50), 0)
     //private scoreboard = new Scoreboard(true)
-
+    
     // private scoreboard = new Scoreboard();
     // private target = new TargetGameCanvas( Behöver velX värde och velY värde );
     private target = new TargetGameCanvas(windowWidth/2,windowHeight/2);
     // private projectile = new PlayerProjectile( Behöver velX värde och velY värde );
     // private powerUp = new PowerUp( Behöver velX värde och velY värde );
 
-    firstRandom:number
-    secondRandom:number
-
-    // Class constructor //
-    constructor(firstRandom:number, secondRandom:number){
-
-        this.firstRandom = firstRandom
-        this.secondRandom = secondRandom
-    }
-
     // Class functions //
     // public createStartMenu() {
-    //     this.startMenu.update()
-    //     this.startMenu.draw()
+        //     this.startMenu.update()
+        //     this.startMenu.draw()
         
-    // }
-
-    public drawTimer() {
-        this.timer.draw()
-    }
-
-    // public goToScoreBoard() {
-    //     this.scoreboard.draw()
-    // }
-
-    public startGame(): void {
-        if(!this.isGameStarted){
-            this.isGameStarted = this.startMenu.draw()
-            this.startMenu.update()
+        // }
+        
+        public drawTimer() {
+            
         }
-        else {
-            this.target.draw()
+        
+        // public goToScoreBoard() {
+            //     this.scoreboard.draw()
+            // }
+            
+            public startGame(): void {
+                if(!this.isGameStarted){
+                    this.isGameStarted = this.startMenu.draw()
+                    this.startMenu.update()
+                }
+                else {
+                    this.target.draw()
+                    this.timer.draw()
         }
        
     // This function starts the game and should be called in StartMenu via the StartGame interface

@@ -22,7 +22,7 @@ function setup() {
     createCanvas(windowWidth, windowHeight)
     frameRate(50)
     fullscreen()
-    gameController = new GameController(ceil(random(0,59)),ceil(random(0,59)));
+    gameController = new GameController();
     // gameController.adressStartMenu()
 }
 
@@ -33,8 +33,13 @@ function setup() {
  */
 
 function draw() {
-    gameController.powerUp()
-    gameController.cannonPlayer()
+
+    //gameController.powerUp()
+    //gameController.cannonPlayer()
+
+    gameController.startGame()
+    //gameController.drawTimer()
+
 }
 
 
