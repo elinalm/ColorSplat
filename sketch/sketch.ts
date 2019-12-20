@@ -32,6 +32,7 @@ function setup() {
  */
 function draw() {
     gameController.createStartMenu()
+    gameController.drawFrame();
 }
 
 
@@ -40,4 +41,11 @@ function draw() {
  */
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+}
+
+/**
+ * P5 mouse click listener.
+ */
+function mouseClicked(){
+    gameController.mouseClicked()
 }
