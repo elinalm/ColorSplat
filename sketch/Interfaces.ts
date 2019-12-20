@@ -1,7 +1,8 @@
 
 interface DrawableObject {
     // Interface functions
-    draw(): void
+    draw(timer?: number): void
+
 }
 
 interface Player extends DrawableObject {
