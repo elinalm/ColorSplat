@@ -28,7 +28,6 @@ function setup() {
     //noCursor()
     fullscreen()
     gameController = new GameController();
-    // gameController.adressStartMenu()
 }
 
 /**
@@ -37,10 +36,15 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
+
     image(img, 0, 0)
     background(img);
     gameController.adressStartMenu()
     gameController.drawTimer()
+
+    gameController.createStartMenu()
+    gameController.drawFrame();
+
 }
 
 
@@ -49,4 +53,11 @@ function draw() {
  */
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+}
+
+/**
+ * P5 mouse click listener.
+ */
+function mouseClicked(){
+    gameController.mouseClicked()
 }
