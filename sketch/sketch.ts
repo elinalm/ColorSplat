@@ -1,15 +1,12 @@
 let gameController: GameController;
+let gravity = 0.003
 
-//Variabler till att skapa konstant bakgrund till alla delar av spelet.
-let img: p5.Image
-let y: number = 0;
 /**
  * Built in preload function in P5
  * This is a good place to load assets such as
  * sound files, images etc...
  */
 function preload() {
-    img = loadImage('assets/images/space.jpg')
     // Tyvärr har jag inte fått till den globala typningen för
     // inladdningen av ljud men fungerar bra enligt nedan..
     // sound = (window as any).loadSound('../assets/mySound.wav');
@@ -22,12 +19,11 @@ function preload() {
  * in the draw function below
  */
 function setup() {
-    
     createCanvas(windowWidth, windowHeight)
-    frameRate(60)
-    //noCursor()
+    frameRate(50)
     fullscreen()
-    gameController = new GameController();
+    gameController = new GameController(ceil(random(0,59)),ceil(random(0,59)));
+    // gameController.adressStartMenu()
 }
 
 /**
@@ -35,21 +31,17 @@ function setup() {
  * This is a good place to call public funcions of the object
  * you created in the setup function above
  */
+
 function draw() {
-    gameController.startGame()
-    gameController.drawTimer()
+    gameController.powerUp()
+    gameController.cannonPlayer()
 }
+
+
 
 /**
  *  Built in windowResize listener function in P5
  */
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
-}
-
-/**
- * P5 mouse click listener.
- */
-function mouseClicked(){
-    gameController.mouseClicked()
 }
