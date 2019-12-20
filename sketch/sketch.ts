@@ -31,10 +31,10 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
-    gameController.createStartMenu()
-    gameController.drawFrame();
+    gameController.startGame()
+    //gameController.createStartMenu()
+    //gameController.drawFrame();
 }
-
 
 /**
  *  Built in windowResize listener function in P5
