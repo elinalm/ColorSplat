@@ -31,7 +31,7 @@ class PowerUp implements MovingObject {
         // Insert position update logic here
         this.posY = this.posY + this.speed
         this.speed = this.speed + gravity
-        clear()
+        
         this.draw()
         return 1
         //test text

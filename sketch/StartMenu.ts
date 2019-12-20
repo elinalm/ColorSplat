@@ -6,13 +6,18 @@ class StartMenu implements DrawableObject{
     private startGame = false 
     //private noOfPlayers = 3 
     private startButton: Button
+    private x: number
+    private y: number
+
     //private twoPlayersButton: Button
 
     //private playerButton = new Button();
     
     // Class constructor
-    constructor () {
+    constructor (x: number, y: number) {
         this.startButton = new Button(width/2, height/2 + 110, 100, 50, "Start", this.startGame, 'blue')
+        this.x = x
+        this.y = y
         //this.twoPlayersButton = new Button(width/2, height/2 + 70, 100, 50, "2", this.startGame, 'blue')
     }
 
@@ -23,24 +28,25 @@ class StartMenu implements DrawableObject{
     // Class functions
     public draw(): boolean {
         fill(0, 0, 0)
-        // rectMode(CENTER)
-        rect(windowWidth/4, 0, windowWidth / 2, windowHeight);
+        //rectMode(CENTER)
+        rect(0,0, windowWidth, windowHeight);
         textSize(30);
         fill(253, 228, 6);
         textFont('Orbitron, sans-serif');
-        text("S", windowWidth/2 - 2, windowHeight - 680);
+        textAlign(CENTER)
+        text("S", this.x, this.y);
         fill(255,165,0);
-        text("p", windowWidth/2 + 20, windowHeight - 680);
+        text("p", this.x + 20, this.y);
         fill(255,0,0);
-        text("l", windowWidth/2 + 40, windowHeight - 680);
+        text("l", this.x + 38, this.y);
         fill(75,0,130);
-        text("a", windowWidth/2 + 45, windowHeight - 680);
+        text("a", this.x + 50, this.y);
         fill(0,0,205);
-        text("t", windowWidth/2 + 65, windowHeight - 680);
+        text("t", this.x + 65, this.y);
         fill(255,255,255);
         textSize(30)
-        //textFont('Titillium Web, sans-serif');
-        text("Color", windowWidth/2 - 70, windowHeight - 700);
+        textFont('Titillium Web, sans-serif');
+        text("Color", this.x - 10, this.y - 25);
         
         /*fill(0,0,205)
         rect(600, 400, 70, 30, 10);
@@ -58,12 +64,12 @@ class StartMenu implements DrawableObject{
         fill(255, 255, 255)
         text("Player 3", 805, 420); */
 
-        textSize(25);
-        text("Players:", 680, 210);
+        // textSize(25);
+        // text("Players:", 680, 210);
 
-        textSize(23)
-        text("2", 680, 270);
-        text("3", 780, 270)
+        // textSize(23)
+        // text("2", 680, 270);
+        // text("3", 780, 270)
         
         fill(75,0,130)
         square(610, 150, 10);
@@ -82,9 +88,9 @@ class StartMenu implements DrawableObject{
         square (620, 310, 10);
         square (610, 310, 10);
 
-        fill(255, 255, 255)
-        textSize(20)
-        text("Objective:", 685, 600)
+        // fill(255, 255, 255)
+        // textSize(20)
+        // text("Objective:", 685, 600)
 
         fill(75,0,130);
         square(550, 550, 10);

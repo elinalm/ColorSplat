@@ -1,6 +1,6 @@
 class GameController {
     // Class attributes //
-    private startMenu =  new StartMenu(); 
+    private startMenu =  new StartMenu(width/2, height*1/7); 
     private isGameStarted = false
     // private timer = new Timer();
 
@@ -8,6 +8,7 @@ class GameController {
     private noOfPlayers: number = 4 // istället för 3 så kommer input av användaren
     private powerup = new PowerUp(random(0, windowWidth), -50, 0, 0, random(15, 50), 0)
     //private scoreboard = new Scoreboard(true)
+    private projectiles: PlayerProjectile[] = []
     
     // private scoreboard = new Scoreboard();
     // private target = new TargetGameCanvas( Behöver velX värde och velY värde );
@@ -22,26 +23,34 @@ class GameController {
         
         // }
         
-        public drawTimer() {
-            
-        }
+    public drawTimer() {
+        
+    }
         
         // public goToScoreBoard() {
             //     this.scoreboard.draw()
             // }
             
-            public startGame(): void {
-                if(!this.isGameStarted){
-                    this.isGameStarted = this.startMenu.draw()
-                    this.startMenu.update()
-                }
-                else {
-                    this.target.draw()
-                    this.timer.draw()
+    public startGame(): void {
+        if(!this.isGameStarted){
+            this.isGameStarted = this.startMenu.draw()
+            this.startMenu.update()
+        }
+        else {
+            this.target.draw()
+            this.timer.draw()
         }
        
     // This function starts the game and should be called in StartMenu via the StartGame interface
-        
+        this.checkCollisions()
+    }
+
+    private checkCollisions() {
+        for (const projectile of this.projectiles) {
+            for (const otherProjectile of this.projectiles) {
+                projectile.checkCollision(otherProjectile)
+            }
+        }
     }
 
     public drawFrame(){
