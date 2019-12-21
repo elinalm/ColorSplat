@@ -1,4 +1,5 @@
 let gameController: GameController;
+let gravity = 0.003
 
 /**
  * Built in preload function in P5
@@ -20,7 +21,7 @@ function preload() {
  */
 function setup() {
     createCanvas(windowWidth, windowHeight)
-    frameRate(60)    // noCursor()
+    frameRate(50)
     fullscreen()
     gameController = new GameController();
 }
@@ -30,9 +31,17 @@ function setup() {
  * This is a good place to call public funcions of the object
  * you created in the setup function above
  */
+
 function draw() {
-    gameController.game()
+
+    //gameController.powerUp()
+    //gameController.cannonPlayer()
+
+    gameController.startGame()
+    //gameController.drawTimer()
+
 }
+
 
 
 /**

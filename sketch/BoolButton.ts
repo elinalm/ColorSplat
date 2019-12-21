@@ -15,22 +15,57 @@ namespace _btn {
             this.isMouseDown = isMouseDown
         }
     
-        public handleMousePressed(): boolean{    
-            if (this.isMouseDown && this.isMouseDown && (mouseX >= this.x + this.width/2 && mouseX <= this.x + this.width/2 + this.width) && (mouseY >= this.y + this.height/2 && mouseY <= this.y + this.height/2 + this.height)){
-                return true
-            }      
+        public handleMousePressed(): boolean {    
+            const box = this.getHitbox();
+            if (!mouseIsPressed && this.isMouseDown && (
+                mouseX > box.x &&
+                mouseX < box.rhs &&
+                mouseY > box.y &&
+                mouseY < box.bhs)
+                ){
+                    return true
+                }
+        
             this.isMouseDown = mouseIsPressed 
-                return false
+            return false
         }
     
         public draw(){
+            const box = this.getHitbox()
             push()
-            rectMode(CENTER)
-            fill('red')
-            rect(this.x, this.y, this.width, this.height, 20)
+            fill(this.color)
+            rect(box.x, box.y, box.width, box.height, 20)
             fill('white')
-            text(this.text, this.x - 30, this.y + 5)
-            pop() 
-        }  
+            textAlign(CENTER)
+            textSize(30)
+            text(this.text, this.x, this.y+10)
+            pop()
+        }
+
+        private getHitbox(): HitBoxRect {
+            return {
+                x: this.x - this.width/2,
+                y: this.y - this.height/2,
+                rhs: (this.x - this.width/2) + this.width,
+                bhs: (this.y - this.height/2) + this.height,
+                width: this.width,
+                height: this.height
+            }
+        }
+        // private checkCollision() {
+        //     const x1 = 10;
+        //     const y1 = 10;
+        //     const r1 = 5;
+            
+        //     const x2 = 30;
+        //     const y2 = 30;
+        //     const r2 = 10;
+    
+        //     const distance = dist(x1, y1, x2, y2);
+    
+        //     if (distance < r1 + r2) {
+        //         // Booooom
+        //     }
+        // }  
     }
 }

@@ -17,8 +17,19 @@ namespace ply_ {
         draw(): void {
             //Insert draw logic here
         }
+
+        update() /*: PlayerProjectile*/ {
+            // const projectile = new PlayerProjectile(1, 1, this.applyPowerUp(powerUp), this.color)
+    
+            // return projectile;
+        }
+
         handleControls(): void {
             //Insert controls logic here
+        }
+        private applyPowerUp = (powerUp: string) => {
+            // this.powerUp = powerUp
+            // todo....
         }
     }
 }

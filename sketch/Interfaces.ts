@@ -1,7 +1,15 @@
 
 interface DrawableObject {
     // Interface functions
-    draw(x?: number, y?: number): void
+    draw():void
+}
+
+// interface Player extends DrawableObject {
+//     // Interface attributes
+//     color: string
+// }
+interface ApplyPowerUp {
+    applyPowerUp: (powerUp: string) => void
 }
 
 interface MovingObject extends DrawableObject {
@@ -13,3 +21,18 @@ interface MovingObject extends DrawableObject {
     updatePos(): number
 }
 
+interface CollidableObject {
+    x: number
+    y: number
+    radius: number
+    checkCollision: (otherObject: CollidableObject) => boolean
+}
+
+interface HitBoxRect {
+    x: number
+    y: number
+    width: number
+    height: number
+    rhs: number
+    bhs: number
+}
