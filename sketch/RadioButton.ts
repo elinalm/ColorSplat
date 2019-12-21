@@ -38,22 +38,6 @@ namespace _btn {
                 textSize(40)
                 text(this.values[i], this.valuePos[i], this.y+14)
             }
-            // let index = 0
-            // this.values.forEach(value => {
-            //     fill(this.color)
-            //     noStroke()
-            //     if (index === this.definedValue) {
-            //         console.log(index, this.definedValue);
-                    
-            //         fill('blue')
-            //         rect(this.valuePos[index], this.y, 50, 50)
-            //     }
-            //     fill('white')
-            //     textAlign(CENTER)
-            //     textSize(40)
-            //     text(value, this.valuePos[index], this.y+14)
-            //     index++
-            // });
             pop()
         }
 
