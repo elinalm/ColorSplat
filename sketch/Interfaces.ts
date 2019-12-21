@@ -1,7 +1,7 @@
 
 interface DrawableObject {
     // Interface functions
-    draw():void
+    draw(x?: number, y?: number):void
 }
 
 // interface Player extends DrawableObject {

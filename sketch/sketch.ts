@@ -37,7 +37,7 @@ function draw() {
     //gameController.powerUp()
     //gameController.cannonPlayer()
 
-    gameController.startGame()
+    gameController.updateGame()
     //gameController.drawTimer()
 
 }

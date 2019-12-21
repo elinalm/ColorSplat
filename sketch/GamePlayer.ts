@@ -1,5 +1,5 @@
 ///<reference path="abstract-Player.ts" />
-namespace ply_ {
+namespace _ply {
     export class GamePlayer extends Player implements DrawableObject{
         // color: string
         // aimLeft: string
