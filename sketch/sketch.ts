@@ -7,6 +7,7 @@ let gravity = 0.003
  * sound files, images etc...
  */
 function preload() {
+
     // Tyvärr har jag inte fått till den globala typningen för
     // inladdningen av ljud men fungerar bra enligt nedan..
     // sound = (window as any).loadSound('../assets/mySound.wav');
@@ -23,7 +24,6 @@ function setup() {
     frameRate(50)
     fullscreen()
     gameController = new GameController();
-    // gameController.adressStartMenu()
 }
 
 /**

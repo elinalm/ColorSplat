@@ -1,11 +1,13 @@
-class StartMenu implements DrawableObject{
+class StartMenu {
     // Class attribute
-   // startgame: string = "hej"
-
-    // private playerFactory = new PlayerFactory();
+    private playerFactory = new PlayerFactory();
+    private noOfPlayers = 4
+    private isMousePressed = false
+    private bgColor = '#1B1E1A'
+    private playerSelectButton = new _btn.RadioButton(windowWidth/2, windowHeight/3, windowWidth/2, 100, this.bgColor, this.isMousePressed, [2, 3, 4], this.noOfPlayers);
+    private createPlayers : Array<ply_.MenuPlayer> = []
     private startGame = false 
-    //private noOfPlayers = 3 
-    private startButton: Button
+    private startButton = new _btn.BoolButton(width/2, height/2 + height/10, 100, 50, 'blue', 'Start', this.startGame)
     private x: number
     private y: number
 
@@ -15,21 +17,31 @@ class StartMenu implements DrawableObject{
     
     // Class constructor
     constructor (x: number, y: number) {
-        this.startButton = new Button(width/2, height/2 + 110, 100, 50, "Start", this.startGame, 'blue')
+        // this.startButton = new Button(width/2, height/2 + 110, 100, 50, "Start", this.startGame, 'blue')
         this.x = x
         this.y = y
         //this.twoPlayersButton = new Button(width/2, height/2 + 70, 100, 50, "2", this.startGame, 'blue')
     }
 
-    public update(){
+    public update(): boolean{
         this.startGame = this.startButton.handleMousePressed()
+        this.noOfPlayers = this.playerSelectButton.handleMousePressed()   
+
+        return this.startGame
     }
 
     // Class functions
-    public draw(): boolean {
+    public draw(): void {
+        push()
+        //draw background
         fill(0, 0, 0)
-        //rectMode(CENTER)
         rect(0,0, windowWidth, windowHeight);
+        
+        //draw menubody
+        fill(this.bgColor)
+        rect(windowWidth/5, 0, windowWidth/1.666, windowHeight)
+        
+        //draw game-logo
         textSize(30);
         fill(253, 228, 6);
         textFont('Orbitron, sans-serif');
@@ -47,79 +59,32 @@ class StartMenu implements DrawableObject{
         textSize(30)
         textFont('Titillium Web, sans-serif');
         text("Color", this.x - 10, this.y - 25);
+        pop()
         
-        /*fill(0,0,205)
-        rect(600, 400, 70, 30, 10);
-        textSize(12)
+        //Draw players section
+        push()
+        noStroke()
+        fill(this.bgColor)
+        rect((windowWidth/2)- 100, (windowHeight/3.8) - 50, 200, 100);
+        textAlign(CENTER)
+        textSize(40)
         fill(255, 255, 255)
-        text("Player 1", 610, 420);
-        fill(255,165,0)
-        rect(700, 400, 70, 30, 10);
-        textSize(12)
-        fill(255, 255, 255)
-        text("Player 2", 705, 420);
-        fill(255,0,0)
-        rect(800, 400, 70, 30, 10);
-        textSize(12)
-        fill(255, 255, 255)
-        text("Player 3", 805, 420); */
+        text("Players", (windowWidth/2), (windowHeight/3.8));
 
-        // textSize(25);
-        // text("Players:", 680, 210);
+        this.createPlayers = []
+        this.createPlayers = this.playerFactory.buildMenuPlayer(this.noOfPlayers)
 
-        // textSize(23)
-        // text("2", 680, 270);
-        // text("3", 780, 270)
-        
-        fill(75,0,130)
-        square(610, 150, 10);
-        square (620, 140, 10);
-        square (610, 140, 10);
+        let posIndex = windowWidth/(this.noOfPlayers+2)
+        let startIndex = posIndex/2
+        this.createPlayers.forEach(player => {
+            startIndex+=posIndex
+            player.draw(startIndex, windowHeight/2)
+        });
+        this.playerSelectButton.draw()
+        pop()
 
-        square(845, 150, 10);
-        square (835, 140, 10);
-        square (845, 140, 10);
-
-        square(845, 300, 10);
-        square (835, 310, 10);
-        square (845, 310, 10);
-
-        square(610, 300, 10);
-        square (620, 310, 10);
-        square (610, 310, 10);
-
-        // fill(255, 255, 255)
-        // textSize(20)
-        // text("Objective:", 685, 600)
-
-        fill(75,0,130);
-        square(550, 550, 10);
-        square (560, 550, 10);
-        square (550, 560, 10);
-
-        square(900, 550, 10);
-        square (890, 550, 10);
-        square (900, 560, 10);
-
-        square(900, 710, 10);
-        square (890, 720, 10);
-        square (900, 720, 10);
-
-        square(550, 710, 10);
-        square (560, 720, 10);
-        square (550, 720, 10);
-   // }
-
-    //private activateStartGame(): void {
-        this.startButton.handleMousePressed()
+        //Draw startbutton
         this.startButton.draw()
-    
-       if (this.startGame) {
-           return true
-        }
-        return false
-    } 
-
-    
-
+    }
 }
+

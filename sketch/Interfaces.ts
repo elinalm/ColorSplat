@@ -1,13 +1,15 @@
 
 interface DrawableObject {
     // Interface functions
-    draw(timer?: number): void
-
+    draw():void
 }
 
-interface Player extends DrawableObject {
-    // Interface attributes
-    color: string
+// interface Player extends DrawableObject {
+//     // Interface attributes
+//     color: string
+// }
+interface ApplyPowerUp {
+    applyPowerUp: (powerUp: string) => void
 }
 
 interface MovingObject extends DrawableObject {
