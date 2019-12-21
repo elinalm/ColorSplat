@@ -14,8 +14,26 @@ namespace _ply {
         // }
     
         // Class functions
-        draw(): void {
-            //Insert draw logic here
+        draw(xPos: number, yPos: number): void {
+            push()
+            stroke(this.color)
+            strokeWeight(5)
+            line(xPos - 70, yPos, xPos - 70, yPos - 50)
+            line(xPos - 70, yPos - 50, xPos - 60, yPos - 50)
+            arc(xPos - 20, yPos - 52, 80, 80, PI, 0)
+            line(xPos + 20, yPos - 50, xPos + 30, yPos - 50)
+            line(xPos + 30, yPos - 50, xPos + 30, yPos)
+            strokeWeight(1)
+            arc(xPos - 20, yPos - 52, 60, 60, PI, 300)
+            strokeWeight(2)
+            rect(xPos - 27.5, yPos - 125, 15, 35)
+            fill(this.color)
+            rect(xPos - 30, yPos - 135, 20, 15)
+            pop()
+            push()
+            stroke(this.color)
+            rect(xPos + 50, yPos - 51, 15, 45)
+            pop()
         }
 
         update() /*: PlayerProjectile*/ {

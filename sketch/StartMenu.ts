@@ -5,7 +5,6 @@ class StartMenu implements DrawableObject {
     private isMousePressed = false
     private bgColor = '#1B1E1A'
     private playerSelectButton = new _btn.RadioButton(windowWidth/2, windowHeight/3, windowWidth/2, 100, this.bgColor, this.isMousePressed, [2, 3, 4], this.noOfPlayers);
-    private createPlayers : Array<_ply.MenuPlayer> = []
     private startGame = false 
     private startButton = new _btn.BoolButton(width/2, height/2 + height/10, 100, 50, 'blue', 'Start', this.startGame)
     private x: number
@@ -77,12 +76,11 @@ class StartMenu implements DrawableObject {
         fill(255, 255, 255)
         text("Players", (windowWidth/2), (windowHeight/3.8));
 
-        this.createPlayers = []
-        this.createPlayers = this.playerFactory.buildMenuPlayer(this.noOfPlayers)
+        const createPlayers = this.playerFactory.buildMenuPlayer(this.noOfPlayers)
 
         let posIndex = windowWidth/(this.noOfPlayers+2)
         let startIndex = posIndex/2
-        this.createPlayers.forEach(player => {
+        createPlayers.forEach(player => {
             startIndex+=posIndex
             player.draw(startIndex, windowHeight/2)
         });

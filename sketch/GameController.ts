@@ -4,7 +4,6 @@ class GameController {
     private isGameStarted = false
     private target = new TargetGameCanvas(windowWidth/2,windowHeight/2);
     private timer = new Timer(50, width / 2, height * 1/6);
-    private noOfPlayers = this.startMenu.getPlayers // istället för 3 så kommer input av användaren
     private playerFactory = new PlayerFactory()
     private createPlayers: Array<_ply.GamePlayer> = []
 
@@ -29,7 +28,14 @@ class GameController {
             this.target.draw()
             this.timer.draw()
             // this.startMenu.getPlayers
-            const players = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers())
+            const buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers())
+            let posIndex = windowWidth/(buildGamePlayers.length+2)
+            let startIndex = posIndex/2
+            buildGamePlayers.forEach(player => {
+            startIndex+=posIndex
+            player.draw(startIndex, windowHeight)
+        });
+            
         }
         // this.checkCollisions()
     }
