@@ -1,4 +1,4 @@
-namespace ply_ {
+namespace _ply {
     export abstract class Player {
         // Interface attributes
         name: string

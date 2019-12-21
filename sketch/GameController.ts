@@ -4,8 +4,9 @@ class GameController {
     private isGameStarted = false
     private target = new TargetGameCanvas(windowWidth/2,windowHeight/2);
     private timer = new Timer(50, width / 2, height * 1/6);
+    private playerFactory = new PlayerFactory()
+    private createPlayers: Array<_ply.GamePlayer> = []
 
-    // private noOfPlayers: number = 4 // istället för 3 så kommer input av användaren
     // private powerup = new PowerUp(random(0, windowWidth), -50, 0, 0, random(15, 50), 0)
     // private scoreboard = new Scoreboard(true)
     // private projectiles: PlayerProjectile[] = []
@@ -17,14 +18,24 @@ class GameController {
 
     // Class functions //
             
-    public startGame(): void {
+    public updateGame(): void {
         if(!this.isGameStarted){
             this.startMenu.draw()
-            this.isGameStarted = this.startMenu.update()
+            this.startMenu.update()
+            this.isGameStarted = this.startMenu.getStartGame()
         }
         else {
             this.target.draw()
             this.timer.draw()
+            // this.startMenu.getPlayers
+            const buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers())
+            let posIndex = windowWidth/(buildGamePlayers.length+2)
+            let startIndex = posIndex/2
+            buildGamePlayers.forEach(player => {
+            startIndex+=posIndex
+            player.draw(startIndex, windowHeight)
+        });
+            
         }
         // this.checkCollisions()
     }

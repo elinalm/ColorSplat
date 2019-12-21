@@ -1,6 +1,6 @@
 class PlayerFactory {
     // Class attributes
-    players: Array<ply_.Player> = [
+    players: Array<_ply.Player> = [
         {
             name: 'blue', 
             color: '#4A7CDD', 
@@ -32,16 +32,21 @@ class PlayerFactory {
     ]
 
     // Class functions
-    public buildMenuPlayer(noOfplayers: number): Array<ply_.MenuPlayer> {
-        let playerArray: Array<ply_.MenuPlayer> = []
-        for (let i = 0; i < noOfplayers; i++) {
-            let player: ply_.Player = this.players[i]
-            playerArray.push(new ply_.MenuPlayer(player.name, player.color, player.aimLeft, player.fireButton, player.aimRight))
+    public buildMenuPlayer(noOfPlayers: number): Array<_ply.MenuPlayer> {
+        let playerArray: Array<_ply.MenuPlayer> = []
+        for (let i = 0; i < noOfPlayers; i++) {
+            let player: _ply.Player = this.players[i]
+            playerArray.push(new _ply.MenuPlayer(player.name, player.color, player.aimLeft, player.fireButton, player.aimRight))
         }
         return playerArray
     }
 
-    public buildGamePlayer() {
-
+    public buildGamePlayer(noOfPlayers: number): Array<_ply.GamePlayer> {
+        let playerArray: Array<_ply.GamePlayer> = []
+        for (let i = 0; i < noOfPlayers; i++) {
+            let player: _ply.Player = this.players[i]
+            playerArray.push(new _ply.GamePlayer(player.name, player.color, player.aimLeft, player.fireButton, player.aimRight))
+        }
+        return playerArray
     }
 }

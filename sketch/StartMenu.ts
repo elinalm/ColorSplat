@@ -1,11 +1,10 @@
-class StartMenu {
+class StartMenu implements DrawableObject {
     // Class attribute
     private playerFactory = new PlayerFactory();
     private noOfPlayers = 4
     private isMousePressed = false
     private bgColor = '#1B1E1A'
     private playerSelectButton = new _btn.RadioButton(windowWidth/2, windowHeight/3, windowWidth/2, 100, this.bgColor, this.isMousePressed, [2, 3, 4], this.noOfPlayers);
-    private createPlayers : Array<ply_.MenuPlayer> = []
     private startGame = false 
     private startButton = new _btn.BoolButton(width/2, height/2 + height/10, 100, 50, 'blue', 'Start', this.startGame)
     private x: number
@@ -23,11 +22,17 @@ class StartMenu {
         //this.twoPlayersButton = new Button(width/2, height/2 + 70, 100, 50, "2", this.startGame, 'blue')
     }
 
-    public update(): boolean{
+    public getStartGame(): boolean{
+        return this.startGame
+    }
+
+    public getPlayers(): number {
+        return this.noOfPlayers
+    }
+
+    public update(): void {
         this.startGame = this.startButton.handleMousePressed()
         this.noOfPlayers = this.playerSelectButton.handleMousePressed()   
-
-        return this.startGame
     }
 
     // Class functions
@@ -71,12 +76,11 @@ class StartMenu {
         fill(255, 255, 255)
         text("Players", (windowWidth/2), (windowHeight/3.8));
 
-        this.createPlayers = []
-        this.createPlayers = this.playerFactory.buildMenuPlayer(this.noOfPlayers)
+        const createPlayers = this.playerFactory.buildMenuPlayer(this.noOfPlayers)
 
         let posIndex = windowWidth/(this.noOfPlayers+2)
         let startIndex = posIndex/2
-        this.createPlayers.forEach(player => {
+        createPlayers.forEach(player => {
             startIndex+=posIndex
             player.draw(startIndex, windowHeight/2)
         });
