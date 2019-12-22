@@ -20,7 +20,6 @@ class PlayerBody {
     }
 
     public draw() {
-        push()
         stroke(this.color)
         strokeWeight(5)
         line(this.xPos - 70, this.yPos, this.xPos - 70, this.yPos - 50)
@@ -34,11 +33,8 @@ class PlayerBody {
         rect(this.xPos - 27.5, this.yPos - 125, 15, 35)
         fill(this.color)
         rect(this.xPos - 30, this.yPos - 135, 20, 15)
-        pop()
-        push()
         stroke(this.color)
         rect(this.xPos + 50, this.yPos - 51, 15, 45)
-        pop()
     }
 
     public moveBarrel() {
