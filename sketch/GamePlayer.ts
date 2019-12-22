@@ -42,9 +42,21 @@ namespace _ply {
             // return projectile;
         }
 
-        handleControls(): void {
-            //Insert controls logic here
-        }
+        // handleControls(): void {
+            public handleControls() {
+                if (keyIsDown && key === this.aimLeft) {
+                    console.log(`aim left ${this.aimLeft, this.name}`);  
+                }
+                else if (keyIsDown && key === this.aimRight) {
+                    console.log(`aim right ${this.aimRight, this.name}`);
+                }
+                else if (keyIsDown && key === this.fireButton) {
+                    console.log(`FIRE!! ${this.fireButton, this.name}`);
+                    
+                }
+                
+            }
+        // }
         private applyPowerUp = (powerUp: string) => {
             // this.powerUp = powerUp
             // todo....

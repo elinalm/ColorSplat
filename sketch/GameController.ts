@@ -31,6 +31,7 @@ class GameController {
             }
             this.target.draw()
             this.timer.draw()
+
             // this.startMenu.getPlayers
             const buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers())
             let posIndex = windowWidth/(buildGamePlayers.length+2)
@@ -38,6 +39,7 @@ class GameController {
             buildGamePlayers.forEach(player => {
             startIndex+=posIndex
             player.draw(startIndex, windowHeight)
+            player.handleControls()
         });
             
         }
