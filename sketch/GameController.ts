@@ -7,6 +7,8 @@ class GameController {
     private playerFactory = new PlayerFactory()
     private createPlayers: Array<_ply.GamePlayer> = []
 
+    private collidableObjectManager = new CollidableObjectManager(this.target);
+
     // private powerup = new PowerUp(random(0, windowWidth), -50, 0, 0, random(15, 50), 0)
     // private scoreboard = new Scoreboard(true)
     // private projectiles: PlayerProjectile[] = []
@@ -34,8 +36,11 @@ class GameController {
             buildGamePlayers.forEach(player => {
             startIndex+=posIndex
             player.draw(startIndex, windowHeight)
-        });
-            
+            });
+
+            this.collidableObjectManager.updatePos();
+            this.collidableObjectManager.draw();
+            //console.log(this.collidableObjectManager.getCollidableObjectList.length)
         }
         // this.checkCollisions()
     }

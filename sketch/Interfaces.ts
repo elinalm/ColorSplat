@@ -21,11 +21,13 @@ interface MovingObject extends DrawableObject {
     updatePos(): number
 }
 
-interface CollidableObject {
+interface CollidableObject extends MovingObject{
     x: number
     y: number
     radius: number
-    checkCollision: (otherObject: CollidableObject) => boolean
+    color: string
+    hasCollided: boolean
+    checkCollision: (otherObject: CollidableObject[]) => boolean
 }
 
 interface HitBoxRect {
