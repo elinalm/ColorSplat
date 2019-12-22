@@ -16,6 +16,7 @@ namespace _ply {
         // Class functions
         draw(xPos: number, yPos: number): void {
             push()
+            noFill()
             stroke(this.color)
             strokeWeight(5)
             line(xPos - 70, yPos, xPos - 70, yPos - 50)
@@ -32,6 +33,7 @@ namespace _ply {
             pop()
             push()
             stroke(this.color)
+            noFill()
             rect(xPos + 50, yPos - 51, 15, 45)
             pop()
         }
