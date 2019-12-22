@@ -3,9 +3,9 @@ class GameController {
     private startMenu =  new StartMenu(width/2, height*1/7); 
     private isGameStarted = false
     private target = new TargetGameCanvas(windowWidth/2,windowHeight/2);
-    private timer = new Timer(50, width / 2, height * 1/6);
+    private timerCreated = false
+    private timer: Timer = new Timer(50, width / 2, height * 1/6)
     private playerFactory = new PlayerFactory()
-    private createPlayers: Array<_ply.GamePlayer> = []
 
     // private powerup = new PowerUp(random(0, windowWidth), -50, 0, 0, random(15, 50), 0)
     // private scoreboard = new Scoreboard(true)
@@ -25,6 +25,10 @@ class GameController {
             this.isGameStarted = this.startMenu.getStartGame()
         }
         else {
+            if (!this.timerCreated) {
+                this.timer = new Timer(this.startMenu.getSelectedTime(), width / 2, height * 1/6);
+                this.timerCreated = true
+            }
             this.target.draw()
             this.timer.draw()
             // this.startMenu.getPlayers

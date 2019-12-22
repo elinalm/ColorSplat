@@ -24,6 +24,7 @@ namespace _btn {
         public draw(){
             push()
             fill(this.color)
+            noStroke()
             rectMode(CENTER)
             rect(this.x, this.y, this.width, this.height)
 
