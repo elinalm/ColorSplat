@@ -36,7 +36,6 @@ class GameController {
             this.target.draw()
             this.timer.draw()
 
-            // this.startMenu.getPlayers
             if (!this.builtPlayers) {
                 this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers())
                 this.builtPlayers = true
