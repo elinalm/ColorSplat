@@ -16,6 +16,7 @@ namespace _ply {
         // Class functions
         draw(xPos: number, yPos: number): void {
             push()
+            noFill()
             stroke(this.color)
             strokeWeight(5)
             //First vertical line of body

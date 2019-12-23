@@ -9,6 +9,8 @@ class GameController {
     private builtPlayers = false
     private buildGamePlayers: Array<_ply.GamePlayer> = []
 
+    private collidableObjectManager = new CollidableObjectManager(this.target);
+
     // private powerup = new PowerUp(random(0, windowWidth), -50, 0, 0, random(15, 50), 0)
     // private scoreboard = new Scoreboard(true)
     // private projectiles: PlayerProjectile[] = []
@@ -41,6 +43,7 @@ class GameController {
             }
             let posIndex = windowWidth/(this.buildGamePlayers.length+2)
             let startIndex = posIndex/2
+
             this.buildGamePlayers.forEach(player => {
                 startIndex+=posIndex
                 push()
@@ -49,6 +52,9 @@ class GameController {
                 player.handleControls()
             });
             
+            this.collidableObjectManager.updatePos();
+            this.collidableObjectManager.draw();
+            //console.log(this.collidableObjectManager.getCollidableObjectList.length)
         }
         // this.checkCollisions()
     }
