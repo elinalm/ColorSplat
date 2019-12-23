@@ -18,22 +18,36 @@ namespace _ply {
             push()
             stroke(this.color)
             strokeWeight(5)
-            line(xPos - 70, yPos, xPos - 70, yPos - 50)
-            line(xPos - 70, yPos - 50, xPos - 60, yPos - 50)
-            arc(xPos - 20, yPos - 52, 80, 80, PI, 0)
-            line(xPos + 20, yPos - 50, xPos + 30, yPos - 50)
-            line(xPos + 30, yPos - 50, xPos + 30, yPos)
+            //First vertical line of body
+            line((xPos - 70), yPos, xPos - 70, yPos - 50)
+            //First horizontal line into the cannon head
+            line((xPos - 70), yPos - 50, xPos - 60, yPos - 50)
+            //Cannon head
+            arc((xPos - 20), yPos - 52, 80, 80, PI, 0)
+
+            line((xPos + 20), yPos - 50, xPos + 30, yPos - 50)
+            line((xPos + 30), yPos - 50, xPos + 30, yPos)
+            //Cannon head reflection
             strokeWeight(1)
-            arc(xPos - 20, yPos - 52, 60, 60, PI, 300)
-            strokeWeight(2)
-            rect(xPos - 27.5, yPos - 125, 15, 35)
-            fill(this.color)
-            rect(xPos - 30, yPos - 135, 20, 15)
+            // arc(xPos - 20, yPos - 52, 60, 60, PI, 300)
             pop()
+
+
+            //Barrel body
+            // noStroke()
+
+            //Försöker att snurra på mynningen
             push()
-            stroke(this.color)
-            rect(xPos + 50, yPos - 51, 15, 45)
+            rect((xPos - 35), (yPos-110), 30, 60)
+            fill(this.color)
+            //Barrel head
+            rect((xPos - 40), (yPos - 125), 40, 15)
             pop()
+            //push()
+            //stroke(this.color)
+            //chargebar
+            //rect(xPos + 50, yPos - 51, 15, 45)
+            //pop()
         }
 
         update() /*: PlayerProjectile*/ {

@@ -6,6 +6,8 @@ class GameController {
     private timerCreated = false
     private timer: Timer = new Timer(50, width / 2, height * 1/6)
     private playerFactory = new PlayerFactory()
+    private builtPlayers = false
+    private buildGamePlayers: Array<_ply.GamePlayer> = []
 
     // private powerup = new PowerUp(random(0, windowWidth), -50, 0, 0, random(15, 50), 0)
     // private scoreboard = new Scoreboard(true)
@@ -33,14 +35,19 @@ class GameController {
             this.timer.draw()
 
             // this.startMenu.getPlayers
-            const buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers())
-            let posIndex = windowWidth/(buildGamePlayers.length+2)
+            if (!this.builtPlayers) {
+                this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers())
+                this.builtPlayers = true
+            }
+            let posIndex = windowWidth/(this.buildGamePlayers.length+2)
             let startIndex = posIndex/2
-            buildGamePlayers.forEach(player => {
-            startIndex+=posIndex
-            player.draw(startIndex, windowHeight)
-            player.handleControls()
-        });
+            this.buildGamePlayers.forEach(player => {
+                startIndex+=posIndex
+                push()
+                player.draw(startIndex, windowHeight)
+                pop()
+                player.handleControls()
+            });
             
         }
         // this.checkCollisions()
