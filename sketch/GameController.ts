@@ -69,6 +69,8 @@ class GameController {
                 this.target = new TargetGameCanvas(windowWidth/2,windowHeight/2);
                 this.timerCreated = false;
                 this.timer = new Timer(50, width / 2, height * 1/6);
+                this.builtPlayers = false;
+                this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers());
                 this.collidableObjectManager = new CollidableObjectManager(this.target);
             }
             else{
