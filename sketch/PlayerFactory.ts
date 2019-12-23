@@ -27,7 +27,7 @@ class PlayerFactory {
             color: '#E7FF57',
             aimLeft: ['8', 56],
             fireButton: ['9', 57],
-            aimRight: ['0', 48]
+            aimRight: ['0', '48']
         }
     ]
 

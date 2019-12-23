@@ -33,7 +33,7 @@ class GameController {
                 this.timer = new Timer(this.startMenu.getSelectedTime(), width / 2, height * 1/6);
                 this.timerCreated = true
             }
-            this.target.draw()
+            // this.target.draw()
             this.timer.draw()
 
             if (!this.builtPlayers) {

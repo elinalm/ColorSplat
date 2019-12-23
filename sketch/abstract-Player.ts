@@ -7,7 +7,7 @@ namespace _ply {
         fireButton: Array<any>
         aimRight: Array<any>
     
-        constructor (name: string, color: string, aimLeft: Array<any>, fireButton: Array<any>, aimRight: Array<any>) {
+        constructor (name: string, color: string, aimLeft: Array<any>, fireButton: Array<any>, aimRight: Array<string>) {
             this.name = name
             this.color = color
             this.aimLeft = aimLeft
