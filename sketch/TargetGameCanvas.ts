@@ -132,4 +132,8 @@ class TargetGameCanvas implements MovingObject {
         this.isMissileInsideTarget(hitPosX, hitPosY, splashColor, splashDiameter);
     }
 
+    public get getCutoutImage(): p5.Image{
+        return this.cutOutImage
+    }
+
 }
