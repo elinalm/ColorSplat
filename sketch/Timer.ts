@@ -24,7 +24,6 @@ class Timer implements DrawableObject {
     //Class functions
     public draw(): void {
       this.min = floor(this.timer / 60)
-      //console.log(this.min)
         fill(255, 255, 255, 0)
         fill('white')
         textSize(100)

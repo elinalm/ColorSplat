@@ -6,6 +6,8 @@ class GameController {
     private timerCreated = false
     private timer: Timer = new Timer(50, width / 2, height * 1/6)
     private playerFactory = new PlayerFactory()
+    private builtPlayers = false
+    private buildGamePlayers: Array<_ply.GamePlayer> = []
 
     private collidableObjectManager = new CollidableObjectManager(this.target);
 
@@ -33,15 +35,23 @@ class GameController {
             }
             this.target.draw()
             this.timer.draw()
-            // this.startMenu.getPlayers
-            const buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers())
-            let posIndex = windowWidth/(buildGamePlayers.length+2)
-            let startIndex = posIndex/2
-            buildGamePlayers.forEach(player => {
-            startIndex+=posIndex
-            player.draw(startIndex, windowHeight)
-            });
 
+            // this.startMenu.getPlayers
+            if (!this.builtPlayers) {
+                this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers())
+                this.builtPlayers = true
+            }
+            let posIndex = windowWidth/(this.buildGamePlayers.length+2)
+            let startIndex = posIndex/2
+
+            this.buildGamePlayers.forEach(player => {
+                startIndex+=posIndex
+                push()
+                player.draw(startIndex, windowHeight)
+                pop()
+                player.handleControls()
+            });
+            
             this.collidableObjectManager.updatePos();
             this.collidableObjectManager.draw();
             //console.log(this.collidableObjectManager.getCollidableObjectList.length)
