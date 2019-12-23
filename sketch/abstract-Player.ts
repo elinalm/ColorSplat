@@ -3,11 +3,11 @@ namespace _ply {
         // Interface attributes
         name: string
         color: string
-        aimLeft: string
-        fireButton: string
-        aimRight: string
+        aimLeft: Array<any>
+        fireButton: Array<any>
+        aimRight: Array<any>
     
-        constructor (name: string, color: string, aimLeft: string, fireButton: string, aimRight: string) {
+        constructor (name: string, color: string, aimLeft: Array<any>, fireButton: Array<any>, aimRight: Array<any>) {
             this.name = name
             this.color = color
             this.aimLeft = aimLeft

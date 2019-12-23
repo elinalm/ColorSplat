@@ -6,6 +6,7 @@ namespace _ply {
         // fireButton: string
         // aimRight: string
         private angle = 180
+        private barrelPos = 0
     
         // constructor (color: string, aimLeft: string, fireButton: string, aimRight: string) {
         //     this.color = color
@@ -22,7 +23,7 @@ namespace _ply {
             translate(xPos, yPos)
             rotate(this.angle)
             fill(this.color)
-            rect((-20), (0), 40, 75)
+            rect((-20), this.barrelPos+10, 40, 85)
             pop()
 
 
@@ -55,11 +56,10 @@ namespace _ply {
             translate(xPos, yPos)
             rotate(this.angle)
             fill('#1B1E1A')
-            rect((-15), (0), 30, 75)
+            rect((-15), (this.barrelPos) + 10, 30, 75)
             fill(this.color)
             //Barrel head
-            rect((-25), (75), 50, 15)
-            // this.angle += 1
+            rect((-25), (this.barrelPos + 85), 50, 15)
             pop()
             //push()
             //stroke(this.color)
@@ -75,24 +75,37 @@ namespace _ply {
         }
 
         // handleControls(): void {
-            public handleControls() {
-                if (keyIsPressed) {
-                    if (key === this.aimLeft) {
-                        console.log(`aim left ${this.aimLeft, this.name}`);
-                        if (this.angle >= 130) 
-                        this.angle -= 2 
-                    }
-                    else if (key === this.fireButton) {
-                        console.log(`FIRE!! ${this.fireButton, this.name}`);
-                    }
-                    else if (key === this.aimRight) {
-                        console.log(`aim right ${this.aimRight, this.name}`);
-                        if (this.angle <= 230)
-                        this.angle += 2
-                    }
-                }               
+        public handleControls() {
+            if (keyIsDown(this.aimLeft[1])) {
+                if (this.angle >= 130) {
+                    this.angle-=2
+                }
             }
-        // }
+            if (keyIsDown(this.aimRight[1])) {
+                if (this.angle <= 230) {
+                    this.angle+=2
+                }
+            }
+            if (keyIsDown(this.fireButton[1])) {
+                if (this.barrelPos > -20) {
+                    
+                    if (this.barrelPos > -10) {
+                        this.barrelPos -= .3
+
+                    }
+                    else if (this.barrelPos < -10) {
+                        this.barrelPos -= .1
+                        if (this.barrelPos < -19) {
+                            this.barrelPos = -18
+                        }
+                    }
+                }                
+            }
+            if (!keyIsDown(this.fireButton[1])) {
+                this.barrelPos = 0
+            }
+        }
+           
         private applyPowerUp = (powerUp: string) => {
             // this.powerUp = powerUp
             // todo....

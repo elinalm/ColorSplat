@@ -28,8 +28,8 @@ namespace _ply {
             strokeWeight(1.5)
             text(this.name, x, y-13)
             textSize(20)
-            text(`fire: ${this.fireButton}`, x, y+20)
-            text(`aim: ${this.aimLeft} + ${this.aimRight}`, x, y+40)
+            text(`fire: ${this.fireButton[0]}`, x, y+20)
+            text(`aim: ${this.aimLeft[0]} + ${this.aimRight[0]}`, x, y+40)
             pop()
         }
     }
