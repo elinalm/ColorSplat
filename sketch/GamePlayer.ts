@@ -5,6 +5,7 @@ namespace _ply {
         // aimLeft: string
         // fireButton: string
         // aimRight: string
+        private angle = 180
     
         // constructor (color: string, aimLeft: string, fireButton: string, aimRight: string) {
         //     this.color = color
@@ -15,19 +16,30 @@ namespace _ply {
     
         // Class functions
         draw(xPos: number, yPos: number): void {
+
+            push()
+            noStroke()
+            translate(xPos, yPos)
+            rotate(this.angle)
+            fill(this.color)
+            rect((-20), (0), 40, 75)
+            pop()
+
+
             push()
             noFill()
             stroke(this.color)
             strokeWeight(5)
-            //First vertical line of body
-            line((xPos - 70), yPos, xPos - 70, yPos - 50)
-            //First horizontal line into the cannon head
-            line((xPos - 70), yPos - 50, xPos - 60, yPos - 50)
+            // //First vertical line of body
+            // line((xPos), yPos, xPos - 70, yPos - 50)
+            // //First horizontal line into the cannon head
+            // line((xPos), yPos - 50, xPos - 60, yPos - 50)
             //Cannon head
-            arc((xPos - 20), yPos - 52, 80, 80, PI, 0)
+            fill('#1B1E1A')
+            arc((xPos), windowHeight, 120, 120, PI, 0)
 
-            line((xPos + 20), yPos - 50, xPos + 30, yPos - 50)
-            line((xPos + 30), yPos - 50, xPos + 30, yPos)
+            // line((xPos + 20), yPos - 50, xPos + 30, yPos - 50)
+            // line((xPos + 30), yPos - 50, xPos + 30, yPos)
             //Cannon head reflection
             strokeWeight(1)
             // arc(xPos - 20, yPos - 52, 60, 60, PI, 300)
@@ -39,10 +51,15 @@ namespace _ply {
 
             //Försöker att snurra på mynningen
             push()
-            rect((xPos - 35), (yPos-110), 30, 60)
+            noStroke()
+            translate(xPos, yPos)
+            rotate(this.angle)
+            fill('#1B1E1A')
+            rect((-15), (0), 30, 75)
             fill(this.color)
             //Barrel head
-            rect((xPos - 40), (yPos - 125), 40, 15)
+            rect((-25), (75), 50, 15)
+            // this.angle += 1
             pop()
             //push()
             //stroke(this.color)
@@ -59,17 +76,21 @@ namespace _ply {
 
         // handleControls(): void {
             public handleControls() {
-                if (keyIsDown && key === this.aimLeft) {
-                    console.log(`aim left ${this.aimLeft, this.name}`);  
-                }
-                else if (keyIsDown && key === this.aimRight) {
-                    console.log(`aim right ${this.aimRight, this.name}`);
-                }
-                else if (keyIsDown && key === this.fireButton) {
-                    console.log(`FIRE!! ${this.fireButton, this.name}`);
-                    
-                }
-                
+                if (keyIsPressed) {
+                    if (key === this.aimLeft) {
+                        console.log(`aim left ${this.aimLeft, this.name}`);
+                        if (this.angle >= 130) 
+                        this.angle -= 2 
+                    }
+                    else if (key === this.fireButton) {
+                        console.log(`FIRE!! ${this.fireButton, this.name}`);
+                    }
+                    else if (key === this.aimRight) {
+                        console.log(`aim right ${this.aimRight, this.name}`);
+                        if (this.angle <= 230)
+                        this.angle += 2
+                    }
+                }               
             }
         // }
         private applyPowerUp = (powerUp: string) => {
