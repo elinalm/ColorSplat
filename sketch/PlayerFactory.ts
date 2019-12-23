@@ -18,9 +18,9 @@ class PlayerFactory {
         {
             name: 'green',
             color: '#66E945',
-            aimLeft: 'Z',
-            fireButton: 'X',
-            aimRight: 'C'
+            aimLeft: 'z',
+            fireButton: 'x',
+            aimRight: 'c'
         },
         {
             name: 'yellow',

@@ -21,7 +21,7 @@ function preload() {
  */
 function setup() {
     createCanvas(windowWidth, windowHeight)
-    frameRate(50)
+    frameRate(60)
     fullscreen()
     gameController = new GameController();
 }
