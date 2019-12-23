@@ -77,15 +77,15 @@ namespace _ply {
         // handleControls(): void {
             public handleControls() {
                 if (keyIsPressed) {
-                    if (key === this.aimLeft) {
+                    if (keyIsDown(this.aimLeft.toUpperCase().charCodeAt(0))) {
                         console.log(`aim left ${this.aimLeft, this.name}`);
                         if (this.angle >= 130) 
                         this.angle -= 2 
                     }
-                    else if (key === this.fireButton) {
+                    else if (keyIsDown(this.fireButton.toUpperCase().charCodeAt(0))) {
                         console.log(`FIRE!! ${this.fireButton, this.name}`);
                     }
-                    else if (key === this.aimRight) {
+                    else if (keyIsDown(this.aimRight.toUpperCase().charCodeAt(0))) {
                         console.log(`aim right ${this.aimRight, this.name}`);
                         if (this.angle <= 230)
                         this.angle += 2
