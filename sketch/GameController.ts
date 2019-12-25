@@ -49,8 +49,8 @@ class GameController {
             }
 
             this.buildGamePlayers.forEach(player => {
-                player.draw()
                 player.update()
+                player.draw()
                 player.handleControls()
             });
             

@@ -4,11 +4,11 @@ namespace _ply {
 
         private angle = 180
         private barrelPos = 0
-        private barrelPoint = {x: 0, y: 0}
         private shouldFire = false
         private cOM: PassByFire
         private xPos : number
         private yPos : number
+        private barrelPoint = {x: 0, y: 0}
 
         constructor (name: string, color: string, aimLeft: Array<string>, fireButton: Array<string>, aimRight: Array<string>, cOM: PassByFire, position: {x: number, y:number}) {
             super(name, color, aimLeft, fireButton, aimRight)
@@ -49,9 +49,10 @@ namespace _ply {
             pop()
 
 
+            
             //Barrel body
             // noStroke()
-
+            
             //Försöker att snurra på mynningen
             push()
             noStroke()
@@ -76,7 +77,9 @@ namespace _ply {
             // return projectile;
 
             this.barrelPoint.x = this.xPos + ((this.angle-180)*1.5)
-            this.barrelPoint.y = (this.yPos)-90
+            this.barrelPoint.y = (this.yPos-100) + Math.pow((this.angle-180)*.3, 2)*.15
+            
+             
         }
 
         // handleControls(): void {
@@ -111,7 +114,7 @@ namespace _ply {
                 this.shouldFire = false
                 const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.02),(this.barrelPos*.85),this.color,this.barrelPoint.x, this.barrelPoint.y, 10)
                 console.log(projectile);
-                
+                console.log(this.barrelPoint.y);
                 this.cOM.addCollidableObjectToList(projectile)
                 
                 this.barrelPos = 0
