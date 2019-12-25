@@ -1,26 +1,28 @@
 ///<reference path="abstract-Player.ts" />
 namespace _ply {
     export class GamePlayer extends Player implements DrawableObject{
-        // color: string
-        // aimLeft: string
-        // fireButton: string
-        // aimRight: string
+
         private angle = 180
         private barrelPos = 0
-    
-        // constructor (color: string, aimLeft: string, fireButton: string, aimRight: string) {
-        //     this.color = color
-        //     this.aimLeft = aimLeft
-        //     this.fireButton = fireButton
-        //     this.aimRight = aimRight
-        // }
+        private barrelPoint = {x: 0, y: 0}
+        private shouldFire = false
+        private cOM: PassByFire
+        private xPos : number
+        private yPos : number
+
+        constructor (name: string, color: string, aimLeft: Array<string>, fireButton: Array<string>, aimRight: Array<string>, cOM: PassByFire, position: {x: number, y:number}) {
+            super(name, color, aimLeft, fireButton, aimRight)
+            this.cOM = cOM
+            this.xPos = position.x
+            this.yPos = position.y
+        }
     
         // Class functions
-        draw(xPos: number, yPos: number): void {
-
+        draw(): void {
+            
             push()
             noStroke()
-            translate(xPos, yPos)
+            translate(this.xPos, this.yPos)
             rotate(this.angle)
             fill(this.color)
             rect((-20), this.barrelPos+10, 40, 85)
@@ -37,7 +39,7 @@ namespace _ply {
             // line((xPos), yPos - 50, xPos - 60, yPos - 50)
             //Cannon head
             fill('#1B1E1A')
-            arc((xPos), windowHeight, 120, 120, PI, 0)
+            arc(this.xPos, this.yPos, 120, 120, PI, 0)
 
             // line((xPos + 20), yPos - 50, xPos + 30, yPos - 50)
             // line((xPos + 30), yPos - 50, xPos + 30, yPos)
@@ -53,7 +55,7 @@ namespace _ply {
             //Försöker att snurra på mynningen
             push()
             noStroke()
-            translate(xPos, yPos)
+            translate(this.xPos, this.yPos)
             rotate(this.angle)
             fill('#1B1E1A')
             rect((-15), (this.barrelPos) + 10, 30, 75)
@@ -72,6 +74,9 @@ namespace _ply {
             // const projectile = new PlayerProjectile(1, 1, this.applyPowerUp(powerUp), this.color)
     
             // return projectile;
+
+            this.barrelPoint.x = this.xPos + ((this.angle-180)*1.5)
+            this.barrelPoint.y = (this.yPos)-90
         }
 
         // handleControls(): void {
@@ -87,6 +92,7 @@ namespace _ply {
                 }
             }
             if (keyIsDown(this.fireButton[1])) {
+                this.shouldFire = true
                 if (this.barrelPos > -20) {
                     
                     if (this.barrelPos > -10) {
@@ -101,7 +107,13 @@ namespace _ply {
                     }
                 }                
             }
-            if (!keyIsDown(this.fireButton[1])) {
+            if (!keyIsDown(this.fireButton[1])&&(this.shouldFire)) {
+                this.shouldFire = false
+                const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.02),(this.barrelPos*.85),this.color,this.barrelPoint.x, this.barrelPoint.y, 10)
+                console.log(projectile);
+                
+                this.cOM.addCollidableObjectToList(projectile)
+                
                 this.barrelPos = 0
             }
         }

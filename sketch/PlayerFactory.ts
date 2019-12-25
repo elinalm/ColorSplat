@@ -30,6 +30,11 @@ class PlayerFactory {
             aimRight: ['0', '48']
         }
     ]
+    private cOM: PassByFire
+
+    constructor(cOM: CollidableObjectManager) {
+        this.cOM = cOM
+    }
 
     // Class functions
     public buildMenuPlayer(noOfPlayers: number): Array<_ply.MenuPlayer> {
@@ -41,11 +46,12 @@ class PlayerFactory {
         return playerArray
     }
 
-    public buildGamePlayer(noOfPlayers: number): Array<_ply.GamePlayer> {
+    public buildGamePlayer(noOfPlayers: number, posArray: Array<{x: number, y:number}>): Array<_ply.GamePlayer> {
         let playerArray: Array<_ply.GamePlayer> = []
         for (let i = 0; i < noOfPlayers; i++) {
             let player: _ply.Player = this.players[i]
-            playerArray.push(new _ply.GamePlayer(player.name, player.color, player.aimLeft, player.fireButton, player.aimRight))
+            let position = posArray[i]
+            playerArray.push(new _ply.GamePlayer(player.name, player.color, player.aimLeft, player.fireButton, player.aimRight, this.cOM, position))
         }
         return playerArray
     }

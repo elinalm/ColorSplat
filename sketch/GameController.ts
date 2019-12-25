@@ -3,13 +3,13 @@ class GameController {
     private startMenu =  new StartMenu(width/2, height*1/7); 
     private isGameStarted = false
     private target = new TargetGameCanvas(windowWidth/2,windowHeight/2);
+    private collidableObjectManager = new CollidableObjectManager(this.target);
     private timerCreated = false
     private timer: Timer = new Timer(50, width / 2, height * 1/6)
-    private playerFactory = new PlayerFactory()
+    private playerFactory = new PlayerFactory(this.collidableObjectManager)
     private builtPlayers = false
     private buildGamePlayers: Array<_ply.GamePlayer> = []
 
-    private collidableObjectManager = new CollidableObjectManager(this.target);
 
     // private powerup = new PowerUp(random(0, windowWidth), -50, 0, 0, random(15, 50), 0)
     // private scoreboard = new Scoreboard(true)
@@ -37,17 +37,20 @@ class GameController {
             this.timer.draw()
 
             if (!this.builtPlayers) {
-                this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers())
+                let posIndex = windowWidth/(this.startMenu.getPlayers()+2)
+                let startIndex = posIndex/2
+                let posArray = []
+                for (let i = 0; i < this.startMenu.getPlayers(); i++) {
+                    startIndex+=posIndex
+                    posArray.push({x: startIndex, y: windowHeight})                    
+                }
+                this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers(), posArray)
                 this.builtPlayers = true
             }
-            let posIndex = windowWidth/(this.buildGamePlayers.length+2)
-            let startIndex = posIndex/2
 
             this.buildGamePlayers.forEach(player => {
-                startIndex+=posIndex
-                push()
-                player.draw(startIndex, windowHeight)
-                pop()
+                player.draw()
+                player.update()
                 player.handleControls()
             });
             
