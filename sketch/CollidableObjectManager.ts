@@ -46,15 +46,15 @@ class CollidableObjectManager {
 
     // remove later , test missiles.
     private addTestMissiles(){
-        let test1 = new PlayerProjectile(-5,-15,'yellow',windowWidth/2-50,windowHeight,40)
-        let test2 = new PlayerProjectile(-5,-15,'purple',windowWidth,windowHeight,40)
-        let test3 = new PlayerProjectile(5,-15,'blue',0,windowHeight,40)
-        let test4 = new PlayerProjectile(5,-15,'green',windowWidth/2+50,windowHeight,40)
-        let test5 = new PlayerProjectile(0,-25,'red',windowWidth/2,windowHeight - 100,40)
-        this.addCollidableObjectToList(test1)
-        this.addCollidableObjectToList(test2)
-        this.addCollidableObjectToList(test3)
-        this.addCollidableObjectToList(test4)
-        this.addCollidableObjectToList(test5)
+        // let test1 = new PlayerProjectile(-5,-15,'yellow',windowWidth/2-50,windowHeight,40)
+        // let test2 = new PlayerProjectile(-5,-15,'purple',windowWidth,windowHeight,40)
+        // let test3 = new PlayerProjectile(5,-15,'blue',0,windowHeight,40)
+        // let test4 = new PlayerProjectile(5,-15,'green',windowWidth/2+50,windowHeight,40)
+        // let test5 = new PlayerProjectile(0,-25,'red',windowWidth/2,windowHeight - 100,40)
+        // this.addCollidableObjectToList(test1)
+        // this.addCollidableObjectToList(test2)
+        // this.addCollidableObjectToList(test3)
+        // this.addCollidableObjectToList(test4)
+        // this.addCollidableObjectToList(test5)
     }
 }

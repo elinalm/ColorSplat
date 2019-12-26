@@ -30,6 +30,10 @@ interface CollidableObject extends MovingObject{
     checkCollision: (otherObject: CollidableObject[]) => boolean
 }
 
+interface PassByFire {
+    addCollidableObjectToList:(collidableObject: CollidableObject) => void
+}
+
 interface HitBoxRect {
     x: number
     y: number

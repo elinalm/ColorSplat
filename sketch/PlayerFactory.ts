@@ -4,32 +4,37 @@ class PlayerFactory {
         {
             name: 'blue', 
             color: '#4A7CDD', 
-            aimLeft: '1',
-            fireButton: '2',
-            aimRight: '3'
+            aimLeft: ['1', 49],
+            fireButton: ['2', 50],
+            aimRight: ['3', 51]
         },
         {
             name: 'purple',
             color: '#CA5ED3',
-            aimLeft: ',',
-            fireButton: '.',
-            aimRight: '-'
+            aimLeft: [',', 188],
+            fireButton: ['.', 190],
+            aimRight: ['-', 189]
         },
         {
             name: 'green',
             color: '#66E945',
-            aimLeft: 'z',
-            fireButton: 'x',
-            aimRight: 'c'
+            aimLeft: ['z', 90],
+            fireButton: ['x', 88],
+            aimRight: ['c', 67]
         },
         {
             name: 'yellow',
             color: '#E7FF57',
-            aimLeft: '8',
-            fireButton: '9',
-            aimRight: '0'
+            aimLeft: ['8', 56],
+            fireButton: ['9', 57],
+            aimRight: ['0', '48']
         }
     ]
+    private cOM: PassByFire
+
+    constructor(cOM: CollidableObjectManager) {
+        this.cOM = cOM
+    }
 
     // Class functions
     public buildMenuPlayer(noOfPlayers: number): Array<_ply.MenuPlayer> {
@@ -41,11 +46,12 @@ class PlayerFactory {
         return playerArray
     }
 
-    public buildGamePlayer(noOfPlayers: number): Array<_ply.GamePlayer> {
+    public buildGamePlayer(noOfPlayers: number, posArray: Array<{x: number, y:number}>): Array<_ply.GamePlayer> {
         let playerArray: Array<_ply.GamePlayer> = []
         for (let i = 0; i < noOfPlayers; i++) {
             let player: _ply.Player = this.players[i]
-            playerArray.push(new _ply.GamePlayer(player.name, player.color, player.aimLeft, player.fireButton, player.aimRight))
+            let position = posArray[i]
+            playerArray.push(new _ply.GamePlayer(player.name, player.color, player.aimLeft, player.fireButton, player.aimRight, this.cOM, position))
         }
         return playerArray
     }
