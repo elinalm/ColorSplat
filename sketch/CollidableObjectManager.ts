@@ -18,14 +18,25 @@ class CollidableObjectManager {
 
     private removeCollidedObjects(){
         for(let i = 0; i < this.collidableObjectList.length; i++){
-            if(this.collidableObjectList[i].hasCollided === true){
-                this.target.addSplashToTargetCanvas(
-                    this.collidableObjectList[i].x,
-                    this.collidableObjectList[i].y,
-                    this.collidableObjectList[i].color,
-                    this.collidableObjectList[i].radius*2
-                )
-                this.collidableObjectList.splice(i,1)
+            // if(this.collidableObjectList[i].hasCollided === true){
+
+            //     //Om färgmissilerna ska studsa på varandra (kan bugga)
+            //     // this.collidableObjectList[i].velX = this.collidableObjectList[i].velX*-1
+            //     // this.collidableObjectList[i].hasCollided = false
+                
+            //     //Om färgmissilerna ska explodera när de träffar varandra
+            //     // this.target.addSplashToTargetCanvas(
+            //         //     this.collidableObjectList[i].x,
+            //         //     this.collidableObjectList[i].y,
+            //         //     this.collidableObjectList[i].color,
+            //     //     this.collidableObjectList[i].radius*2
+            //     // )
+            //     // this.collidableObjectList.splice(i,1)
+            // }
+
+            //Tar bort projektiler som inte syns på skärmen längre
+            if(this.collidableObjectList[i].x > windowWidth || this.collidableObjectList[i].x < 0 || this.collidableObjectList[i].y > windowHeight) {
+                this.collidableObjectList.splice(i, 1)                  
             }
         }
     }
@@ -40,7 +51,7 @@ class CollidableObjectManager {
         this.collidableObjectList.push(collidableObject);
     }
 
-    public get getCollidableObjectList(): Array<CollidableObject>{
+    public getCollidableObjectList(): Array<CollidableObject>{
         return this.collidableObjectList;
     }
 
