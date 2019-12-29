@@ -23,17 +23,12 @@ class TargetGameCanvas implements MovingObject {
     // Class functions
     public draw(): void {
         // Insert draw logic here
-        this.updatePosition();
-        this.drawTargetBoard();     //empty target canvas drawn first
+        // this.updatePos();
+        // this.drawTargetBoard();     //empty target canvas drawn first
         this.drawSplash();          //then splashes
-        this.cutOutTargetCanvas();  //canvas is cut out to remove splashes outside target canvas
-        this.drawBackground();      //background is drawn over target canvas
-        this.drawTargetCutOutOnBackground();    //the cutout is added on top of background.
-    }
-
-    public updatePos(): number {
-        // Insert position update logic here
-        return 1
+        // this.cutOutTargetCanvas();  //canvas is cut out to remove splashes outside target canvas
+        // this.drawBackground();      //background is drawn over target canvas
+        // this.drawTargetCutOutOnBackground();    //the cutout is added on top of background.
     }
 
     private setTargetCanvasSize(){
@@ -90,7 +85,7 @@ class TargetGameCanvas implements MovingObject {
     }
 
     //Move target canvas left to right.
-    private updatePosition(){
+    public updatePos(){
         let moveBand = windowWidth/2
         let canvasSpeed = 1;
         if(this.targetCanvasPosX > moveBand){

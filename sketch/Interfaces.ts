@@ -18,7 +18,7 @@ interface MovingObject extends DrawableObject {
     velY: number
 
     //Interface functions
-    updatePos(): number
+    updatePos(): void
 }
 
 interface CollidableObject extends MovingObject{
@@ -32,6 +32,7 @@ interface CollidableObject extends MovingObject{
 
 interface PassByFire {
     addCollidableObjectToList:(collidableObject: CollidableObject) => void
+    getCollidableObjectList:() => Array<CollidableObject>
 }
 
 interface HitBoxRect {

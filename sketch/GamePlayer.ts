@@ -20,6 +20,7 @@ namespace _ply {
         // Class functions
         draw(): void {
             
+            //Barrel outline
             push()
             noStroke()
             translate(this.xPos, this.yPos)
@@ -28,32 +29,16 @@ namespace _ply {
             rect((-20), this.barrelPos+10, 40, 85)
             pop()
 
-
+            //Cannon head
             push()
             noFill()
             stroke(this.color)
-            strokeWeight(5)
-            // //First vertical line of body
-            // line((xPos), yPos, xPos - 70, yPos - 50)
-            // //First horizontal line into the cannon head
-            // line((xPos), yPos - 50, xPos - 60, yPos - 50)
-            //Cannon head
+            strokeWeight(5)           
             fill('#1B1E1A')
             arc(this.xPos, this.yPos, 120, 120, PI, 0)
-
-            // line((xPos + 20), yPos - 50, xPos + 30, yPos - 50)
-            // line((xPos + 30), yPos - 50, xPos + 30, yPos)
-            //Cannon head reflection
-            strokeWeight(1)
-            // arc(xPos - 20, yPos - 52, 60, 60, PI, 300)
             pop()
-
-
             
             //Barrel body
-            // noStroke()
-            
-            //Försöker att snurra på mynningen
             push()
             noStroke()
             translate(this.xPos, this.yPos)
@@ -61,14 +46,10 @@ namespace _ply {
             fill('#1B1E1A')
             rect((-15), (this.barrelPos) + 10, 30, 75)
             fill(this.color)
+
             //Barrel head
             rect((-25), (this.barrelPos + 85), 50, 15)
             pop()
-            //push()
-            //stroke(this.color)
-            //chargebar
-            //rect(xPos + 50, yPos - 51, 15, 45)
-            //pop()
         }
 
         update() /*: PlayerProjectile*/ {
@@ -76,7 +57,7 @@ namespace _ply {
     
             // return projectile;
 
-            this.barrelPoint.x = this.xPos + ((this.angle-180)*1.5)
+            this.barrelPoint.x = this.xPos + ((this.angle-180)*1.6)
             this.barrelPoint.y = (this.yPos-100) + Math.pow((this.angle-180)*.3, 2)*.15
             
              
@@ -95,6 +76,7 @@ namespace _ply {
                 }
             }
             if (keyIsDown(this.fireButton[1])) {
+               
                 this.shouldFire = true
                 if (this.barrelPos > -20) {
                     
@@ -112,9 +94,8 @@ namespace _ply {
             }
             if (!keyIsDown(this.fireButton[1])&&(this.shouldFire)) {
                 this.shouldFire = false
-                const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.02),(this.barrelPos*.85),this.color,this.barrelPoint.x, this.barrelPoint.y, 10)
-                console.log(projectile);
-                console.log(this.barrelPoint.y);
+                
+                const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos*.85),this.color,this.barrelPoint.x, this.barrelPoint.y, 10)
                 this.cOM.addCollidableObjectToList(projectile)
                 
                 this.barrelPos = 0

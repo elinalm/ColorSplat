@@ -24,23 +24,26 @@ class GameController {
     // Class functions //
             
     public updateGame(): void {
-        if(!this.isGameStarted){
+        // Draw startmenu unless game has started
+        if(!this.isGameStarted){ 
             this.startMenu.draw()
             this.startMenu.update()
             this.isGameStarted = this.startMenu.getStartGame()
         }
+        // Draw main game
         else if(this.isGameStarted && !this.isGameOver) {
+            // If timer isn't created, create timer object
             if (!this.timerCreated) {
                 this.timer = new Timer(this.startMenu.getSelectedTime(), width / 2, height * 1/6);
                 this.timerCreated = true
             }
-            // this.target.draw()
-            this.timer.draw()
-
-            if (!this.builtPlayers) {
+            
+            // If gameplayers aren't created, create gameplayer objects
+            if (!this.builtPlayers) {               
                 let posIndex = windowWidth/(this.startMenu.getPlayers()+2)
                 let startIndex = posIndex/2
                 let posArray = []
+                // Find positions for players and pass into the player objects as posArray
                 for (let i = 0; i < this.startMenu.getPlayers(); i++) {
                     startIndex+=posIndex
                     posArray.push({x: startIndex, y: windowHeight})                    
@@ -49,10 +52,26 @@ class GameController {
                 this.builtPlayers = true
             }
 
+            // Draw background
+            push()
+            fill('black')
+            rect(0, 0, windowWidth, windowHeight)
+            pop()
+
+            // Draw target and update target
+            this.target.draw()
+            this.target.updatePos()
+
+            // Draw timer
+            this.timer.draw()
+
+            // Draw players, update players and maintain player controls
             this.buildGamePlayers.forEach(player => {
-                player.update()
                 player.draw()
                 player.handleControls()
+                if (keyIsDown(player.aimLeft[1]) || keyIsDown(player.aimRight[1]) || keyIsDown(player.fireButton[1])) {
+                    player.update()
+                }
             });
             
             this.collidableObjectManager.updatePos();
