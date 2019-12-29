@@ -23,12 +23,18 @@ class TargetGameCanvas implements MovingObject {
     // Class functions
     public draw(): void {
         // Insert draw logic here
-        // this.updatePos();
-        // this.drawTargetBoard();     //empty target canvas drawn first
+        this.updatePos();
+        this.drawTargetBoard();     //empty target canvas drawn first
         this.drawSplash();          //then splashes
-        // this.cutOutTargetCanvas();  //canvas is cut out to remove splashes outside target canvas
-        // this.drawBackground();      //background is drawn over target canvas
-        // this.drawTargetCutOutOnBackground();    //the cutout is added on top of background.
+        this.drawFrameAroundTargetCanvas();
+        //this.cutOutTargetCanvas();  //canvas is cut out to remove splashes outside target canvas
+        //this.drawBackground();      //background is drawn over target canvas
+        //this.drawTargetCutOutOnBackground();    //the cutout is added on top of background.
+
+        //test remove later, draws blobs on canvas
+        if(mouseIsPressed){
+            this.mouseClicked();
+        }
     }
 
     private setTargetCanvasSize(){
@@ -37,18 +43,18 @@ class TargetGameCanvas implements MovingObject {
         this.targetCanvasPosY = windowHeight/4;
     }
 
-    private drawBackground(){
-        let i:number = 0;
-        let stepHeight:number = 10;
-        push();
-        noStroke();
-        while(i< windowHeight){
-            fill(i/9,i/5,i/2);
-            rect(0,i,windowWidth,i+stepHeight);
-            i += stepHeight;
-        }
-        pop();
-    }
+    // private drawBackground(){
+    //     let i:number = 0;
+    //     let stepHeight:number = 10;
+    //     push();
+    //     noStroke();
+    //     while(i< windowHeight){
+    //         fill(i/9,i/5,i/2);
+    //         rect(0,i,windowWidth,i+stepHeight);
+    //         i += stepHeight;
+    //     }
+    //     pop();
+    // }
 
     private drawTargetBoard(){
         push();
@@ -68,16 +74,30 @@ class TargetGameCanvas implements MovingObject {
         pop();
     }
 
-    private cutOutTargetCanvas(){
-        this.cutOutImage = get(this.targetCanvasPosX,this.targetCanvasPosY,this.targetCanvasWidth,this.targetCanvasHeight);
+    private drawFrameAroundTargetCanvas(){
+        push()
+        noStroke();
+        fill('blue');
+        //draw top border
+        rect(0,0,windowWidth,this.targetCanvasPosY)
+        //draw bottom border
+        rect(0, this.targetCanvasPosY + this.targetCanvasHeight, windowWidth, windowHeight - (this.targetCanvasPosY + this.targetCanvasHeight))
+        //draw left border
+        rect(0, this.targetCanvasPosY, this.targetCanvasPosX,this.targetCanvasHeight)
+        //draw right border
+        rect(this.targetCanvasPosX+this.targetCanvasWidth, this.targetCanvasPosY, windowWidth-(this.targetCanvasPosX+this.targetCanvasWidth), this.targetCanvasHeight)
+        pop()
+
     }
 
-    private drawTargetCutOutOnBackground(){
-        push();
-        noStroke();
-        image(this.cutOutImage,this.targetCanvasPosX,this.targetCanvasPosY);
-        pop();
-    }
+
+
+    // private drawTargetCutOutOnBackground(){
+    //     push();
+    //     noStroke();
+    //     image(this.cutOutImage,this.targetCanvasPosX,this.targetCanvasPosY);
+    //     pop();
+    // }
 
     //test for splash input TODO remove when done.
     public mouseClicked(){
@@ -127,7 +147,12 @@ class TargetGameCanvas implements MovingObject {
         this.isMissileInsideTarget(hitPosX, hitPosY, splashColor, splashDiameter);
     }
 
+    private cutOutTargetCanvas(){
+        this.cutOutImage = get(this.targetCanvasPosX,this.targetCanvasPosY,this.targetCanvasWidth,this.targetCanvasHeight);
+    }
+    
     public get getCutoutImage(): p5.Image{
+        this.cutOutTargetCanvas();
         return this.cutOutImage
     }
 
