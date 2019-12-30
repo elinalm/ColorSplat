@@ -3,28 +3,28 @@ class PlayerFactory {
     players: Array<_ply.Player> = [
         {
             name: 'blue', 
-            color: '#4A7CDD', 
+            color: '74, 124, 221', 
             aimLeft: ['1', 49],
             fireButton: ['2', 50],
             aimRight: ['3', 51]
         },
         {
             name: 'purple',
-            color: '#CA5ED3',
+            color: '202, 94, 211',
             aimLeft: [',', 188],
             fireButton: ['.', 190],
             aimRight: ['-', 189]
         },
         {
             name: 'green',
-            color: '#66E945',
+            color: '102, 233, 69',
             aimLeft: ['z', 90],
             fireButton: ['x', 88],
             aimRight: ['c', 67]
         },
         {
             name: 'yellow',
-            color: '#E7FF57',
+            color: '231, 255, 87',
             aimLeft: ['8', 56],
             fireButton: ['9', 57],
             aimRight: ['0', '48']

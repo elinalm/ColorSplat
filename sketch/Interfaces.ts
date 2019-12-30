@@ -4,10 +4,6 @@ interface DrawableObject {
     draw(x?: number, y?: number):void
 }
 
-// interface Player extends DrawableObject {
-//     // Interface attributes
-//     color: string
-// }
 interface ApplyPowerUp {
     applyPowerUp: (powerUp: string) => void
 }
@@ -28,6 +24,8 @@ interface CollidableObject extends MovingObject{
     color: string
     hasCollided: boolean
     checkCollision: (otherObject: CollidableObject[]) => boolean
+    setHasExploded:(status: boolean) => void
+    getHasExploded:() => boolean
     getOwnerPlayer:() => void
 }
 

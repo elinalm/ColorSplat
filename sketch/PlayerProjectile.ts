@@ -3,6 +3,7 @@ class PlayerProjectile implements MovingObject, CollidableObject {
     velX: number
     velY: number
     color: string
+    explosionValue = 200
     radius: number
     x: number
     y: number
@@ -10,10 +11,11 @@ class PlayerProjectile implements MovingObject, CollidableObject {
     blastRadius: number
     hasCollided: boolean = false
     ownerPlayer: PlayerFromProjectile
+    hasExploded: boolean = false
     // applyPowerUpCallback: () => void
     
     // Class constructor
-    constructor (velX: number, velY: number, /*player:ApplyPowerUp,*/ color: string , x: number, y: number, blastRadius: number, player: ProjectileFromPlayer)/* applyPowerUpCallback: () => void) */{
+    constructor (velX: number, velY: number, /*player:ApplyPowerUp,*/ color: string , x: number, y: number, blastRadius: number, player: PlayerFromProjectile)/* applyPowerUpCallback: () => void) */{
         this.velX = velX
         this.velY = velY + (velX*velX)*.03
         this.color = color
@@ -28,6 +30,14 @@ class PlayerProjectile implements MovingObject, CollidableObject {
 
     public getOwnerPlayer(): PlayerFromProjectile {
         return this.ownerPlayer
+    }
+
+    public getHasExploded(): boolean {
+        return this.hasExploded
+    }
+
+    public setHasExploded(status: boolean) {
+        this.hasExploded = status
     }
     
     // public get _x(): number {
@@ -74,8 +84,8 @@ class PlayerProjectile implements MovingObject, CollidableObject {
                     
                     // Make sure that projectiles doesn't get stuck inside eachother
                     const overlap = (this.radius + otherObject.radius) - pointDist // Find out overlap
+                    
                     // Move projectiles out of overlap so that they get unstuck
-
                     // If, in any case, projectiles share same x or y position values
                     if (this.y === otherObject.y || this.x === otherObject.x) {
                         if (this.y === otherObject.y) {
@@ -144,17 +154,31 @@ class PlayerProjectile implements MovingObject, CollidableObject {
     public draw(): void {
         // Insert draw logic here
         push()
-        fill(this.color);
-        circle(this.x, this.y, this.radius*2)
-        pop()        
+        noStroke()
+        if (this.hasExploded) {
+            const colors = this.color.split(',')           
+            fill(parseInt(colors[0]), parseInt(colors[1]), parseInt(colors[2]), this.explosionValue)
+            circle(this.x, this.y, this.radius*(this.explosionValue*.02)+100)
+        } 
+        else {
+            fill(`rgb(${this.color})`);
+            circle(this.x, this.y, this.radius*2)
+        }   
+        pop()    
     }
-
+    
     public updatePos() {
         // Insert position update logic here
-        
-        this.y += this.velY;
-        this.x += this.velX;
-        this.velY += this.projectileGravity; 
+        // If projectile isn't exploded, update position
+        if (!this.hasExploded) {
+            this.explosionValue = 200
+            this.y += this.velY;
+            this.x += this.velX;
+            this.velY += this.projectileGravity; 
+        }
+        else {
+            this.explosionValue-=4
+        }
     }
 
 }
