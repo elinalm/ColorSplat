@@ -2,6 +2,7 @@ class GameController {
     // Class attributes //
     private startMenu =  new StartMenu(width/2, height*1/7); 
     private isGameStarted = false
+    private isGameOver = false
     private target = new TargetGameCanvas(windowWidth/2,windowHeight/2);
     private collidableObjectManager = new CollidableObjectManager(this.target);
     private timerCreated = false
@@ -15,7 +16,7 @@ class GameController {
     // private scoreboard = new Scoreboard(true)
     // private projectiles: PlayerProjectile[] = []
     
-    // private scoreboard = new Scoreboard();
+    private scoreboard = new Scoreboard(this.target);
     // private target = new TargetGameCanvas( Behöver velX värde och velY värde );
     // private projectile = new PlayerProjectile( Behöver velX värde och velY värde );
     // private powerUp = new PowerUp( Behöver velX värde och velY värde );
@@ -34,7 +35,7 @@ class GameController {
             pop()
         }
         // Draw main game
-        else {
+        else if(this.isGameStarted && !this.isGameOver) {
             // If timer isn't created, create timer object
             if (!this.timerCreated) {
                 this.timer = new Timer(this.startMenu.getSelectedTime(), width / 2, height * 1/6);
@@ -79,7 +80,27 @@ class GameController {
             
             this.collidableObjectManager.updatePos();
             this.collidableObjectManager.draw();
-            //console.log(this.collidableObjectManager.getCollidableObjectList.length)
+            
+            if(this.timer.getTimeLeft === 0){
+                this.isGameOver = true
+            }
+        }
+        else if(this.isGameOver){
+            
+            if(this.scoreboard.getRestartGame){// restart game
+                this.isGameOver = false;
+                this.isGameStarted = false;
+                this.scoreboard.restartGame = false;
+                this.target = new TargetGameCanvas(windowWidth/2,windowHeight/2);
+                this.timerCreated = false;
+                this.timer = new Timer(50, width / 2, height * 1/6);
+                this.builtPlayers = false;
+                this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers());
+                this.collidableObjectManager = new CollidableObjectManager(this.target);
+            }
+            else{
+                this.scoreboard.draw();
+            }
         }
         // this.checkCollisions()
     }

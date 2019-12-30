@@ -67,4 +67,8 @@ class Timer implements DrawableObject {
         // },1000);
         }
 
+        public get getTimeLeft(): number{
+          return this.timer
+        }
+
     }
