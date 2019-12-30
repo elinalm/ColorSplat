@@ -28,11 +28,17 @@ interface CollidableObject extends MovingObject{
     color: string
     hasCollided: boolean
     checkCollision: (otherObject: CollidableObject[]) => boolean
+    getOwnerPlayer:() => void
+}
+
+interface PlayerFromProjectile {
+    setProjectileExists:(status: boolean) => void
 }
 
 interface PassByFire {
     addCollidableObjectToList:(collidableObject: CollidableObject) => void
     getCollidableObjectList:() => Array<CollidableObject>
+    removeCollidableObjectFromList:(index: number) => void
 }
 
 interface HitBoxRect {

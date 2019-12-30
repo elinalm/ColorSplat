@@ -6,7 +6,7 @@ class GameController {
     private target = new TargetGameCanvas(windowWidth/2,windowHeight/2);
     private collidableObjectManager = new CollidableObjectManager(this.target);
     private timerCreated = false
-    private timer: Timer = new Timer(50, width / 2, height * 1/6)
+    private timer: Timer
     private playerFactory = new PlayerFactory(this.collidableObjectManager)
     private builtPlayers = false
     private buildGamePlayers: Array<_ply.GamePlayer> = []
@@ -85,6 +85,9 @@ class GameController {
                 this.timerCreated = false;
                 this.timer = new Timer(50, width / 2, height * 1/6);
                 this.builtPlayers = false;
+
+                // Ska spelare skapas på nytt? Eller går det att återanvända gamla spelare?
+                // this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers());
                 this.buildGamePlayers = [];
                 this.collidableObjectManager = new CollidableObjectManager(this.target);
                 this.startMenu =  new StartMenu(width/2, height*1/7);

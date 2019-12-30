@@ -21,7 +21,6 @@ function preload() {
  */
 function setup() {
     createCanvas(windowWidth, windowHeight)
-    angleMode(DEGREES)
     frameRate(60)
     fullscreen()
     gameController = new GameController();
@@ -37,7 +36,7 @@ function draw() {
 
     //gameController.powerUp()
     //gameController.cannonPlayer()
-
+    
     gameController.updateGame()
     //gameController.drawTimer()
 
