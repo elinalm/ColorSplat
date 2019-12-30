@@ -10,7 +10,7 @@ interface ApplyPowerUp {
 
 interface MovingObject extends DrawableObject {
     // Interface attributes
-    velX: number,
+    velX: number
     velY: number
 
     //Interface functions
@@ -34,9 +34,14 @@ interface PlayerFromProjectile {
 }
 
 interface PassByFire {
+    target: DrawExplosions
     addCollidableObjectToList:(collidableObject: CollidableObject) => void
     getCollidableObjectList:() => Array<CollidableObject>
     removeCollidableObjectFromList:(index: number) => void
+}
+
+interface DrawExplosions {
+    addSplashToTargetCanvas:(hitPosX: number, hitPosY: number, splashColor: string, splashDiameter: number) => void
 }
 
 interface HitBoxRect {

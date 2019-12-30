@@ -128,6 +128,9 @@ namespace _ply {
                         const projectile : CollidableObject = projectileArray[i]
                         if (projectile.color === this.color && projectile.getHasExploded()===false) {                           
                             projectile.setHasExploded(true)
+
+                            //Draw color from projectile explosion on canvas
+                            this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, random(100, 200))                                                        
                             
                             // Cooldown 1 second after exploding projectile
                             let cooldown = 50

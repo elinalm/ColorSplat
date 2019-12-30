@@ -154,13 +154,14 @@ class PlayerProjectile implements MovingObject, CollidableObject {
     public draw(): void {
         // Insert draw logic here
         push()
-        noStroke()
         if (this.hasExploded) {
+            noStroke()
             const colors = this.color.split(',')           
             fill(parseInt(colors[0]), parseInt(colors[1]), parseInt(colors[2]), this.explosionValue)
             circle(this.x, this.y, this.radius*(this.explosionValue*.02)+100)
-        } 
+        }   
         else {
+            stroke('#1B1E1A')
             fill(`rgb(${this.color})`);
             circle(this.x, this.y, this.radius*2)
         }   
