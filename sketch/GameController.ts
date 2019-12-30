@@ -29,10 +29,6 @@ class GameController {
             this.startMenu.draw()
             this.startMenu.update()
             this.isGameStarted = this.startMenu.getStartGame()
-            push()
-            fill('white')
-            stroke('white')
-            pop()
         }
         // Draw main game
         else if(this.isGameStarted && !this.isGameOver) {
