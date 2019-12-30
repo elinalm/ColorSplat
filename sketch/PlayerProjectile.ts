@@ -9,10 +9,11 @@ class PlayerProjectile implements MovingObject, CollidableObject {
     private projectileGravity: number = 0.2
     blastRadius: number
     hasCollided: boolean = false
+    ownerPlayer: ProjectileFromPlayer
     // applyPowerUpCallback: () => void
     
     // Class constructor
-    constructor (velX: number, velY: number, /*player:ApplyPowerUp,*/ color: string , x: number, y: number, blastRadius: number)/* applyPowerUpCallback: () => void) */{
+    constructor (velX: number, velY: number, /*player:ApplyPowerUp,*/ color: string , x: number, y: number, blastRadius: number, player: ProjectileFromPlayer)/* applyPowerUpCallback: () => void) */{
         this.velX = velX
         this.velY = velY + (velX*velX)*.03
         this.color = color
@@ -21,28 +22,33 @@ class PlayerProjectile implements MovingObject, CollidableObject {
         this.y = y
         this.radius = 15
         this.blastRadius = blastRadius
+        this.ownerPlayer = player
         // this.applyPowerUpCallback = applyPowerUpCallback
     }
+
+    public getOwnerPlayer(): ProjectileFromPlayer {
+        return this.ownerPlayer
+    }
     
-    public get _x(): number {
-        return this.x
-    }
+    // public get _x(): number {
+    //     return this.x
+    // }
 
-    public get _y(): number {
-        return this.y
-    }
+    // public get _y(): number {
+    //     return this.y
+    // }
 
-    public get _color(): string {
-        return this.color
-    }
+    // public get _color(): string {
+    //     return this.color
+    // }
 
-    public get _radius(): number{
-        return this.radius
-    }
+    // public get _radius(): number{
+    //     return this.radius
+    // }
 
-    public get _blastRadius(): number{
-        return this.blastRadius
-    }
+    // public get _blastRadius(): number{
+    //     return this.blastRadius
+    // }
 
     
     public checkCollision(otherObjectList: CollidableObject[]): boolean{
@@ -140,17 +146,15 @@ class PlayerProjectile implements MovingObject, CollidableObject {
         push()
         fill(this.color);
         circle(this.x, this.y, this.radius*2)
-        pop()
+        pop()        
     }
 
-    public updatePos(): number {
+    public updatePos() {
         // Insert position update logic here
         
         this.y += this.velY;
         this.x += this.velX;
-        this.velY += this.projectileGravity;
-        return 1
-        
+        this.velY += this.projectileGravity; 
     }
 
 }

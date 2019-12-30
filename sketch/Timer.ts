@@ -27,8 +27,6 @@ class Timer implements DrawableObject {
         fill(255, 255, 255, 0)
         fill('white')
         textSize(100)
-
-        
         
         if (this.timer != 0 && this.timer < 10) {
           text(this.timer, this.posX, this.posY+18)

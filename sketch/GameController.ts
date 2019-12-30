@@ -5,7 +5,7 @@ class GameController {
     private target = new TargetGameCanvas(windowWidth/2,windowHeight/2);
     private collidableObjectManager = new CollidableObjectManager(this.target);
     private timerCreated = false
-    private timer: Timer = new Timer(50, width / 2, height * 1/6)
+    private timer: Timer
     private playerFactory = new PlayerFactory(this.collidableObjectManager)
     private builtPlayers = false
     private buildGamePlayers: Array<_ply.GamePlayer> = []
@@ -28,6 +28,10 @@ class GameController {
             this.startMenu.draw()
             this.startMenu.update()
             this.isGameStarted = this.startMenu.getStartGame()
+            push()
+            fill('white')
+            stroke('white')
+            pop()
         }
         // Draw main game
         else {
