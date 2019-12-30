@@ -25,7 +25,9 @@ class Scoreboard implements DrawableObject {
         // }
         
         if(!this.hasRun){ //run once when started
+            this.target.draw()// draw one last clean targetCanvas for scoreboard.
             this.targetCanvasCutoutImage = this.target.getCutoutImage;
+            this.countPixelsInTarget(this.targetCanvasCutoutImage)
             this.hasRun = true;
             this.restartGame = false // reset from restart
             setTimeout( () =>{this.delayOver = true;}, 3000);
@@ -66,7 +68,7 @@ class Scoreboard implements DrawableObject {
     //Draws out old target canvas, can have effects too.
     private drawOldTargetCanvas(){
         push()
-        image(this.targetCanvasCutoutImage,windowWidth/4,windowHeight/4);
+        image(this.targetCanvasCutoutImage,windowWidth/4,windowHeight/16);
         pop()
     }
 
@@ -103,8 +105,19 @@ class Scoreboard implements DrawableObject {
         return this.restartGame;
     }
 
-    //cool pixel counting effect here.
-    // private countPixelsInTarget(targetImage: p5.Image){
-    //     //console.log(targetImage.width+ " " + targetImage.height + ' img w h');
-    // }
+
+    private countPixelsInTarget(targetImage: p5.Image){
+        console.log(targetImage.width+ " " + targetImage.height + ' img w h');
+        //let colorList[]
+        push()
+        targetImage.loadPixels()
+        console.log('target nr of pixels ' + targetImage.pixels.length/4)
+        console.log(targetImage.pixels[0]+targetImage.pixels[1]+targetImage.pixels[2])
+        
+        for(let i = 0; /*targetImage.pixels.length*/ 24 > i; i++){
+            console.log(targetImage.pixels[i])
+        }
+
+        pop()
+    }
 }
