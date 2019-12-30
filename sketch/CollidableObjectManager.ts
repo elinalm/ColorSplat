@@ -38,7 +38,7 @@ class CollidableObjectManager {
             if(this.collidableObjectList[i].x > windowWidth || this.collidableObjectList[i].x < 0 || this.collidableObjectList[i].y > windowHeight) {
 
                 //Säger till spelaren att projektilen inte längre existerar, så att spelaren kan skjuta ett nytt skott (must improve implementation)
-                const player: ProjectileFromPlayer = this.collidableObjectList[i].getOwnerPlayer()
+                const player: PlayerFromProjectile = this.collidableObjectList[i].getOwnerPlayer()
                 player.setProjectileExists(false)
                 // Tar bort projektilen
                 this.removeCollidableObjectFromList(i)       

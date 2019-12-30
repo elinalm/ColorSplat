@@ -9,7 +9,7 @@ class PlayerProjectile implements MovingObject, CollidableObject {
     private projectileGravity: number = 0.2
     blastRadius: number
     hasCollided: boolean = false
-    ownerPlayer: ProjectileFromPlayer
+    ownerPlayer: PlayerFromProjectile
     // applyPowerUpCallback: () => void
     
     // Class constructor
@@ -26,7 +26,7 @@ class PlayerProjectile implements MovingObject, CollidableObject {
         // this.applyPowerUpCallback = applyPowerUpCallback
     }
 
-    public getOwnerPlayer(): ProjectileFromPlayer {
+    public getOwnerPlayer(): PlayerFromProjectile {
         return this.ownerPlayer
     }
     

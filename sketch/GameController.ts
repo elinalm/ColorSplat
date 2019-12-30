@@ -91,7 +91,8 @@ class GameController {
                 this.timerCreated = false;
                 this.timer = new Timer(50, width / 2, height * 1/6);
                 this.builtPlayers = false;
-                this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers());
+                // Ska spelare skapas på nytt? Eller går det att återanvända gamla spelare?
+                // this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers());
                 this.collidableObjectManager = new CollidableObjectManager(this.target);
             }
             else{

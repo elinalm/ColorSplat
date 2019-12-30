@@ -31,7 +31,7 @@ interface CollidableObject extends MovingObject{
     getOwnerPlayer:() => void
 }
 
-interface ProjectileFromPlayer {
+interface PlayerFromProjectile {
     setProjectileExists:(status: boolean) => void
 }
 
