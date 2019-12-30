@@ -4,6 +4,7 @@ class Scoreboard implements DrawableObject {
     delayOver: boolean = false
     private fadeCounter: number = 0
     restartGame: boolean = false
+    targetCanvasCutoutImage: p5.Image = new p5.Image();
 
     constructor(target: TargetGameCanvas){
         this.target = target
@@ -24,6 +25,7 @@ class Scoreboard implements DrawableObject {
         // }
         
         if(!this.hasRun){ //run once when started
+            this.targetCanvasCutoutImage = this.target.getCutoutImage;
             this.hasRun = true;
             this.restartGame = false // reset from restart
             setTimeout( () =>{this.delayOver = true;}, 3000);
@@ -49,7 +51,7 @@ class Scoreboard implements DrawableObject {
         this.drawBackground();
         this.drawOldTargetCanvas();
         this.drawText();
-        this.countPixelsInTarget(this.target.getCutoutImage)
+        //this.countPixelsInTarget(this.target.getCutoutImage)
 
     }
 
@@ -64,7 +66,7 @@ class Scoreboard implements DrawableObject {
     //Draws out old target canvas, can have effects too.
     private drawOldTargetCanvas(){
         push()
-        image(this.target.getCutoutImage,windowWidth/4,windowHeight/4);
+        image(this.targetCanvasCutoutImage,windowWidth/4,windowHeight/4);
         pop()
     }
 
@@ -91,7 +93,8 @@ class Scoreboard implements DrawableObject {
         console.log("restart game")
         this.hasRun = false;
         this.delayOver = false;
-        this.fadeCounter = 0;        
+        this.fadeCounter = 0;
+        this.targetCanvasCutoutImage = new p5.Image();        
         this.restartGame = true;
     }
 
@@ -101,7 +104,7 @@ class Scoreboard implements DrawableObject {
     }
 
     //cool pixel counting effect here.
-    private countPixelsInTarget(targetImage: p5.Image){
-        //console.log(targetImage.width+ " " + targetImage.height + ' img w h');
-    }
+    // private countPixelsInTarget(targetImage: p5.Image){
+    //     //console.log(targetImage.width+ " " + targetImage.height + ' img w h');
+    // }
 }

@@ -52,12 +52,6 @@ class GameController {
                 this.builtPlayers = true
             }
 
-            // Draw background
-            push()
-            fill('black')
-            rect(0, 0, windowWidth, windowHeight)
-            pop()
-
             // Draw target and update target
             this.target.draw()
             this.target.updatePos()
@@ -91,9 +85,14 @@ class GameController {
                 this.timerCreated = false;
                 this.timer = new Timer(50, width / 2, height * 1/6);
                 this.builtPlayers = false;
+
                 // Ska spelare skapas på nytt? Eller går det att återanvända gamla spelare?
                 // this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers());
+                this.buildGamePlayers = [];
                 this.collidableObjectManager = new CollidableObjectManager(this.target);
+                this.startMenu =  new StartMenu(width/2, height*1/7);
+                this.playerFactory = new PlayerFactory(this.collidableObjectManager);
+                this.scoreboard = new Scoreboard(this.target);
             }
             else{
                 this.scoreboard.draw();
