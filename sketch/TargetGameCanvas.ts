@@ -68,7 +68,7 @@ class TargetGameCanvas implements MovingObject {
         push();
         for(let splash of this.splashList){
             noStroke();
-            fill(splash.color);
+            fill(`rgb(${splash.color})`);
             circle(splash.posX + this.targetCanvasPosX, splash.posY,splash.splashDiameter);
         }
         pop();
@@ -154,6 +154,10 @@ class TargetGameCanvas implements MovingObject {
     public get getCutoutImage(): p5.Image{
         this.cutOutTargetCanvas();
         return this.cutOutImage
+    }
+
+    public getSplashList() {
+        return this.splashList
     }
 
 }

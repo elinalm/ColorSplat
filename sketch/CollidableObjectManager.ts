@@ -1,8 +1,8 @@
 class CollidableObjectManager {
     private collidableObjectList: Array<CollidableObject> = [];
-    private target: TargetGameCanvas
+    public target: DrawExplosions
 
-    constructor(target: TargetGameCanvas){
+    constructor(target: DrawExplosions){
         this.addTestMissiles(); //remove later, just for test
         this.target = target;   //import target to draw splash on canvas
     }
