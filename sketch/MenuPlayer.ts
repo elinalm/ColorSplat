@@ -19,7 +19,7 @@ namespace _ply {
             rectMode(CENTER)
             textAlign(CENTER)
             
-            fill(this.color)
+            fill(`rgb(${this.color})`)
             rect(x,y-20,150,40)
             
             fill('white')

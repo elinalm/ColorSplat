@@ -37,13 +37,13 @@ namespace _ply {
             noStroke()
             translate(this.xPos, this.yPos)
             rotate(this.angle)
-            fill(this.color)
+            fill(`rgb(${this.color})`)
             rect((-20), this.barrelPos+10, 40, 85)
             pop()
 
             //Cannon head
             push()
-            stroke(this.color)
+            stroke(`rgb(${this.color})`)
             strokeWeight(5)
             fill('#1B1E1A')
             arc(this.xPos, this.yPos, 120, 120, PI, 0)
@@ -57,9 +57,9 @@ namespace _ply {
             rotate(this.angle)
             fill('#1B1E1A')
             rect((-15), (this.barrelPos) + 10, 30, 75)
-            fill(this.color)
             
             //Barrel head
+            fill(`rgb(${this.color})`)
             rect((-25), (this.barrelPos + 85), 50, 15)
             pop()
 
@@ -77,13 +77,14 @@ namespace _ply {
             arc(this.xPos, this.yPos-25, 20, 20, 0, PI*2)
             pop()
 
+            // If cooldown is active, draw loading animation
             if (this.cooldownActive) {
                 push()
                 angleMode(RADIANS)
                 strokeWeight(3)
                 // console.log(this.cooldownValue);
                 noFill()
-                stroke(this.color)
+                stroke(`rgb(${this.color})`)
                 // fill('white')
                 arc(this.xPos, (this.yPos-25), 20, 20, radians(-90), radians(this.cooldownValue))
                 pop()
@@ -124,8 +125,12 @@ namespace _ply {
                 if (this.projectileExists) {
                     // Remove the projectile from the stack
                     for (let i = 0; i < projectileArray.length; i++) {
-                        if (projectileArray[i].color === this.color) {
-                            this.cOM.removeCollidableObjectFromList(i)
+                        const projectile : CollidableObject = projectileArray[i]
+                        if (projectile.color === this.color && projectile.getHasExploded()===false) {                           
+                            projectile.setHasExploded(true)
+
+                            //Draw color from projectile explosion on canvas
+                            this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, random(100, 200))                                                        
                             
                             // Cooldown 1 second after exploding projectile
                             let cooldown = 50
@@ -133,17 +138,19 @@ namespace _ply {
                             let cooldownTimer = setInterval( ()=> {
                                 cooldown--
                                 this.cooldownValue += 360/50
+
+                                // If cooldown is done
                                 if (cooldown === 0) {
+                                    // Clear interval
                                     clearInterval(cooldownTimer)
+                                    // Reset cooldownActive and value
                                     this.cooldownActive = false
-                                    this.projectileExists = false
                                     this.cooldownValue = -89
+                                    // Remove projectile
+                                    this.projectileExists = false
+                                    this.cOM.removeCollidableObjectFromList(i)
                                 }
                             }, 10)
-
-                            // setTimeout(()=> {
-                            //     this.projectileExists = false
-                            // },1000)
                         }
                     }
                 }
@@ -180,6 +187,7 @@ namespace _ply {
                 this.projectileExists = true
             }
         }
+    
            
         // private applyPowerUp = (powerUp: string) => {
         //     // this.powerUp = powerUp
