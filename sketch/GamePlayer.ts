@@ -11,7 +11,7 @@ namespace _ply {
         private yPos : number
         private barrelPoint = {x: 0, y: 0}
         private cooldownActive = false
-        private cooldownValue = -89
+        private cooldownValue = 0
 
         constructor (name: string, color: string, aimLeft: Array<string>, fireButton: Array<string>, aimRight: Array<string>, cOM: PassByFire, position: {x: number, y:number}) {
             super(name, color, aimLeft, fireButton, aimRight)
@@ -69,26 +69,16 @@ namespace _ply {
             noStroke()
             // strokeWeight(3)
             // stroke('#30362f')
-            fill('gray')
-            arc(this.xPos, this.yPos-25, 30, 30, 0, PI*2)
-            strokeWeight(3)
+            fill('#1B1E1A')
+            arc(this.xPos, this.yPos, 80, 80, 0, PI*2)
+            strokeWeight(6)
             stroke('#30362f')
             noFill()
-            arc(this.xPos, this.yPos-25, 20, 20, 0, PI*2)
-            pop()
-
-            // If cooldown is active, draw loading animation
-            if (this.cooldownActive) {
-                push()
-                angleMode(RADIANS)
-                strokeWeight(3)
-                // console.log(this.cooldownValue);
-                noFill()
-                stroke(`rgb(${this.color})`)
-                // fill('white')
-                arc(this.xPos, (this.yPos-25), 20, 20, radians(-90), radians(this.cooldownValue))
-                pop()
-            }        
+            arc(this.xPos, this.yPos, 80, 80, 0, PI*2)
+            strokeWeight(3)
+            stroke(`rgb(${this.color})`)
+            arc(this.xPos, (this.yPos), 80, 80, radians(-180), radians(this.cooldownValue))
+            pop()    
         }
 
         update() /*: PlayerProjectile*/ {
@@ -121,6 +111,7 @@ namespace _ply {
             if (keyIsDown(this.fireButton[1])) {
                 const projectileArray = this.cOM.getCollidableObjectList()
 
+                this.cooldownValue = -180
                 // If projectile exists
                 if (this.projectileExists) {
                     // Remove the projectile from the stack
@@ -137,7 +128,7 @@ namespace _ply {
                             this.cooldownActive = true
                             let cooldownTimer = setInterval( ()=> {
                                 cooldown--
-                                this.cooldownValue += 360/50
+                                this.cooldownValue += 180/50
 
                                 // If cooldown is done
                                 if (cooldown === 0) {
@@ -145,7 +136,7 @@ namespace _ply {
                                     clearInterval(cooldownTimer)
                                     // Reset cooldownActive and value
                                     this.cooldownActive = false
-                                    this.cooldownValue = -89
+                                    this.cooldownValue = 0
                                     // Remove projectile
                                     this.projectileExists = false
                                     this.cOM.removeCollidableObjectFromList(i)
