@@ -1,40 +1,59 @@
-class PowerUp implements MovingObject {
+class PowerUp implements MovingObject, CollidableObject {
     // Class attributes
-    posX: number
-    posY: number
+    x: number
+    y: number
     velX: number
     velY: number
-    size: number
-    speed: number
+    radius: number
+    color: string
+    cOM: PassByFire
 
     // Class constructor
-    constructor (posX: number, posY:number, velX: number, velY: number, size:number, speed:number) { 
-        this.posX = posX
-        this.posY = posY
+    constructor (posX: number, posY:number, velX: number, velY: number, radius: number, color: string, cOM: PassByFire) { 
+        this.x = posX
+        this.y = posY
         this.velX = velX
         this.velY = velY
-        this.size = size
-        this.speed = speed
+        this.radius = radius
+        this.color = color
+        this.cOM = cOM
     }
 
     // Class functions
     public draw(): void {
         push()
-        fill(230,120,60)
-        noStroke()
-        ellipse(this.posX,this.posY,this.size)
+        stroke(50);
+        fill('red');
+        circle(this.x, this.y, this.radius);
         pop()
-        // Insert draw logic here
+        
+        this.x = this.x + 0;
+        
+        // Moving up at a constant speed
+        this.y = this.y + 0.3;
+    }
+
+    public checkCollision(otherObjectList: Array<CollidableObject>): boolean{
+        for (const otherObject of otherObjectList) {
+            if (otherObject instanceof PlayerProjectile) {
+                let pointDist = dist(this.x, this.y, otherObject.x, otherObject.y)
+                if(pointDist < this.radius + otherObject.radius){
+                console.log('yaaaay');
+                return true
+                }
+            }
+        }
+        return false
     }
 
     public updatePos(): number {
-        // Insert position update logic here
-        this.posY = this.posY + this.speed
-        this.speed = this.speed + gravity
+    //     // Insert position update logic here
+    //     //this.posY = this.posY + this.speed
+    //     //this.speed = this.speed + gravity
         
-        this.draw()
+    //     // this.draw()
         return 1
-        //test text
+    //     //test text
     }
     
 

@@ -10,9 +10,9 @@ class GameController {
     private playerFactory = new PlayerFactory(this.collidableObjectManager)
     private builtPlayers = false
     private buildGamePlayers: Array<_ply.GamePlayer> = []
+    private powerUpExists = false
+    private powerUp: PowerUp
 
-
-    // private powerup = new PowerUp(random(0, windowWidth), -50, 0, 0, random(15, 50), 0)
     // private scoreboard = new Scoreboard(true)
     // private projectiles: PlayerProjectile[] = []
     
@@ -33,10 +33,20 @@ class GameController {
         // Draw main game
         else if(this.isGameStarted && !this.isGameOver) {
             // If timer isn't created, create timer object
+            
+            if (!this.powerUpExists) {
+                this.powerUp = new PowerUp(windowWidth/2, 30, 10, 10, 50, 'red', this.collidableObjectManager)
+                this.collidableObjectManager.addCollidableObjectToList(this.powerUp)
+                this.powerUpExists = true
+            }
+            
             if (!this.timerCreated) {
                 this.timer = new Timer(this.startMenu.getSelectedTime(), width / 2, height * 1/6);
                 this.timerCreated = true
             }
+            
+            this.powerUp.draw()
+            
             
             // If gameplayers aren't created, create gameplayer objects
             if (!this.builtPlayers) {               
