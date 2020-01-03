@@ -73,6 +73,7 @@ class GameController {
             
             if(this.timer.getTimeLeft === 0){
                 this.isGameOver = true
+                
             }
         }
         else if(this.isGameOver){

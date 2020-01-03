@@ -51,7 +51,7 @@ class Scoreboard implements DrawableObject {
         this.drawBackground();
         this.drawOldTargetCanvas();
         this.drawText();
-        //this.countPixelsInTarget(this.target.getCutoutImage)
+        this.countPixelsInTarget(this.target.getCutoutImage)
 
     }
 
@@ -104,7 +104,9 @@ class Scoreboard implements DrawableObject {
     }
 
     //cool pixel counting effect here.
-    // private countPixelsInTarget(targetImage: p5.Image){
-    //     //console.log(targetImage.width+ " " + targetImage.height + ' img w h');
-    // }
+     private countPixelsInTarget(targetImage: p5.Image){
+        // console.log(targetImage)
+        // console.log(targetImage.width+ " " + targetImage.height + ' img w h');
+     }
+     
 }

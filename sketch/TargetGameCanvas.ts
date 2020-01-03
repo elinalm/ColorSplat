@@ -10,6 +10,7 @@ class TargetGameCanvas implements MovingObject {
     private targetCanvasHeight: number = 0;
     private targetCanvasDirection: boolean = false;
     private cutOutImage: p5.Image = new p5.Image();
+    private pixelInCanvas: any
 
     // Class constructor
     constructor (velX: number, velY: number) {
@@ -23,10 +24,12 @@ class TargetGameCanvas implements MovingObject {
     // Class functions
     public draw(): void {
         // Insert draw logic here
+        
         this.updatePos();
         this.drawTargetBoard();     //empty target canvas drawn first
         this.drawSplash();          //then splashes
         this.drawFrameAroundTargetCanvas();
+
         //this.cutOutTargetCanvas();  //canvas is cut out to remove splashes outside target canvas
         //this.drawBackground();      //background is drawn over target canvas
         //this.drawTargetCutOutOnBackground();    //the cutout is added on top of background.
@@ -149,6 +152,7 @@ class TargetGameCanvas implements MovingObject {
 
     private cutOutTargetCanvas(){
         this.cutOutImage = get(this.targetCanvasPosX,this.targetCanvasPosY,this.targetCanvasWidth,this.targetCanvasHeight);
+        
     }
     
     public get getCutoutImage(): p5.Image{
@@ -158,6 +162,43 @@ class TargetGameCanvas implements MovingObject {
 
     public getSplashList() {
         return this.splashList
+    }
+    
+    public findPixelColorInTargetCanvas() {
+        this.pixelInCanvas = get(this.targetCanvasPosX,this.targetCanvasPosY)
+        let targetPixelX = this.targetCanvasPosX 
+        let targetPixelY = this.targetCanvasPosY
+        let blue = 0;
+        let purple = 0;
+        let green = 0;
+        let yellow = 0;
+        targetPixelX --
+        targetPixelY --
+        
+
+        for(let i=0; targetPixelX <= 960; i++) {
+            targetPixelX ++
+            this.pixelInCanvas = get(targetPixelX,targetPixelY)
+        
+            for (let j=0; targetPixelY <= 480; j++) {
+                targetPixelY ++
+                this.pixelInCanvas = get(targetPixelX, targetPixelY)
+                if (this.pixelInCanvas[1] === ['74']) {
+                    blue ++
+                    
+                } else if (this.pixelInCanvas[1] === ['202']) {
+                    purple ++
+                } else if (this.pixelInCanvas[1] === ['102']) {
+                    green ++
+                } else if (this.pixelInCanvas[1] === ['231']) {
+                    yellow ++
+                }
+            }
+            
+            
+
+        }
+        
     }
 
 }
