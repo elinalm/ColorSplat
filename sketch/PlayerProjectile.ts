@@ -9,7 +9,7 @@ class PlayerProjectile implements MovingObject, CollidableObject {
     y: number
     private projectileGravity: number = 0.2
     blastRadius: number
-    hasCollided: boolean = false
+    projectileAndPowerUpCollision: boolean = false
     ownerPlayer: PlayerFromProjectile
     hasExploded: boolean = false
     // applyPowerUpCallback: () => void
@@ -61,79 +61,83 @@ class PlayerProjectile implements MovingObject, CollidableObject {
     // }
 
     
-    public checkCollision(otherObjectList: CollidableObject[]): boolean{        
+    public checkCollision(otherObjectList: CollidableObject[]): void{        
 
         for(let otherObject of otherObjectList){
 
-            if(otherObject instanceof PlayerProjectile){
-                let pointDist = dist(this.x, this.y, otherObject.x, otherObject.y)
+            let pointDist = dist(this.x, this.y, otherObject.x, otherObject.y)
                 if(this !== otherObject && pointDist < this.radius + otherObject.radius){
+
+                    if(otherObject instanceof PlayerProjectile){
+                        // let pointDist = dist(this.x, this.y, otherObject.x, otherObject.y)
+                        // if(this !== otherObject && pointDist < this.radius + otherObject.radius){
                     
-                    // Make sure that projectiles doesn't get stuck inside eachother
-                    const overlap = (this.radius + otherObject.radius) - pointDist // Find out overlap
+                            // Make sure that projectiles doesn't get stuck inside eachother
+                            const overlap = (this.radius + otherObject.radius) - pointDist // Find out overlap
                     
-                    // Move projectiles out of overlap so that they get unstuck
-                    // If, in any case, projectiles share same x or y position values
-                    if (this.y === otherObject.y || this.x === otherObject.x) {
-                        if (this.y === otherObject.y) {
-                            if (this.x > otherObject.x) {
-                                this.x += overlap/2
-                                otherObject.x -= overlap/2
+                            // Move projectiles out of overlap so that they get unstuck
+                            // If, in any case, projectiles share same x or y position values
+                            if (this.y === otherObject.y || this.x === otherObject.x) {
+                                if (this.y === otherObject.y) {
+                                    if (this.x > otherObject.x) {
+                                        this.x += overlap/2
+                                        otherObject.x -= overlap/2
+                                    }
+                                    else {
+                                        this.x -= overlap/2
+                                        otherObject.x += overlap/2
+                                    }
+                                }
+                                else {
+                                    if (this.y > otherObject.y) {
+                                        this.y += overlap/2
+                                        otherObject.y -= overlap/2
+                                    }
+                                }
                             }
+                            // Else, move x and y coordinates according to the overlap
                             else {
-                                this.x -= overlap/2
-                                otherObject.x += overlap/2
+                                if (this.y > otherObject.y) { 
+                                    this.y += overlap/4
+                                    otherObject.y -= overlap/4
+                                }
+                                else {
+                                    this.y -= overlap/4
+                                    otherObject.y += overlap/4
+                                }
+                                if (this.x > otherObject.x) {
+                                    this.x += overlap/4
+                                    otherObject.x -= overlap/4
+                                }
+                                else {
+                                    this.x -= overlap/4
+                                    otherObject.x += overlap/4
+                                }
                             }
-                        }
-                        else {
-                            if (this.y > otherObject.y) {
-                                this.y += overlap/2
-                                otherObject.y -= overlap/2
-                            }
-                        }
-                    }
-                    // Else, move x and y coordinates according to the overlap
-                    else {
-                        if (this.y > otherObject.y) { 
-                            this.y += overlap/4
-                            otherObject.y -= overlap/4
-                        }
-                        else {
-                            this.y -= overlap/4
-                            otherObject.y += overlap/4
-                        }
-                        if (this.x > otherObject.x) {
-                            this.x += overlap/4
-                            otherObject.x -= overlap/4
-                        }
-                        else {
-                            this.x -= overlap/4
-                            otherObject.x += overlap/4
-                        }
-                    }
 
                     // Exchange values between colliding objects, to make them bounce against eachother
-                    const   objectAVel = {x: this.velX, y: this.velY},
-                            objectBVel = {x: otherObject.velX, y: otherObject.velY};
+                            const   objectAVel = {x: this.velX, y: this.velY},
+                                    objectBVel = {x: otherObject.velX, y: otherObject.velY};
 
-                    this.velX = objectBVel.x
-                    this.velY = objectBVel.y
+                            this.velX = objectBVel.x
+                            this.velY = objectBVel.y
                     
-                    otherObject.velX = objectAVel.x
-                    otherObject.velY = objectAVel.y
+                            otherObject.velX = objectAVel.x
+                            otherObject.velY = objectAVel.y
+                            
+                        }
+                        if(otherObject instanceof PowerUp){
+                            //powerUp code here
+                            
+                        this.projectileAndPowerUpCollision = true;
+                        otherObject.projectileAndPowerUpCollision = true;
+                        this.ownerPlayer.setProjectileExists(false)
+                        this.ownerPlayer.applyPowerUp('activating PowerUp')
+                        
+                        }
+                    }
 
-                    this.hasCollided = true;
-                    otherObject.hasCollided = true; //sometimes the other object is not collided
-
-                }
-            }
-
-            if(otherObject instanceof PowerUp){
-                //powerUp code here
-            }
         }
-
-        return false
     }
 
     

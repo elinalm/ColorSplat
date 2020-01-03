@@ -11,28 +11,21 @@ class CollidableObjectManager {
         
         for(let collidableObject of this.collidableObjectList){
             collidableObject.updatePos();
-            collidableObject.checkCollision(this.collidableObjectList)
+            if (collidableObject instanceof PlayerProjectile) {
+                collidableObject.checkCollision(this.collidableObjectList)
+            }
         }
         this.removeCollidedObjects(); //remove missiles and draw splash
     }
 
     private removeCollidedObjects(){
         for(let i = 0; i < this.collidableObjectList.length; i++){
-            // if(this.collidableObjectList[i].hasCollided === true){
 
-            //     //Om färgmissilerna ska studsa på varandra (kan bugga)
-            //     // this.collidableObjectList[i].velX = this.collidableObjectList[i].velX*-1
-            //     // this.collidableObjectList[i].hasCollided = false
-                
-            //     //Om färgmissilerna ska explodera när de träffar varandra
-            //     // this.target.addSplashToTargetCanvas(
-            //         //     this.collidableObjectList[i].x,
-            //         //     this.collidableObjectList[i].y,
-            //         //     this.collidableObjectList[i].color,
-            //     //     this.collidableObjectList[i].radius*2
-            //     // )
-            //     // this.collidableObjectList.splice(i,1)
-            // }
+            // If Projectile has collided with PowerUp
+            if(this.collidableObjectList[i].projectileAndPowerUpCollision === true /*&& this.collidableObjectList[i] instanceof PowerUp*/){
+                this.removeCollidableObjectFromList(i)
+            }
+            // If projectile moves out of window view
             if (this.collidableObjectList[i] instanceof PlayerProjectile) {
                 if(this.collidableObjectList[i].x > windowWidth || this.collidableObjectList[i].x < 0 || this.collidableObjectList[i].y > windowHeight) {
                     
