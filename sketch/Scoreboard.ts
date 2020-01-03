@@ -31,6 +31,13 @@ class Scoreboard implements DrawableObject {
             this.targetCanvasCutoutImage = this.target.getCutoutImage;
             this.countPixelsInTarget(this.targetCanvasCutoutImage)
 
+            console.log('blue purple green yellow other ' + this.target.findPixelColorInTargetCanvas()+ ' from scoreboard')
+            // console.log('blue ' + this.target.findPixelColorInTargetCanvas()[0])
+            // console.log('purple ' + this.target.findPixelColorInTargetCanvas()[1])
+            // console.log('green ' + this.target.findPixelColorInTargetCanvas()[2])
+            // console.log('yellow ' + this.target.findPixelColorInTargetCanvas()[3])
+            // console.log('other ' + this.target.findPixelColorInTargetCanvas()[4])
+
             //for test , remove later
             this.testFillColorFractionList()
             this.sortColorFractionList()
@@ -120,16 +127,20 @@ class Scoreboard implements DrawableObject {
 
 
     private countPixelsInTarget(targetImage: p5.Image){
-        console.log(targetImage.width+ " " + targetImage.height + ' img w h');
+        //console.log(targetImage.width+ " " + targetImage.height + ' img w h');
         //let colorList[]
         push()
         targetImage.loadPixels()
         console.log('target nr of pixels ' + targetImage.pixels.length/4)
         console.log(targetImage.pixels[0]+targetImage.pixels[1]+targetImage.pixels[2])
-        
-        for(let i = 0; /*targetImage.pixels.length*/ 24 > i; i++){
-            console.log(targetImage.pixels[i])
+         let otherColor = 0
+        for(let i = 0; targetImage.pixels.length < i; i + 4){
+            //console.log(targetImage.pixels[i])
+            if(targetImage.pixels[i] !== 255){
+                otherColor ++
+            }
         }
+        console.log(otherColor  + ' other color pixel count')
 
         pop()
     }
@@ -140,7 +151,7 @@ class Scoreboard implements DrawableObject {
         this.colorList.push({red: 255, green: 255, blue: 255, fractionOfCanvas: 5}) //white
         this.colorList.push({red: 0, green: 255, blue: 0, fractionOfCanvas: 3}) //green
         
-        console.log(this.colorList)
+        //console.log(this.colorList)
     }
 
     private sortColorFractionList(){
@@ -148,14 +159,14 @@ class Scoreboard implements DrawableObject {
         //if white found, remove from list.
         for(let i = 0; this.colorList.length > i; i++){
             if(this.colorList[i].red == 255 && this.colorList[i].green == 255 && this.colorList[i].blue == 255){ 
-                console.log('remove white background ' + this.colorList[i].fractionOfCanvas)
+                //console.log('remove white background ' + this.colorList[i].fractionOfCanvas)
                 this.colorList.splice(i,1)
             }
         }
 
         //sort list so most pixels are on top.
         this.colorList.sort((a, b)  => (b.fractionOfCanvas - a.fractionOfCanvas))
-        console.log(this.colorList)
+        //console.log(this.colorList)
     }
 
     private drawWinnerList(){
