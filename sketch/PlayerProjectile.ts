@@ -61,20 +61,7 @@ class PlayerProjectile implements MovingObject, CollidableObject {
     // }
 
     
-    public checkCollision(otherObjectList: CollidableObject[]): boolean{
-        // if (this === otherObject) {
-        // ***This condition will always return 'false' since the types 'this' and 'CollidableObject' have no overlap.ts(2367)**
-        //     return false
-        // }
-        /*
-        if (otherObject instanceof PlayerProjectile) {
-            //this.radius
-        }
-        if (otherObject instanceof PowerUp) {
-            //this._blastRadius
-        }
-        return true /*Tillagd för att få bort errors*/
-        
+    public checkCollision(otherObjectList: CollidableObject[]): boolean{        
 
         for(let otherObject of otherObjectList){
 

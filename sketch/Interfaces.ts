@@ -22,11 +22,10 @@ interface CollidableObject extends MovingObject{
     y: number
     radius: number
     color: string
-    hasCollided: boolean
+    hasCollided?: boolean
     checkCollision: (otherObject: CollidableObject[]) => boolean
-    setHasExploded:(status: boolean) => void
-    getHasExploded:() => boolean
-    getOwnerPlayer:() => void
+    setHasExploded?:(status: boolean) => void
+    getHasExploded?:() => boolean
 }
 
 interface PlayerFromProjectile {
