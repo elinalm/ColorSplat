@@ -35,7 +35,7 @@ class GameController {
             // If timer isn't created, create timer object
             
             if (!this.powerUpExists) {
-                this.powerUp = new PowerUp(windowWidth/2, 30, 10, 10, 50, 'red', this.collidableObjectManager)
+                this.powerUp = new PowerUp(windowWidth/2, 30, 10, 10, 25, 'red', this.collidableObjectManager)
                 this.collidableObjectManager.addCollidableObjectToList(this.powerUp)
                 this.powerUpExists = true
             }

@@ -116,7 +116,7 @@ namespace _ply {
                 if (this.projectileExists) {
                     // Remove the projectile from the stack
                     for (let i = 0; i < projectileArray.length; i++) {
-                        const projectile : CollidableObject = projectileArray[i]
+                        const projectile = projectileArray[i] as PlayerProjectile
                         if (projectile.color === this.color && projectile.getHasExploded()===false) {                           
                             projectile.setHasExploded(true)
 
@@ -167,7 +167,7 @@ namespace _ply {
             // If firebutton is released and player should shoot
             if (!keyIsDown(this.fireButton[1])&&(this.shouldFire)) {
                 // Create projectile and add it to the stack
-                const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos*.85),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
+                const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos*.03*(windowHeight*.03)),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
                 this.cOM.addCollidableObjectToList(projectile)
 
                 // Reset barrels position
@@ -180,9 +180,11 @@ namespace _ply {
         }
     
            
-        // private applyPowerUp = (powerUp: string) => {
-        //     // this.powerUp = powerUp
-        //     // todo....
-        // }
+        // Gets called from PlayerProjectile in checkCollision if projectile collides with PowerUp
+        private applyPowerUp (powerUp: string) {
+            
+            console.log(powerUp);
+            
+        }
     }
 }

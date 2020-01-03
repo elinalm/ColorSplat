@@ -7,6 +7,7 @@ class PowerUp implements MovingObject, CollidableObject {
     radius: number
     color: string
     cOM: PassByFire
+    projectileAndPowerUpCollision: boolean = false
 
     // Class constructor
     constructor (posX: number, posY:number, velX: number, velY: number, radius: number, color: string, cOM: PassByFire) { 
@@ -24,7 +25,7 @@ class PowerUp implements MovingObject, CollidableObject {
         push()
         stroke(50);
         fill('red');
-        circle(this.x, this.y, this.radius);
+        circle(this.x, this.y, this.radius*2);
         pop()
         
         this.x = this.x + 0;
@@ -33,18 +34,29 @@ class PowerUp implements MovingObject, CollidableObject {
         this.y = this.y + 0.3;
     }
 
-    public checkCollision(otherObjectList: Array<CollidableObject>): boolean{
-        for (const otherObject of otherObjectList) {
-            if (otherObject instanceof PlayerProjectile) {
-                let pointDist = dist(this.x, this.y, otherObject.x, otherObject.y)
-                if(pointDist < this.radius + otherObject.radius){
-                console.log('yaaaay');
-                return true
-                }
-            }
-        }
-        return false
-    }
+    // public checkCollision(otherObjectList: Array<CollidableObject>): void{
+    //     // for (let i = 0; i < otherObjectList.length; i++){
+    //     //     let otherObject = otherObjectList[i]
+    //     //     if (otherObject instanceof PlayerProjectile) {
+    //     //         let pointDist = dist(this.x, this.y, otherObject.x, otherObject.y)
+    //     //         if (pointDist < this.radius + otherObject.radius) {
+    //     //         }
+    //     //     }
+    //     // }
+
+
+    //     // for (const otherObject of otherObjectList) {
+    //     //     if (otherObject instanceof PlayerProjectile) {
+    //     //         let pointDist = dist(this.x, this.y, otherObject.x, otherObject.y)
+    //     //         if(pointDist < this.radius + otherObject.radius){
+    //     //         console.log('träff');
+                
+    //     //         return true
+    //     //         }
+    //     //     }
+    //     // }
+    //     // return false
+    // }
 
     public updatePos(): number {
     //     // Insert position update logic here
