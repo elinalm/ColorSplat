@@ -33,15 +33,19 @@ class CollidableObjectManager {
             //     // )
             //     // this.collidableObjectList.splice(i,1)
             // }
-
-            //Tar bort projektiler som inte syns på skärmen längre
-            if(this.collidableObjectList[i].x > windowWidth || this.collidableObjectList[i].x < 0 || this.collidableObjectList[i].y > windowHeight) {
-
-                //Säger till spelaren att projektilen inte längre existerar, så att spelaren kan skjuta ett nytt skott (must improve implementation)
-                const player: PlayerFromProjectile = this.collidableObjectList[i].getOwnerPlayer()
-                player.setProjectileExists(false)
-                // Tar bort projektilen
-                this.removeCollidableObjectFromList(i)       
+            if (this.collidableObjectList[i] instanceof PlayerProjectile) {
+                if(this.collidableObjectList[i].x > windowWidth || this.collidableObjectList[i].x < 0 || this.collidableObjectList[i].y > windowHeight) {
+                    
+                    const   projectile = this.collidableObjectList[i] as PlayerProjectile,
+                            player = projectile.getOwnerPlayer();
+                            
+                            
+                    //Säger till spelaren att projektilen inte längre existerar, så att spelaren kan skjuta ett nytt skott (must improve implementation)
+                    player.setProjectileExists(false)
+                    // Tar bort projektilen
+                    this.removeCollidableObjectFromList(i)       
+                    //Tar bort projektiler som inte syns på skärmen längre
+                }
             }
         }
     }
