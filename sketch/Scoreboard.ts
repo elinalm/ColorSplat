@@ -61,13 +61,11 @@ class Scoreboard implements DrawableObject {
         this.drawBackground();
         this.drawOldTargetCanvas();
         this.drawText();
-<<<<<<< HEAD
-        this.countPixelsInTarget(this.target.getCutoutImage)
-=======
+
         
         this.drawWinnerList()
         //this.countPixelsInTarget(this.target.getCutoutImage)
->>>>>>> master
+
 
     }
 
@@ -119,14 +117,7 @@ class Scoreboard implements DrawableObject {
         return this.restartGame;
     }
 
-<<<<<<< HEAD
-    //cool pixel counting effect here.
-     private countPixelsInTarget(targetImage: p5.Image){
-        // console.log(targetImage)
-        // console.log(targetImage.width+ " " + targetImage.height + ' img w h');
-     }
-     
-=======
+
 
     private countPixelsInTarget(targetImage: p5.Image){
         console.log(targetImage.width+ " " + targetImage.height + ' img w h');
@@ -195,5 +186,4 @@ class Scoreboard implements DrawableObject {
         }
         pop()
     }
->>>>>>> master
 }
