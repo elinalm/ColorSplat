@@ -9,7 +9,7 @@ class Timer implements DrawableObject {
       if (this.timer === 0) {        
         clearInterval(this.downloadTimer);
       }
-    },1000); //test remove later ska vara 1000
+    },1000);
 
     private posX: number;
     private posY: number;

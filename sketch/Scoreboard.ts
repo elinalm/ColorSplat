@@ -32,11 +32,6 @@ class Scoreboard implements DrawableObject {
             this.countPixelsInTarget(this.targetCanvasCutoutImage)
 
             console.log('blue purple green yellow other ' + this.target.findPixelColorInTargetCanvas()+ ' from scoreboard')
-            // console.log('blue ' + this.target.findPixelColorInTargetCanvas()[0])
-            // console.log('purple ' + this.target.findPixelColorInTargetCanvas()[1])
-            // console.log('green ' + this.target.findPixelColorInTargetCanvas()[2])
-            // console.log('yellow ' + this.target.findPixelColorInTargetCanvas()[3])
-            // console.log('other ' + this.target.findPixelColorInTargetCanvas()[4])
 
             //for test , remove later
             this.testFillColorFractionList()
@@ -127,22 +122,31 @@ class Scoreboard implements DrawableObject {
 
 
     private countPixelsInTarget(targetImage: p5.Image){
-        //console.log(targetImage.width+ " " + targetImage.height + ' img w h');
-        //let colorList[]
-        push()
         targetImage.loadPixels()
         console.log('target nr of pixels ' + targetImage.pixels.length/4)
-        console.log(targetImage.pixels[0]+targetImage.pixels[1]+targetImage.pixels[2])
-         let otherColor = 0
-        for(let i = 0; targetImage.pixels.length < i; i + 4){
-            //console.log(targetImage.pixels[i])
-            if(targetImage.pixels[i] !== 255){
+        let otherColor = 0
+        let blue = 0
+        let green = 0
+        let purple = 0
+        let yellow = 0
+        for(let i = 0; targetImage.pixels.length > i; i += 4){
+            if(targetImage.pixels[i] !== 255 && targetImage.pixels[i+1] !== 255 && targetImage.pixels[i+2] !== 255){
                 otherColor ++
             }
+            if(targetImage.pixels[i] === 74 && targetImage.pixels[i+1] === 124 && targetImage.pixels[i+2] === 221){
+                blue ++
+            }
+            if(targetImage.pixels[i] === 102 && targetImage.pixels[i+1] === 233 && targetImage.pixels[i+2] === 69){
+                green ++
+            }
+            if(targetImage.pixels[i] === 202 && targetImage.pixels[i+1] === 94 && targetImage.pixels[i+2] === 211){
+                purple ++
+            }
+            if(targetImage.pixels[i] === 231 && targetImage.pixels[i+1] === 255 && targetImage.pixels[i+2] === 87){
+                yellow ++
+            }
         }
-        console.log(otherColor  + ' other color pixel count')
-
-        pop()
+        console.log('blue: ' + blue + ' purple: ' + purple + ' green: ' + green  + ' yellow: ' + yellow + ' other ' + otherColor)
     }
 
     private testFillColorFractionList(){
