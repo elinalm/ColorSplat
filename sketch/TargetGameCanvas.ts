@@ -90,8 +90,6 @@ class TargetGameCanvas implements MovingObject {
 
     }
 
-
-
     // private drawTargetCutOutOnBackground(){
     //     push();
     //     noStroke();

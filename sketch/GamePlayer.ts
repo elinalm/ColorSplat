@@ -13,6 +13,7 @@ namespace _ply {
         private cooldownActive = false
         private cooldownValue = 0
 
+
         constructor (name: string, color: string, aimLeft: Array<string>, fireButton: Array<string>, aimRight: Array<string>, cOM: PassByFire, position: {x: number, y:number}) {
             super(name, color, aimLeft, fireButton, aimRight)
             this.cOM = cOM
@@ -182,9 +183,18 @@ namespace _ply {
            
         // Gets called from PlayerProjectile in checkCollision if projectile collides with PowerUp
         private applyPowerUp (powerUp: string) {
-            
-            console.log(powerUp);
+            const projectileArray = this.cOM.getCollidableObjectList()
+            //const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos*.03*(windowHeight*.03)),this.color,this.barrelPoint.x, this.barrelPoint.y, 100, this)
+            for (let i = 0; i < projectileArray.length; i++) {
+                const projectile = projectileArray[i] as PlayerProjectile
+                this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, (300)) 
+            }
+
+            console.log('hejehjehej');
             
         }
+        
     }
 }
+
+
