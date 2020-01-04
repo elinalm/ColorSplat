@@ -6,7 +6,7 @@ class Scoreboard implements DrawableObject {
     restartGame: boolean = false
     targetCanvasCutoutImage: p5.Image = new p5.Image();
 
-    private colorList: Array<{red: number, green: number, blue: number, fractionOfCanvas: number}> = []
+    private colorScoreList: Array<{playerColor: string, pixelCount: number}> = []
 
     constructor(target: TargetGameCanvas){
         this.target = target
@@ -31,10 +31,7 @@ class Scoreboard implements DrawableObject {
             this.targetCanvasCutoutImage = this.target.getCutoutImage;
             this.countPixelsInTarget(this.targetCanvasCutoutImage)
 
-            //for test , remove later
-            this.testFillColorFractionList()
-            this.sortColorFractionList()
-            
+            //console.log('blue purple green yellow other ' + this.target.findPixelColorInTargetCanvas()+ ' from scoreboard')
 
             this.hasRun = true;
             this.restartGame = false // reset from restart
@@ -61,10 +58,8 @@ class Scoreboard implements DrawableObject {
         this.drawBackground();
         this.drawOldTargetCanvas();
         this.drawText();
-        
-        this.drawWinnerList()
-        //this.countPixelsInTarget(this.target.getCutoutImage)
 
+        this.drawWinnerList()
     }
 
     //add background effects here.
@@ -116,43 +111,42 @@ class Scoreboard implements DrawableObject {
     }
 
 
+
     private countPixelsInTarget(targetImage: p5.Image){
-        console.log(targetImage.width+ " " + targetImage.height + ' img w h');
-        //let colorList[]
-        push()
         targetImage.loadPixels()
         console.log('target nr of pixels ' + targetImage.pixels.length/4)
-        console.log(targetImage.pixels[0]+targetImage.pixels[1]+targetImage.pixels[2])
-        
-        for(let i = 0; /*targetImage.pixels.length*/ 24 > i; i++){
-            console.log(targetImage.pixels[i])
-        }
+        let otherColor = 0
+        let blue = 0
+        let green = 0
+        let purple = 0
+        let yellow = 0
 
-        pop()
-    }
-
-    private testFillColorFractionList(){
-        this.colorList.push({red: 0, green: 0, blue: 255, fractionOfCanvas: 2}) //blue
-        this.colorList.push({red: 255, green: 0, blue: 0, fractionOfCanvas: 1}) //red
-        this.colorList.push({red: 255, green: 255, blue: 255, fractionOfCanvas: 5}) //white
-        this.colorList.push({red: 0, green: 255, blue: 0, fractionOfCanvas: 3}) //green
-        
-        console.log(this.colorList)
-    }
-
-    private sortColorFractionList(){
-
-        //if white found, remove from list.
-        for(let i = 0; this.colorList.length > i; i++){
-            if(this.colorList[i].red == 255 && this.colorList[i].green == 255 && this.colorList[i].blue == 255){ 
-                console.log('remove white background ' + this.colorList[i].fractionOfCanvas)
-                this.colorList.splice(i,1)
+        for(let i = 0; targetImage.pixels.length > i; i += 4){
+            if(targetImage.pixels[i] !== 255 && targetImage.pixels[i+1] !== 255 && targetImage.pixels[i+2] !== 255){
+                otherColor ++
+            }
+            if(targetImage.pixels[i] === 74 && targetImage.pixels[i+1] === 124 && targetImage.pixels[i+2] === 221){
+                blue ++
+            }
+            if(targetImage.pixels[i] === 102 && targetImage.pixels[i+1] === 233 && targetImage.pixels[i+2] === 69){
+                green ++
+            }
+            if(targetImage.pixels[i] === 202 && targetImage.pixels[i+1] === 94 && targetImage.pixels[i+2] === 211){
+                purple ++
+            }
+            if(targetImage.pixels[i] === 231 && targetImage.pixels[i+1] === 255 && targetImage.pixels[i+2] === 87){
+                yellow ++
             }
         }
-
-        //sort list so most pixels are on top.
-        this.colorList.sort((a, b)  => (b.fractionOfCanvas - a.fractionOfCanvas))
-        console.log(this.colorList)
+        console.log('blue: ' + blue + ' purple: ' + purple + ' green: ' + green  + ' yellow: ' + yellow + ' other ' + otherColor)
+        
+        this.colorScoreList.push({playerColor: 'blue', pixelCount: blue})
+        this.colorScoreList.push({playerColor: 'green', pixelCount: green})
+        this.colorScoreList.push({playerColor: 'purple', pixelCount: purple})
+        this.colorScoreList.push({playerColor: 'yellow', pixelCount: yellow})
+        
+        this.colorScoreList.sort((a,b) => (b.pixelCount - a.pixelCount))
+        console.log(this.colorScoreList)
     }
 
     private drawWinnerList(){
@@ -161,26 +155,28 @@ class Scoreboard implements DrawableObject {
         textSize(40)
 
         let spaceBetweenText = 0
-
-        //loop over list and print winner.
-        for(let i = 0; this.colorList.length > i; i++){
-            if(i === 0){
-                fill(this.colorList[i].red, this.colorList[i].green, this.colorList[i].blue)
-                text("1st:  winner " + this.colorList[i].fractionOfCanvas,windowWidth/2,windowHeight*0.7 + spaceBetweenText)
-                spaceBetweenText += 50;
-            }
-            if(i === 1){
-                fill(this.colorList[i].red, this.colorList[i].green, this.colorList[i].blue)
-                text("2nd:" + this.colorList[i].fractionOfCanvas,windowWidth/2,windowHeight*0.7 + spaceBetweenText)
-                spaceBetweenText += 50;
-            }
-            if(i === 2){
-                //3rd
-            }
-            if(i === 3){
-                //4th
-            }
+        if(this.colorScoreList[0].pixelCount !== 0){
+            fill(this.colorScoreList[0].playerColor)
+            text("1st: " + this.colorScoreList[0].pixelCount, windowWidth/2,windowHeight*0.7 + spaceBetweenText)
+            spaceBetweenText += 50;
         }
+        if(this.colorScoreList[1].pixelCount !== 0){
+            fill(this.colorScoreList[1].playerColor)
+            text("2nd: " + this.colorScoreList[1].pixelCount, windowWidth/2,windowHeight*0.7 + spaceBetweenText)
+            spaceBetweenText += 50;
+        }
+        if(this.colorScoreList[2].pixelCount !== 0){
+            fill(this.colorScoreList[2].playerColor)
+            text("3rd: " + this.colorScoreList[2].pixelCount, windowWidth/2,windowHeight*0.7 + spaceBetweenText)
+            spaceBetweenText += 50;
+        }
+
+        if(this.colorScoreList[3].pixelCount !== 0){
+            fill(this.colorScoreList[3].playerColor)
+            text("4th: " + this.colorScoreList[3].pixelCount, windowWidth/2,windowHeight*0.7 + spaceBetweenText)
+            spaceBetweenText += 50;
+        }
+
         pop()
     }
 }

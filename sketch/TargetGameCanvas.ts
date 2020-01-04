@@ -10,6 +10,7 @@ class TargetGameCanvas implements MovingObject {
     private targetCanvasHeight: number = 0;
     private targetCanvasDirection: boolean = false;
     private cutOutImage: p5.Image = new p5.Image();
+    //private pixelInCanvas: any
 
     // Class constructor
     constructor (velX: number, velY: number) {
@@ -23,10 +24,12 @@ class TargetGameCanvas implements MovingObject {
     // Class functions
     public draw(): void {
         // Insert draw logic here
+        
         this.updatePos();
         this.drawTargetBoard();     //empty target canvas drawn first
         this.drawSplash();          //then splashes
         this.drawFrameAroundTargetCanvas();
+
         //this.cutOutTargetCanvas();  //canvas is cut out to remove splashes outside target canvas
         //this.drawBackground();      //background is drawn over target canvas
         //this.drawTargetCutOutOnBackground();    //the cutout is added on top of background.
@@ -83,9 +86,9 @@ class TargetGameCanvas implements MovingObject {
         //draw bottom border
         rect(0, this.targetCanvasPosY + this.targetCanvasHeight, windowWidth, windowHeight - (this.targetCanvasPosY + this.targetCanvasHeight))
         //draw left border
-        rect(0, this.targetCanvasPosY, this.targetCanvasPosX,this.targetCanvasHeight)
+        rect(0, this.targetCanvasPosY-1, this.targetCanvasPosX,this.targetCanvasHeight+2)
         //draw right border
-        rect(this.targetCanvasPosX+this.targetCanvasWidth, this.targetCanvasPosY, windowWidth-(this.targetCanvasPosX+this.targetCanvasWidth), this.targetCanvasHeight)
+        rect(this.targetCanvasPosX+this.targetCanvasWidth, this.targetCanvasPosY-1, windowWidth-(this.targetCanvasPosX+this.targetCanvasWidth), this.targetCanvasHeight+2)
         pop()
 
     }
@@ -149,6 +152,7 @@ class TargetGameCanvas implements MovingObject {
 
     private cutOutTargetCanvas(){
         this.cutOutImage = get(this.targetCanvasPosX,this.targetCanvasPosY,this.targetCanvasWidth,this.targetCanvasHeight);
+        
     }
     
     public get getCutoutImage(): p5.Image{
@@ -159,5 +163,63 @@ class TargetGameCanvas implements MovingObject {
     public getSplashList() {
         return this.splashList
     }
+    
+    // public findPixelColorInTargetCanvas() {
+    //     this.pixelInCanvas = get(this.targetCanvasPosX,this.targetCanvasPosY)
+    //     let targetPixelX = this.targetCanvasPosX
+    //     let targetPixelY = this.targetCanvasPosY
+    //     let blue = 0;
+    //     let purple = 0;
+    //     let green = 0;
+    //     let yellow = 0;
+    //     let otherColor = 0
+    //     targetPixelX --
+    //     targetPixelY --
+
+        
+
+    //     for(let i=0; targetPixelX <= this.targetCanvasPosX + this.targetCanvasWidth; i++) {
+    //         targetPixelY = this.targetCanvasPosY
+    //         targetPixelX ++
+    //         this.pixelInCanvas = get(targetPixelX,targetPixelY)
+        
+    //         for (let j=0; targetPixelY <= this.targetCanvasPosY + this.targetCanvasHeight; j++) {
+
+    //             targetPixelY ++
+    //             this.pixelInCanvas = get(targetPixelX, targetPixelY)
+    //             if (this.pixelInCanvas[0] === 74 && this.pixelInCanvas[1] === 124 && this.pixelInCanvas[2] === 221 ) {
+    //                 blue ++
+                    
+    //             } else if (this.pixelInCanvas[0] === 202 && this.pixelInCanvas[1] === 94 && this.pixelInCanvas[2] === 211 ) {
+    //                 purple ++
+    //             } else if (this.pixelInCanvas[0] === 102 && this.pixelInCanvas[1] === 233 && this.pixelInCanvas[2] === 69 ) {
+    //                 green ++
+    //             } else if (this.pixelInCanvas[0] === 231 && this.pixelInCanvas[1] === 255 && this.pixelInCanvas[2] === 87 ) {
+    //                 yellow ++
+    //             }
+
+    //             if(this.pixelInCanvas[0] !== 255 && this.pixelInCanvas[1] !== 255 && this.pixelInCanvas[2] !== 255){
+    //                 otherColor ++
+    //             }
+    //         }
+            
+            
+
+    //     }
+
+        // for(let j = 0; this.targetCanvasHeight > j; j++){
+
+        //     for(let i = 0; this.targetCanvasWidth > i; i++){
+        //         if(get(this.targetCanvasPosX + i, this.targetCanvasPosY + j )[0] !== 255 ){
+        //             console.log(get(this.targetCanvasPosX + i, this.targetCanvasPosY + j) + 'line j '+ (j + this.targetCanvasPosY) +  " x "+ this.targetCanvasPosX + i)
+        //         }  
+        //     }      
+        // }
+
+
+
+    //     return [blue , purple, green, yellow, otherColor]
+        
+    // }
 
 }
