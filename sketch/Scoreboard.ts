@@ -31,7 +31,7 @@ class Scoreboard implements DrawableObject {
             this.targetCanvasCutoutImage = this.target.getCutoutImage;
             this.countPixelsInTarget(this.targetCanvasCutoutImage)
 
-            console.log('blue purple green yellow other ' + this.target.findPixelColorInTargetCanvas()+ ' from scoreboard')
+            //console.log('blue purple green yellow other ' + this.target.findPixelColorInTargetCanvas()+ ' from scoreboard')
 
             this.hasRun = true;
             this.restartGame = false // reset from restart
