@@ -23,15 +23,22 @@ class PowerUp implements MovingObject, CollidableObject {
     // Class functions
     public draw(): void {
         push()
-        stroke(50);
-        fill('red');
+        stroke(100);
+        noStroke()
+        fill(this.color);
         circle(this.x, this.y, this.radius*2);
+        fill("yellow")
+        triangle(this.x - 10,this.y, this.x,this.y - 15, this.x + 10, this.y)
+        // line(this.x - 20,this.y - 15,this.x + 20,this.y - 15)
+        // line(this.x - 20,this.y - 15, this.x, this.y - 30)
+        // line(this.x + 20,this.y - 15, this.x, this.y - 30)
+        rect(this.x - 5,this.y,10,15)
         pop()
         
         this.x = this.x + 0;
         
         // Moving up at a constant speed
-        this.y = this.y + 0.3;
+        this.y = this.y + 0.6;
     }
 
     // public checkCollision(otherObjectList: Array<CollidableObject>): void{
