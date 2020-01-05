@@ -12,6 +12,11 @@ namespace _ply {
         private barrelPoint = {x: 0, y: 0}
         private cooldownActive = false
         private cooldownValue = 0
+        private hasSuperBlastPowerUp: boolean = false
+        private blastRadius: number = 150
+        private speedCannonPowerUp: number = 0
+        private coolDownTime: number = 70;
+
 
         constructor (name: string, color: string, aimLeft: Array<string>, fireButton: Array<string>, aimRight: Array<string>, cOM: PassByFire, position: {x: number, y:number}) {
             super(name, color, aimLeft, fireButton, aimRight)
@@ -121,10 +126,25 @@ namespace _ply {
                             projectile.setHasExploded(true)
 
                             //Draw color from projectile explosion on canvas
-                            this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, random(100, 200))                                                        
+                            if(this.hasSuperBlastPowerUp === true){
+                                this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, this.blastRadius*2)
+                                this.hasSuperBlastPowerUp = false
+                                console.log('add power splash')                                                        
+                            }
+                            else{
+                                this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, this.blastRadius) 
+                                console.log('normal splash')
+                            }
                             
                             // Cooldown 1 second after exploding projectile
-                            let cooldown = 50
+                            let cooldown = this.coolDownTime
+
+                            if(this.speedCannonPowerUp > 0){
+                                cooldown = cooldown/2
+                                this.speedCannonPowerUp --
+                            }
+
+
                             this.cooldownActive = true
                             let cooldownTimer = setInterval( ()=> {
                                 cooldown--
@@ -182,9 +202,12 @@ namespace _ply {
            
         // Gets called from PlayerProjectile in checkCollision if projectile collides with PowerUp
         private applyPowerUp (powerUp: string) {
-            
-            console.log(powerUp);
-            
+            this.hasSuperBlastPowerUp = true
+            this.speedCannonPowerUp = 3
+            console.log('hejehjehej');
         }
+        
     }
 }
+
+
