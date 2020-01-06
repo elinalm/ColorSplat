@@ -30,6 +30,9 @@ class TargetGameCanvas implements MovingObject {
         this.drawSplash();          //then splashes
         this.drawFrameAroundTargetCanvas();
 
+        this.drawCloud(windowWidth*0.75 , this.targetCanvasPosY/2)
+        this.drawLogo(windowWidth/4, windowHeight/8)
+
         //this.cutOutTargetCanvas();  //canvas is cut out to remove splashes outside target canvas
         //this.drawBackground();      //background is drawn over target canvas
         //this.drawTargetCutOutOnBackground();    //the cutout is added on top of background.
@@ -80,7 +83,7 @@ class TargetGameCanvas implements MovingObject {
     private drawFrameAroundTargetCanvas(){
         push()
         noStroke();
-        fill('blue');
+        fill(20,50,100);
         //draw top border
         rect(0,0,windowWidth,this.targetCanvasPosY)
         //draw bottom border
@@ -91,6 +94,42 @@ class TargetGameCanvas implements MovingObject {
         rect(this.targetCanvasPosX+this.targetCanvasWidth, this.targetCanvasPosY-1, windowWidth-(this.targetCanvasPosX+this.targetCanvasWidth), this.targetCanvasHeight+2)
         pop()
 
+    }
+
+    private drawCloud(xPos: number, yPos: number){
+        push()
+        noStroke()
+        fill('white')
+        ellipse(xPos,yPos,55,65)
+        ellipse(xPos+30,yPos-10,55,65)
+        ellipse(xPos+80,yPos,55,65)
+        ellipse(xPos+20,yPos+20,55,65)
+        ellipse(xPos+60,yPos+20,55,65)
+        pop()
+    }
+
+    //from menu
+    private drawLogo(logoX:number, logoY:number){
+
+        //draw game-logo
+        textSize(30);
+        fill(253, 228, 6);
+        textFont('Orbitron, sans-serif');
+        textAlign(CENTER)
+        text("S", logoX, logoY);
+        fill(255,165,0);
+        text("p", logoX + 20, logoY);
+        fill(255,0,0);
+        text("l", logoX + 38, logoY);
+        fill(75,0,130);
+        text("a", logoX + 50, logoY);
+        fill(0,0,205);
+        text("t", logoX + 65, logoY);
+        fill(255,255,255);
+        textSize(30)
+        textFont('Titillium Web, sans-serif');
+        text("Color", logoX - 10, logoY - 25);
+        pop()
     }
 
     // private drawTargetCutOutOnBackground(){
