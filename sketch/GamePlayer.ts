@@ -149,7 +149,6 @@ namespace _ply {
                             this.cooldownActive = true
                             let cooldownTimer = setInterval( ()=> {
                                 cooldown--
-                                console.log(cooldown, this.cooldownValue);
                                 
                                 this.cooldownValue += 180/50
 
