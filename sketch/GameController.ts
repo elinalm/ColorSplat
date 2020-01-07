@@ -5,8 +5,8 @@ class GameController {
     private isGameOver = false
     private target = new TargetGameCanvas(windowWidth / 2, windowHeight / 2);
     private collidableObjectManager = new CollidableObjectManager(this.target);
-    // private timerCreated = false
-    private timer?: Timer
+    private timerCreated = false
+    private timer: Timer = new Timer(1,1,1)
     private playerFactory = new PlayerFactory(this.collidableObjectManager)
     private builtPlayers = false
     private buildGamePlayers: Array<_ply.GamePlayer> = []
@@ -63,8 +63,9 @@ class GameController {
                 //console.log(randomNumber)
             }
 
-            if (!this.timer) {
+            if (!this.timerCreated) {
                 this.timer = new Timer(this.startMenu.getSelectedTime(), width / 2, height * 1 / 6);
+                this.timerCreated = true
             }
 
 
@@ -116,6 +117,7 @@ class GameController {
                 this.target = new TargetGameCanvas(windowWidth / 2, windowHeight / 2);
                 this.timer = new Timer(50, width / 2, height * 1 / 6);
                 this.builtPlayers = false;
+                this.timerCreated = false
 
                 // Ska spelare skapas på nytt? Eller går det att återanvända gamla spelare?
                 // this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers());
