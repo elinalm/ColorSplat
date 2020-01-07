@@ -11,7 +11,7 @@ namespace _ply {
         private yPos : number
         private barrelPoint = {x: 0, y: 0}
         private cooldownActive = false
-        private cooldownValue = 0
+        private cooldownValue = -180
         private hasSuperBlastPowerUp: boolean = false
         private blastRadius: number = 150
         private speedCannonPowerUp: number = 0
@@ -34,7 +34,8 @@ namespace _ply {
         }
     
         // Class functions
-        draw(): void {
+        
+        draw(): void { 
             
             //Barrel outline
             push()
@@ -83,7 +84,8 @@ namespace _ply {
             strokeWeight(3)
             stroke(`rgb(${this.color})`)
             arc(this.xPos, (this.yPos), 80, 80, radians(-180), radians(this.cooldownValue))
-            pop()    
+            pop() 
+
         }
 
         update() /*: PlayerProjectile*/ {
@@ -116,7 +118,6 @@ namespace _ply {
             if (keyIsDown(this.fireButton[1])) {
                 const projectileArray = this.cOM.getCollidableObjectList()
 
-                this.cooldownValue = -180
                 // If projectile exists
                 if (this.projectileExists) {
                     // Remove the projectile from the stack
@@ -148,6 +149,7 @@ namespace _ply {
                             this.cooldownActive = true
                             let cooldownTimer = setInterval( ()=> {
                                 cooldown--
+                                
                                 this.cooldownValue += 180/50
 
                                 // If cooldown is done
@@ -156,7 +158,7 @@ namespace _ply {
                                     clearInterval(cooldownTimer)
                                     // Reset cooldownActive and value
                                     this.cooldownActive = false
-                                    this.cooldownValue = 0
+                                    this.cooldownValue = -180
                                     // Remove projectile
                                     this.projectileExists = false
                                     this.cOM.removeCollidableObjectFromList(i)
@@ -187,7 +189,7 @@ namespace _ply {
             // If firebutton is released and player should shoot
             if (!keyIsDown(this.fireButton[1])&&(this.shouldFire)) {
                 // Create projectile and add it to the stack
-                const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos*.03*(windowHeight*.03)),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
+                const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos*(windowHeight*.001)),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
                 this.cOM.addCollidableObjectToList(projectile)
 
                 // Reset barrels position
@@ -201,7 +203,7 @@ namespace _ply {
     
            
         // Gets called from PlayerProjectile in checkCollision if projectile collides with PowerUp
-        private applyPowerUp (powerUp: string) {
+        public applyPowerUp (powerUp: string) {
             this.hasSuperBlastPowerUp = true
             this.speedCannonPowerUp = 3
             console.log('hejehjehej');
