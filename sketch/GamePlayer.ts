@@ -207,12 +207,12 @@ namespace _ply {
             console.log('hejehjehej');
             const type = powerUp.type
             
-            if(type === 'SpeedCanon'){
-                //
+            if(type === 'SuperBlast'){
                 this.hasSuperBlastPowerUp = true
-                console.log('')
             }
-            this.speedCannonPowerUp = 3
+            else if(type === 'SpeedCanon'){
+                this.speedCannonPowerUp = 3
+            }
         }
         
     }

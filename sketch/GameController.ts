@@ -145,8 +145,21 @@ class GameController {
             console.log("no powerups")
         }
 
+        let randomNumber = Math.round(random(0,1))
+
+        let powerUpString: PowerUpType
+        
+        if (randomNumber == 0){
+            powerUpString = 'SpeedCanon'
+        }
+        
+        else {
+        powerUpString = 'SuperBlast'
+        }
+        console.log(powerUpString)
+
         if (!this.powerUpExists) {
-            const powerUp = new PowerUp(random(0, windowWidth), -50, 10, 10, 25, '#1aff1a', this.collidableObjectManager, 'SpeedCanon')
+            const powerUp = new PowerUp(random(0, windowWidth), -50, 10, 10, 25, '#1aff1a', this.collidableObjectManager, powerUpString )
             this.collidableObjectManager.addCollidableObjectToList(powerUp)
             // this.powerUpExists = true
             powerUp.draw()
