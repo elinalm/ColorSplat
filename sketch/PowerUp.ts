@@ -1,4 +1,4 @@
-type PowerUpType = 'SuperBast' | 'SpeedCanon'
+type PowerUpType = 'SuperBlast' | 'SpeedCanon'
 
 class PowerUp implements MovingObject, CollidableObject {
     // Class attributes
@@ -38,7 +38,14 @@ class PowerUp implements MovingObject, CollidableObject {
         noStroke()
         fill(this.color);
         circle(this.x, this.y, this.radius*2);
-        fill("yellow")
+        
+        if(this._type == 'SuperBlast'){
+            fill('red')
+        }
+        else {
+            fill('yellow')
+        }
+        
         triangle(this.x - 10,this.y, this.x,this.y - 15, this.x + 10, this.y)
         // line(this.x - 20,this.y - 15,this.x + 20,this.y - 15)
         // line(this.x - 20,this.y - 15, this.x, this.y - 30)
@@ -50,6 +57,7 @@ class PowerUp implements MovingObject, CollidableObject {
         
         // Moving up at a constant speed
         this.y = this.y + 1;
+
     }
 
     // public checkCollision(otherObjectList: Array<CollidableObject>): void{
