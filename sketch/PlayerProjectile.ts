@@ -9,9 +9,9 @@ class PlayerProjectile implements MovingObject, CollidableObject {
     y: number
     private projectileGravity: number = 0.2
     blastRadius: number
-    projectileAndPowerUpCollision: boolean = false
     ownerPlayer: PlayerFromProjectile
     hasExploded: boolean = false
+    shouldBeRemoved: boolean = false
     // applyPowerUpCallback: () => void
     
     // Class constructor
@@ -129,10 +129,10 @@ class PlayerProjectile implements MovingObject, CollidableObject {
                         if(otherObject instanceof PowerUp){
                             //powerUp code here
                             
-                        this.projectileAndPowerUpCollision = true;
-                        otherObject.projectileAndPowerUpCollision = true;
                         this.ownerPlayer.setProjectileExists(false)
                         this.ownerPlayer.applyPowerUp(otherObject)
+                        this.shouldBeRemoved = true;
+                        otherObject.shouldBeRemoved = true;
                         
                         }
                     }

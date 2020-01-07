@@ -22,7 +22,7 @@ interface CollidableObject extends MovingObject{
     y: number
     radius: number
     color: string
-    projectileAndPowerUpCollision: boolean
+    shouldBeRemoved: boolean
     // checkCollision: (otherObject: CollidableObject[]) => void
     setHasExploded?:(status: boolean) => void
     getHasExploded?:() => boolean

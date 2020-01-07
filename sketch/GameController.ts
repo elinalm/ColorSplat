@@ -158,7 +158,7 @@ class GameController {
         else {
         powerUpString = 'SuperBlast'
         }
-        console.log(powerUpString)
+        // console.log(powerUpString)
 
         if (!this.powerUpExists) {
             const powerUp = new PowerUp(random(0, windowWidth), -50, 10, 10, 25, '#1aff1a', this.collidableObjectManager, powerUpString )
