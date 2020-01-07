@@ -203,10 +203,16 @@ namespace _ply {
     
            
         // Gets called from PlayerProjectile in checkCollision if projectile collides with PowerUp
-        public applyPowerUp (powerUp: string) {
-            this.hasSuperBlastPowerUp = true
-            this.speedCannonPowerUp = 3
+        public applyPowerUp (powerUp: PowerUp) {
             console.log('hejehjehej');
+            const type = powerUp.type
+            
+            if(type === 'SpeedCanon'){
+                //
+                this.hasSuperBlastPowerUp = true
+                console.log('')
+            }
+            this.speedCannonPowerUp = 3
         }
         
     }

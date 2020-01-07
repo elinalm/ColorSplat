@@ -132,7 +132,7 @@ class PlayerProjectile implements MovingObject, CollidableObject {
                         this.projectileAndPowerUpCollision = true;
                         otherObject.projectileAndPowerUpCollision = true;
                         this.ownerPlayer.setProjectileExists(false)
-                        this.ownerPlayer.applyPowerUp('activating PowerUp')
+                        this.ownerPlayer.applyPowerUp(otherObject)
                         
                         }
                     }

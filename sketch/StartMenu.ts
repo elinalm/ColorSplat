@@ -1,6 +1,6 @@
 class StartMenu implements DrawableObject {
     // Class attribute
-    private playerFactory = new PlayerFactory();
+    private playerFactory = new PlayerFactory()
     private noOfPlayers = 4
     private isPlayerPressed = false
     private isTimerPressed = false

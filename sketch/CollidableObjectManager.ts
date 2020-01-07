@@ -16,6 +16,9 @@ class CollidableObjectManager {
             }
         }
         this.removeCollidedObjects(); //remove missiles and draw splash
+
+        // this.printList()
+        //this.generatePowerUps()
     }
 
     private removeCollidedObjects(){
@@ -38,6 +41,15 @@ class CollidableObjectManager {
                     // Tar bort projektilen
                     this.removeCollidableObjectFromList(i)       
                     //Tar bort projektiler som inte syns på skärmen längre
+                }
+            }
+
+            if (this.collidableObjectList[i] instanceof PowerUp) {
+                if(this.collidableObjectList[i].x > windowWidth || this.collidableObjectList[i].x < 0 || this.collidableObjectList[i].y > windowHeight) {
+
+                    this.removeCollidableObjectFromList(i)  
+                    console.log('removed powerUp')     
+                    //Tar bort powerUps som inte syns på skärmen längre
                 }
             }
         }
@@ -74,4 +86,7 @@ class CollidableObjectManager {
         // this.addCollidableObjectToList(test4)
         // this.addCollidableObjectToList(test5)
     }
+
+
+
 }

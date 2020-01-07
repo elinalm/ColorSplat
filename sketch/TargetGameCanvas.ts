@@ -110,7 +110,7 @@ class TargetGameCanvas implements MovingObject {
 
     //from menu
     private drawLogo(logoX:number, logoY:number){
-
+        push()
         //draw game-logo
         textSize(30);
         fill(253, 228, 6);
