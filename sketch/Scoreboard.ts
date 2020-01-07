@@ -5,6 +5,8 @@ class Scoreboard implements DrawableObject {
     private fadeCounter: number = 0
     restartGame: boolean = false
     targetCanvasCutoutImage: p5.Image = new p5.Image();
+    private totalPixelsInCanvas: number = 0
+    private scoreBarCounter: number = 0
 
     private colorScoreList: Array<{playerColor: string, pixelCount: number}> = []
 
@@ -114,7 +116,8 @@ class Scoreboard implements DrawableObject {
 
     private countPixelsInTarget(targetImage: p5.Image){
         targetImage.loadPixels()
-        console.log('target nr of pixels ' + targetImage.pixels.length/4)
+        //console.log('target nr of pixels ' + targetImage.pixels.length/4)
+        this.totalPixelsInCanvas =  targetImage.pixels.length/4
         let otherColor = 0
         let blue = 0
         let green = 0
@@ -150,33 +153,69 @@ class Scoreboard implements DrawableObject {
     }
 
     private drawWinnerList(){
+        //grow scoreBar
+        if(this.scoreBarCounter <= 1){
+            this.scoreBarCounter += 0.003
+        }
+
+        //increase winner scoreBar length
+        let scoreBarWidth = windowWidth*0.2
+        scoreBarWidth = scoreBarWidth / (this.colorScoreList[0].pixelCount/this.totalPixelsInCanvas)
         push()
         fill('blue')
         textSize(40)
+        textAlign(RIGHT,TOP)
+        noStroke()
 
+        //print out winners
         let spaceBetweenText = 0
         if(this.colorScoreList[0].pixelCount !== 0){
             fill(this.colorScoreList[0].playerColor)
-            text("1st: " + this.colorScoreList[0].pixelCount, windowWidth/2,windowHeight*0.7 + spaceBetweenText)
+            rect(windowWidth/2, windowHeight*0.7 + spaceBetweenText, scoreBarWidth*this.scoreBarCounter*(this.colorScoreList[0].pixelCount/this.totalPixelsInCanvas), 40)
+            text("1st: " + this.calcPercentPixels(this.colorScoreList[0].pixelCount) + "% ", windowWidth/2,windowHeight*0.7 + spaceBetweenText)
             spaceBetweenText += 50;
         }
         if(this.colorScoreList[1].pixelCount !== 0){
             fill(this.colorScoreList[1].playerColor)
-            text("2nd: " + this.colorScoreList[1].pixelCount, windowWidth/2,windowHeight*0.7 + spaceBetweenText)
+            rect(windowWidth/2, windowHeight*0.7 + spaceBetweenText, scoreBarWidth*this.scoreBarCounter*(this.colorScoreList[1].pixelCount/this.totalPixelsInCanvas), 40)
+            text("2nd: " + this.calcPercentPixels(this.colorScoreList[1].pixelCount) + "% ", windowWidth/2,windowHeight*0.7 + spaceBetweenText)
             spaceBetweenText += 50;
         }
         if(this.colorScoreList[2].pixelCount !== 0){
             fill(this.colorScoreList[2].playerColor)
-            text("3rd: " + this.colorScoreList[2].pixelCount, windowWidth/2,windowHeight*0.7 + spaceBetweenText)
+            rect(windowWidth/2, windowHeight*0.7 + spaceBetweenText, scoreBarWidth*this.scoreBarCounter*(this.colorScoreList[2].pixelCount/this.totalPixelsInCanvas), 40)
+            text("3rd: " + this.calcPercentPixels(this.colorScoreList[2].pixelCount) + "% ", windowWidth/2,windowHeight*0.7 + spaceBetweenText)
             spaceBetweenText += 50;
         }
 
         if(this.colorScoreList[3].pixelCount !== 0){
             fill(this.colorScoreList[3].playerColor)
-            text("4th: " + this.colorScoreList[3].pixelCount, windowWidth/2,windowHeight*0.7 + spaceBetweenText)
+            rect(windowWidth/2, windowHeight*0.7 + spaceBetweenText, scoreBarWidth*this.scoreBarCounter*(this.colorScoreList[3].pixelCount/this.totalPixelsInCanvas), 40)
+            text("4th: " + this.calcPercentPixels(this.colorScoreList[3].pixelCount) + "% ", windowWidth/2,windowHeight*0.7 + spaceBetweenText)
             spaceBetweenText += 50;
         }
 
+        let noWinner = 0
+        for (const colorScoreObj of this.colorScoreList) {
+            noWinner += colorScoreObj.pixelCount
+        }
+
+        //if all player have zero pixels, print no winners
+        if(noWinner === 0){
+            push()
+            fill(128)
+            textAlign(CENTER)
+            text("No Winner", windowWidth/2,windowHeight*0.7 + spaceBetweenText)
+            pop()
+        }
+
         pop()
+    }
+
+    //return percent whit fixed decimal points.
+    private calcPercentPixels(inPixels:number): string{
+        let percentOut = inPixels / this.totalPixelsInCanvas
+        percentOut = percentOut * 100
+        return percentOut.toFixed(3)
     }
 }
