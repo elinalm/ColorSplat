@@ -1,3 +1,5 @@
+type PowerUpType = 'SuperBast' | 'SpeedCanon'
+
 class PowerUp implements MovingObject, CollidableObject {
     // Class attributes
     x: number
@@ -9,8 +11,12 @@ class PowerUp implements MovingObject, CollidableObject {
     cOM: PassByFire
     projectileAndPowerUpCollision: boolean = false
 
+    private _type: PowerUpType
+    public isSuperBlastPowerUp: boolean = false
+    public isSpeedCannonPowerUp: boolean = false
+
     // Class constructor
-    constructor (posX: number, posY:number, velX: number, velY: number, radius: number, color: string, cOM: PassByFire) { 
+    constructor (posX: number, posY:number, velX: number, velY: number, radius: number, color: string, cOM: PassByFire, type: PowerUpType) { 
         this.x = posX
         this.y = posY
         this.velX = velX
@@ -18,6 +24,11 @@ class PowerUp implements MovingObject, CollidableObject {
         this.radius = radius
         this.color = color
         this.cOM = cOM
+        this._type = type
+    }
+
+    public get type(): PowerUpType {
+        return this._type
     }
 
     // Class functions
@@ -38,7 +49,7 @@ class PowerUp implements MovingObject, CollidableObject {
         this.x = this.x + 0;
         
         // Moving up at a constant speed
-        this.y = this.y + 0.6;
+        this.y = this.y + 1;
     }
 
     // public checkCollision(otherObjectList: Array<CollidableObject>): void{

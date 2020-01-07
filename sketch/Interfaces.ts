@@ -30,7 +30,7 @@ interface CollidableObject extends MovingObject{
 
 interface PlayerFromProjectile {
     setProjectileExists:(status: boolean) => void
-    applyPowerUp:(powerUp: string) => void
+    applyPowerUp:(powerUp: PowerUp) => void
 }
 
 interface PassByFire {
