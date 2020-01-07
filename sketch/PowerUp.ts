@@ -9,7 +9,7 @@ class PowerUp implements MovingObject, CollidableObject {
     radius: number
     color: string
     cOM: PassByFire
-    projectileAndPowerUpCollision: boolean = false
+    shouldBeRemoved: boolean = false
 
     private _type: PowerUpType
     public isSuperBlastPowerUp: boolean = false

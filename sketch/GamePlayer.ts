@@ -191,7 +191,8 @@ namespace _ply {
                 // Create projectile and add it to the stack
                 const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos*(windowHeight*.001)),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
                 this.cOM.addCollidableObjectToList(projectile)
-
+                // console.log(this.cOM.getCollidableObjectList());
+                
                 // Reset barrels position
                 this.barrelPos = 0
                 // Reset shoot instruction
