@@ -14,7 +14,7 @@ namespace _ply {
         private hasSuperBlastPowerUp: boolean = false
         private blastRadius: number = 150
         private speedCannonPowerUp: number = 0
-        private coolDownTime: number = 70;
+        private coolDownTime: number = 60;
 
 
         constructor (name: string, color: string, aimLeft: Array<string>, fireButton: Array<string>, aimRight: Array<string>, cOM: PassByFire, position: {x: number, y:number}) {
@@ -87,7 +87,7 @@ namespace _ply {
         }
 
         update() /*: PlayerProjectile*/ {
-            
+
             // Save barrels x position for projectile spawnpoint
             this.barrelPoint.x = this.xPos + ((this.angle-180)*1.6)
             // Save barrels y position for projectile spawnpoint
@@ -148,12 +148,15 @@ namespace _ply {
                         this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, this.blastRadius) 
                         console.log('normal splash')
                     }
+                    this.coolDownTime = (this.speedCannonPowerUp > 0) ? 30 : 60
 
                     let cooldown = this.coolDownTime
+
+
                     let cooldownTimer = setInterval( ()=> {
                         cooldown--
                         
-                        this.cooldownValue += 180/50
+                        this.cooldownValue += 180/this.coolDownTime
 
                         // If cooldown is done
                         if (cooldown === 0) {
@@ -190,8 +193,11 @@ namespace _ply {
         
         private shootProjectile() {
             console.log('shooting projectile');
-            const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos*(windowHeight*.001)),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
+            const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos*(windowHeight*.0015)),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
             this.cOM.addCollidableObjectToList(projectile)
+            this.speedCannonPowerUp = (this.speedCannonPowerUp <= 0) ? this.speedCannonPowerUp = 0 : this.speedCannonPowerUp -= 1
+            console.log(this.speedCannonPowerUp);
+            
         }     
            
         // Gets called from PlayerProjectile in checkCollision if projectile collides with PowerUp
@@ -202,7 +208,7 @@ namespace _ply {
                 this.hasSuperBlastPowerUp = true
             }
             else if(type === 'SpeedCanon'){
-                this.speedCannonPowerUp = 3
+                this.speedCannonPowerUp = 4
             }
         }
         
