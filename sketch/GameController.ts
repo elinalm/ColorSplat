@@ -93,8 +93,11 @@ class GameController {
         }
 
         if (!this.powerUpExists) {
-            const powerUp = new PowerUp(random(0, windowWidth), -50, 10, 10, 25, '#1aff1a', this.collidableObjectManager, this.powerUpTypeRandom() )
-            this.collidableObjectManager.addCollidableObjectToList(powerUp)
+            let randomDigit = round(random(1,300)) //random spawn delay if powerUp does not exist
+            if(randomDigit === 150){
+                const powerUp = new PowerUp(random(0, windowWidth), -50, 10, 10, 25, '#1aff1a', this.collidableObjectManager, this.powerUpTypeRandom() )
+                this.collidableObjectManager.addCollidableObjectToList(powerUp)
+            }
         }
     }
 

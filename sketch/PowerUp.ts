@@ -53,7 +53,7 @@ class PowerUp implements MovingObject, CollidableObject {
         rect(this.x - 5,this.y,10,15)
         pop()
         
-        this.x = this.x + 0;
+        this.x = this.x += random(-1,1);//random x-axis wiggle
         
         // Moving up at a constant speed
         this.y = this.y + 1;
