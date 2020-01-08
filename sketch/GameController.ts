@@ -1,13 +1,13 @@
 class GameController {
     // Class attributes //
-    private startMenu = new StartMenu(width / 2, height * 1 / 7);
-    private isGameStarted = false
-    private isGameOver = false
     private target = new TargetGameCanvas(windowWidth / 2, windowHeight / 2);
     private collidableObjectManager = new CollidableObjectManager(this.target);
+    private playerFactory = new PlayerFactory(this.collidableObjectManager)
+    private startMenu = new StartMenu(width / 2, height * 1 / 7, this.playerFactory);
+    private isGameStarted = false
+    private isGameOver = false
     private timerCreated = false
     private timer: Timer = new Timer(1,1,1)
-    private playerFactory = new PlayerFactory(this.collidableObjectManager)
     private builtPlayers = false
     private buildGamePlayers: Array<_ply.GamePlayer> = []
     private powerUpExists = false
@@ -76,8 +76,8 @@ class GameController {
         // this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers());
         this.buildGamePlayers = [];
         this.collidableObjectManager = new CollidableObjectManager(this.target);
-        this.startMenu = new StartMenu(width / 2, height * 1 / 7);
         this.playerFactory = new PlayerFactory(this.collidableObjectManager);
+        this.startMenu = new StartMenu(width / 2, height * 1 / 7, this.playerFactory);
         this.scoreboard = new Scoreboard(this.target);
     }
 
