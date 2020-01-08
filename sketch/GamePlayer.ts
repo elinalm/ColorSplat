@@ -10,7 +10,6 @@ namespace _ply {
         private xPos : number
         private yPos : number
         private barrelPoint = {x: 0, y: 0}
-        //private cooldownActive = false
         private cooldownValue = -180
         private hasSuperBlastPowerUp: boolean = false
         private blastRadius: number = 150
@@ -36,7 +35,6 @@ namespace _ply {
         // Class functions
         
         draw(): void { 
-            
             //Barrel outline
             push()
             angleMode(DEGREES)
@@ -145,8 +143,6 @@ namespace _ply {
                                 this.speedCannonPowerUp --
                             }
 
-
-                            //this.cooldownActive = true
                             let cooldownTimer = setInterval( ()=> {
                                 cooldown--
                                 
@@ -157,7 +153,6 @@ namespace _ply {
                                     // Clear interval
                                     clearInterval(cooldownTimer)
                                     // Reset cooldownActive and value
-                                    //this.cooldownActive = false
                                     this.cooldownValue = -180
                                     // Remove projectile
                                     this.projectileExists = false

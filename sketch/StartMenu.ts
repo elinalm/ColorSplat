@@ -1,6 +1,6 @@
 class StartMenu implements DrawableObject {
     // Class attribute
-    private playerFactory = new PlayerFactory()
+    private playerFactory: PlayerFactory
     private noOfPlayers = 4
     private isPlayerPressed = false
     private isTimerPressed = false
@@ -18,10 +18,11 @@ class StartMenu implements DrawableObject {
     //private playerButton = new Button();
     
     // Class constructor
-    constructor (x: number, y: number) {
+    constructor (x: number, y: number, playerFactory: PlayerFactory) {
         // this.startButton = new Button(width/2, height/2 + 110, 100, 50, "Start", this.startGame, 'blue')
         this.x = x
         this.y = y
+        this.playerFactory = playerFactory
         //this.twoPlayersButton = new Button(width/2, height/2 + 70, 100, 50, "2", this.startGame, 'blue')
     }
 
@@ -76,7 +77,7 @@ class StartMenu implements DrawableObject {
         
         //Draw players section
         push()
-        const createPlayers = this.playerFactory.buildMenuPlayer(this.noOfPlayers)
+        const createPlayers: Array<_ply.MenuPlayer> = this.playerFactory.buildMenuPlayer(this.noOfPlayers)
 
         let posIndex = windowWidth/(this.noOfPlayers+2)
         let startIndex = posIndex/2
