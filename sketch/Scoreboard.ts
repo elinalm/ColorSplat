@@ -83,7 +83,7 @@ class Scoreboard implements DrawableObject {
     private drawText(){
         push();
         textSize(30);
-        fill('grey')
+        fill('black')
         text('Click to restart' , windowWidth/2,windowHeight/2)
         pop();        
     }
@@ -216,6 +216,6 @@ class Scoreboard implements DrawableObject {
     private calcPercentPixels(inPixels:number): string{
         let percentOut = inPixels / this.totalPixelsInCanvas
         percentOut = percentOut * 100
-        return percentOut.toFixed(3)
+        return percentOut.toFixed(2)
     }
 }
