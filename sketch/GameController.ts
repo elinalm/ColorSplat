@@ -11,24 +11,19 @@ class GameController {
     private builtPlayers = false
     private buildGamePlayers: Array<_ply.GamePlayer> = []
     private powerUpExists = false
-    private powerUp?: PowerUp
-
     private scoreboard = new Scoreboard(this.target);
 
     // Class methods //
 
     public updateGame(): void {
-        
         // Draw startmenu unless game has started
         if (!this.isGameStarted) {
             this.mainMenu()
         }
-        
         // Draw main game
         else if (this.isGameStarted && !this.isGameOver) {
             this.gameRunning()
         }
-
         else if (this.isGameOver) {
             if (this.scoreboard.getRestartGame) {// restart game
                 this.restartGame()
@@ -47,43 +42,11 @@ class GameController {
     }
 
     private gameRunning(){
+        
+        this.setTimerOnStart()
+        this.setPlayersOnStart()
+
         this.generatePowerUps()
-        this.powerUpExists = false
-
-        for (const iterator of this.collidableObjectManager.getCollidableObjectList()) {
-            if (iterator instanceof PowerUp) {
-                this.powerUpExists = true
-            }
-        }
-
-        if (!this.powerUpExists) {
-            this.powerUp = new PowerUp(random(0, windowWidth), -50, 10, 10, 25, '#1aff1a', this.collidableObjectManager, 'SpeedCanon') // TODO...
-            this.collidableObjectManager.addCollidableObjectToList(this.powerUp)
-            // this.powerUpExists = true
-            this.powerUp.draw()
-            //console.log(randomNumber)
-        }
-
-        if (!this.timerCreated) {
-            this.timer = new Timer(this.startMenu.getSelectedTime(), width / 2, height * 1 / 6);
-            this.timerCreated = true
-        }
-
-
-
-        // If gameplayers aren't created, create gameplayer objects
-        if (!this.builtPlayers) {
-            let posIndex = windowWidth / (this.startMenu.getPlayers() + 2)
-            let startIndex = posIndex / 2
-            let posArray = []
-            // Find positions for players and pass into the player objects as posArray
-            for (let i = 0; i < this.startMenu.getPlayers(); i++) {
-                startIndex += posIndex
-                posArray.push({ x: startIndex, y: windowHeight })
-            }
-            this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers(), posArray)
-            this.builtPlayers = true
-        }
 
         // Draw target and update target
         this.target.draw()
@@ -92,21 +55,12 @@ class GameController {
         // Draw timer
         this.timer.draw()
 
-        // Draw players, update players and maintain player controls
-        this.buildGamePlayers.forEach(player => {
-            player.draw()
-            player.handleControls()
-            if (keyIsDown(player.aimLeft[1]) || keyIsDown(player.aimRight[1]) || keyIsDown(player.fireButton[1])) {
-                player.update()
-            }
-        });
+        this.getAllPlayerInputAndDraw()
 
         this.collidableObjectManager.updatePos();
         this.collidableObjectManager.draw();
-
-        if (this.timer.getTimeLeft === 0) {
-            this.isGameOver = true
-        }
+        
+        this.checkIfGameOver()
     }
 
     private restartGame(){
@@ -127,36 +81,72 @@ class GameController {
         this.scoreboard = new Scoreboard(this.target);
     }
 
-
     // helper functions
 
     private generatePowerUps() {
         this.powerUpExists = false
-        for (const iterator of this.collidableObjectManager.getCollidableObjectList()) {
-            if (iterator instanceof PowerUp) {
+        for (const collidableObject of this.collidableObjectManager.getCollidableObjectList()) {
+            if (collidableObject instanceof PowerUp) {
                 this.powerUpExists = true
 
             }
         }
 
-        let randomNumber = Math.round(random(0,1))
+        if (!this.powerUpExists) {
+            const powerUp = new PowerUp(random(0, windowWidth), -50, 10, 10, 25, '#1aff1a', this.collidableObjectManager, this.powerUpTypeRandom() )
+            this.collidableObjectManager.addCollidableObjectToList(powerUp)
+        }
+    }
 
+    private powerUpTypeRandom(){
+        let randomNumber = Math.round(random(0,1))
         let powerUpString: PowerUpType
         
         if (randomNumber == 0){
             powerUpString = 'SpeedCanon'
-        }
-        else {
+        }else {
             powerUpString = 'SuperBlast'
         }
+        return powerUpString
+    }
 
-        if (!this.powerUpExists) {
-            const powerUp = new PowerUp(random(0, windowWidth), -50, 10, 10, 25, '#1aff1a', this.collidableObjectManager, powerUpString )
-            this.collidableObjectManager.addCollidableObjectToList(powerUp)
-            // this.powerUpExists = true
-            powerUp.draw()
-            this.powerUp = powerUp
-            //console.log(randomNumber)
+    private setTimerOnStart(){
+        if (!this.timerCreated) {
+            this.timer = new Timer(this.startMenu.getSelectedTime(), width / 2, height * 1 / 6);
+            this.timerCreated = true
+        }
+    }
+
+    private setPlayersOnStart(){
+        // If gameplayers aren't created, create gameplayer objects
+        if (!this.builtPlayers) {
+            let posIndex = windowWidth / (this.startMenu.getPlayers() + 2)
+            let startIndex = posIndex / 2
+            let posArray = []
+            // Find positions for players and pass into the player objects as posArray
+            for (let i = 0; i < this.startMenu.getPlayers(); i++) {
+                startIndex += posIndex
+                posArray.push({ x: startIndex, y: windowHeight })
+            }
+            this.buildGamePlayers = this.playerFactory.buildGamePlayer(this.startMenu.getPlayers(), posArray)
+            this.builtPlayers = true
+        }
+    }
+
+    private getAllPlayerInputAndDraw(){
+        // Draw players, update players and maintain player controls
+        this.buildGamePlayers.forEach(player => {
+            player.draw()
+            player.handleControls()
+            if (keyIsDown(player.aimLeft[1]) || keyIsDown(player.aimRight[1]) || keyIsDown(player.fireButton[1])) {
+                player.update()
+            }
+        });
+    }
+
+    private checkIfGameOver(){
+        if (this.timer.getTimeLeft === 0) {
+            this.isGameOver = true
         }
     }
 
