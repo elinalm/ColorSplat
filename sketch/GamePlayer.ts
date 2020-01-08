@@ -73,7 +73,7 @@ namespace _ply {
             noStroke()
             // strokeWeight(3)
             // stroke('#30362f')
-            fill('#1B1E1A')
+            fill(this.powerUpPlayerColor())
             arc(this.xPos, this.yPos, 80, 80, 0, PI*2)
             strokeWeight(6)
             stroke('#30362f')
@@ -208,6 +208,29 @@ namespace _ply {
             }
             else if(type === 'SpeedCanon'){
                 this.speedCannonPowerUp = 3
+            }
+        }
+
+        private powerUpPlayerColor(): string{
+            if(this.hasSuperBlastPowerUp){
+                return 'red'
+            }
+            if(this.speedCannonPowerUp > 0){
+                if(this.speedCannonPowerUp === 3){
+                    return '#ebe83f'
+                }
+                else if(this.speedCannonPowerUp === 2){
+                    return '#b8b532'
+                }
+                else if(this.speedCannonPowerUp === 1){
+                    return '#858221'
+                }
+                else{
+                    return '#1B1E1A'
+                }
+            }
+            else{
+                return '#1B1E1A'
             }
         }
         
