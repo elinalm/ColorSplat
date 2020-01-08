@@ -208,7 +208,7 @@ namespace _ply {
                 this.hasSuperBlastPowerUp = true
             }
             else if(type === 'SpeedCanon'){
-                this.speedCannonPowerUp = 4
+                this.speedCannonPowerUp = 3
             }
         }
 
