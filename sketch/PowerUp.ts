@@ -40,7 +40,7 @@ class PowerUp implements MovingObject, CollidableObject {
         circle(this.x, this.y, this.radius*2);
         
         if(this._type == 'SuperBlast'){
-            fill('red')
+            fill('#B933F4')
         }
         else {
             fill('yellow')

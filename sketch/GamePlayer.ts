@@ -213,20 +213,20 @@ namespace _ply {
 
         private powerUpPlayerColor(): string{
             if(this.hasSuperBlastPowerUp){
-                return 'red'
+                return '#B933F4' //purple
             }
             if(this.speedCannonPowerUp > 0){
                 if(this.speedCannonPowerUp === 3){
-                    return '#ebe83f'
+                    return '#F4E533' //yellow
                 }
                 else if(this.speedCannonPowerUp === 2){
-                    return '#b8b532'
+                    return '#F49933'    //orange
                 }
                 else if(this.speedCannonPowerUp === 1){
-                    return '#858221'
+                    return '#F44A33'    //dark orange
                 }
                 else{
-                    return '#1B1E1A'
+                    return '#1B1E1A'    //grey black
                 }
             }
             else{
