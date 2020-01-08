@@ -14,7 +14,7 @@ namespace _ply {
         private hasSuperBlastPowerUp: boolean = false
         private blastRadius: number = 150
         private speedCannonPowerUp: number = 0
-        private coolDownTime: number = 70;
+        private coolDownTime: number = 60;
 
 
         constructor (name: string, color: string, aimLeft: Array<string>, fireButton: Array<string>, aimRight: Array<string>, cOM: PassByFire, position: {x: number, y:number}) {
@@ -24,9 +24,9 @@ namespace _ply {
             this.yPos = position.y
         }
 
-        getProjectileExists() {
-            return this.projectileExists
-        }
+        // getProjectileExists() {
+        //     return this.projectileExists
+        // }
 
         setProjectileExists(status: boolean): void {
             this.projectileExists = status
@@ -87,14 +87,11 @@ namespace _ply {
         }
 
         update() /*: PlayerProjectile*/ {
-            // const projectile = new PlayerProjectile(1, 1, this.applyPowerUp(powerUp), this.color)
-            // return projectile;
 
             // Save barrels x position for projectile spawnpoint
             this.barrelPoint.x = this.xPos + ((this.angle-180)*1.6)
             // Save barrels y position for projectile spawnpoint
             this.barrelPoint.y = (this.yPos-100) + Math.pow((this.angle-180)*.3, 2)*.15
-            
              
         }
 
@@ -114,100 +111,104 @@ namespace _ply {
             }
             // Controls for fire button
             if (keyIsDown(this.fireButton[1])) {
-                const projectileArray = this.cOM.getCollidableObjectList()
-
-                // If projectile exists
-                if (this.projectileExists) {
-                    // Remove the projectile from the stack
-                    for (let i = 0; i < projectileArray.length; i++) {
-                        const projectile = projectileArray[i] as PlayerProjectile
-                        if (projectile.color === this.color && projectile.getHasExploded()===false) {                           
-                            projectile.setHasExploded(true)
-
-                            //Draw color from projectile explosion on canvas
-                            if(this.hasSuperBlastPowerUp === true){
-                                this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, this.blastRadius*2)
-                                this.hasSuperBlastPowerUp = false
-                                console.log('add power splash')                                                        
-                            }
-                            else{
-                                this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, this.blastRadius) 
-                                console.log('normal splash')
-                            }
-                            
-                            // Cooldown 1 second after exploding projectile
-                            let cooldown = this.coolDownTime
-
-                            if(this.speedCannonPowerUp > 0){
-                                cooldown = cooldown/2
-                                this.speedCannonPowerUp --
-                            }
-
-                            let cooldownTimer = setInterval( ()=> {
-                                cooldown--
-                                
-                                this.cooldownValue += 180/50
-
-                                // If cooldown is done
-                                if (cooldown === 0) {
-                                    // Clear interval
-                                    clearInterval(cooldownTimer)
-                                    // Reset cooldownActive and value
-                                    this.cooldownValue = -180
-                                    // Remove projectile
-                                    this.projectileExists = false
-                                    this.cOM.removeCollidableObjectFromList(i)
-                                }
-                            }, 10)
-                        }
-                    }
+                
+                if (this.projectileExists === true && !this.shouldFire) {
+                    console.log('exploding projectile');
+                    this.explodeProjectile()
                 }
-                // "Load" barrel by moving rectangle
-                else {
-                    // Instruct player to shoot              
+                
+                else if (this.projectileExists === false) {
+                    this.loadBarrel()
                     this.shouldFire = true
-                    if (this.barrelPos > -20) {
-                        
-                        if (this.barrelPos > -10) {
-                            this.barrelPos -= .3
-    
-                        }
-                        else if (this.barrelPos < -10) {
-                            this.barrelPos -= .1
-                            if (this.barrelPos < -19) {
-                                this.barrelPos = -18
-                            }
-                        }
-                    }  
                 }
             }
-            // If firebutton is released and player should shoot
-            if (!keyIsDown(this.fireButton[1])&&(this.shouldFire)) {
-                // Create projectile and add it to the stack
-                const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos*(windowHeight*.001)),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
-                this.cOM.addCollidableObjectToList(projectile)
-                // console.log(this.cOM.getCollidableObjectList());
-                
-                // Reset barrels position
+            if ((!keyIsDown(this.fireButton[1]) && this.shouldFire)) {
+                this.shootProjectile()
                 this.barrelPos = 0
-                // Reset shoot instruction
-                this.shouldFire = false
-                // Save projectile status
                 this.projectileExists = true
+                this.shouldFire = false 
+                
             }
         }
-    
+
+        private explodeProjectile() {
+            const projectileArray = this.cOM.getCollidableObjectList()
+            for (let i = 0; i < projectileArray.length; i++){
+                const projectile = projectileArray[i] as PlayerProjectile
+
+                if (projectile.color === this.color && projectile.getHasExploded() === false) {
+                    projectile.setHasExploded(true)
+
+                    if(this.hasSuperBlastPowerUp === true){
+                        this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, this.blastRadius*2)
+                        this.hasSuperBlastPowerUp = false
+                        console.log('add power splash')                                                        
+                    }
+                    else{
+                        this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, this.blastRadius) 
+                        console.log('normal splash')
+                    }
+                    this.coolDownTime = (this.speedCannonPowerUp > 0) ? 30 : 60
+
+                    let cooldown = this.coolDownTime
+
+
+                    let cooldownTimer = setInterval( ()=> {
+                        cooldown--
+                        
+                        this.cooldownValue += 180/this.coolDownTime
+
+                        // If cooldown is done
+                        if (cooldown === 0) {
+                            // Clear interval
+                            clearInterval(cooldownTimer)
+                            // Reset cooldownActive and value
+                            this.cooldownValue = -180
+                            // Remove projectile
+                            this.projectileExists = false
+                            projectile.shouldBeRemoved = true
+                            // this.cOM.removeCollidableObjectFromList(i)
+                        }
+                    }, 10)
+                }
+            }
+        }
+        
+        private loadBarrel() {
+            // console.log('loading barrel', this.barrelPos);
+            if (this.barrelPos > -20) {
+                        
+                if (this.barrelPos > -10) {
+                    this.barrelPos -= .3
+
+                }
+                else if (this.barrelPos < -10) {
+                    this.barrelPos -= .1
+                    if (this.barrelPos < -19) {
+                        this.barrelPos = -18
+                    }
+                }
+            }  
+        }
+        
+        private shootProjectile() {
+            console.log('shooting projectile');
+            const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos*(windowHeight*.0015)),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
+            this.cOM.addCollidableObjectToList(projectile)
+            this.speedCannonPowerUp = (this.speedCannonPowerUp <= 0) ? this.speedCannonPowerUp = 0 : this.speedCannonPowerUp -= 1
+            console.log(this.speedCannonPowerUp);
+            
+        }     
            
         // Gets called from PlayerProjectile in checkCollision if projectile collides with PowerUp
         public applyPowerUp (powerUp: PowerUp) {
-            console.log('hejehjehej');
             const type = powerUp.type
             
             if(type === 'SuperBlast'){
                 this.hasSuperBlastPowerUp = true
             }
             else if(type === 'SpeedCanon'){
-                this.speedCannonPowerUp = 3
+                this.speedCannonPowerUp = 4
             }
         }
 

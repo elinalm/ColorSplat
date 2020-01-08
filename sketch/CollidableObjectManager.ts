@@ -37,7 +37,7 @@ class CollidableObjectManager {
                     const player = object.getOwnerPlayer();
                     
                     //Säger till spelaren att projektilen inte längre existerar, så att spelaren kan skjuta ett nytt skott (must improve implementation)
-                    player.setProjectileExists(false)    
+                    player.setProjectileExists(false)   
                 }
 
                 object.shouldBeRemoved = true
@@ -66,9 +66,7 @@ class CollidableObjectManager {
     }
 
     public removeCollidableObjectFromList(index: number) {
-        console.log(this.collidableObjectList.splice(index,1));
-        
-        // this.collidableObjectList.splice(index, 1)
+        this.collidableObjectList.splice(index, 1)
     }
 
     public getCollidableObjectList(): Array<CollidableObject>{
