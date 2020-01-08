@@ -193,7 +193,7 @@ namespace _ply {
         
         private shootProjectile() {
             console.log('shooting projectile');
-            const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos*(windowHeight*.0015)),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
+            const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
             this.cOM.addCollidableObjectToList(projectile)
             this.speedCannonPowerUp = (this.speedCannonPowerUp <= 0) ? this.speedCannonPowerUp = 0 : this.speedCannonPowerUp -= 1
             console.log(this.speedCannonPowerUp);

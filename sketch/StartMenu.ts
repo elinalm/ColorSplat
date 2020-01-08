@@ -9,7 +9,7 @@ class StartMenu implements DrawableObject {
     private startGame = false 
     private startButton = new _btn.BoolButton(width/2, windowHeight*.85, 100, 50, 'blue', 'Start', this.startGame)
     private timerValue = 30
-    private timerSelectButton = new _btn.RadioButton(windowWidth/2, windowHeight*.72, windowWidth/2, 100, this.bgColor, this.isTimerPressed, [30, 45, 60], this.timerValue)
+    private timerSelectButton = new _btn.RadioButton(windowWidth/2, windowHeight*.72, windowWidth/2, 100, this.bgColor, this.isTimerPressed, [45, 60, 90, 120], this.timerValue)
     private x: number
     private y: number
 

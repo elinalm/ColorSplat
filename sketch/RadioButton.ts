@@ -31,8 +31,9 @@ namespace _btn {
             for (let i = 0; i < this.values.length; i++) {
                 noStroke()
                 if (this.values[i] === this.definedValue) {
+                    let rectWidth = 50 + 15 * (this.definedValue.toString().length - 1)
                     fill('gray')
-                    rect(this.valuePos[i], this.y, 50, 50)
+                    rect(this.valuePos[i], this.y, rectWidth, 50)
                 }
                 fill('white')
                 textAlign(CENTER)
