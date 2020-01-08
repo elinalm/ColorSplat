@@ -4,10 +4,6 @@ interface DrawableObject {
     draw(x?: number, y?: number):void
 }
 
-interface ApplyPowerUp {
-    applyPowerUp: (powerUp: string) => void
-}
-
 interface MovingObject extends DrawableObject {
     // Interface attributes
     velX: number
