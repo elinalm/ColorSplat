@@ -108,7 +108,6 @@ namespace _ply {
             if (keyIsDown(this.fireButton[1])) {
                 
                 if (this.projectileExists === true && !this.shouldFire) {
-                    console.log('exploding projectile');
                     this.explodeProjectile()
                 }
                 
@@ -138,12 +137,10 @@ namespace _ply {
                     if(this.hasSuperBlastPowerUp === true){
                         splash.splashDiameter = splash.splashDiameter*2
                         this.cOM.target.addSplashToTargetCanvas(splash)
-                        this.hasSuperBlastPowerUp = false
-                        console.log('add power splash')                                                        
+                        this.hasSuperBlastPowerUp = false                                                      
                     }
                     else{
                         this.cOM.target.addSplashToTargetCanvas(splash) 
-                        console.log('normal splash')
                     }
                     this.coolDownTime = (this.speedCannonPowerUp > 0) ? 30 : 60
 
@@ -187,12 +184,9 @@ namespace _ply {
         }
         
         private shootProjectile() {
-            console.log('shooting projectile');
             const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
             this.cOM.addCollidableObjectToList(projectile)
-            this.speedCannonPowerUp = (this.speedCannonPowerUp <= 0) ? this.speedCannonPowerUp = 0 : this.speedCannonPowerUp -= 1
-            console.log(this.speedCannonPowerUp);
-            
+            this.speedCannonPowerUp = (this.speedCannonPowerUp <= 0) ? this.speedCannonPowerUp = 0 : this.speedCannonPowerUp -= 1            
         }     
            
         // Gets called from PlayerProjectile in checkCollision if projectile collides with PowerUp

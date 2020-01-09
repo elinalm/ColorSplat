@@ -84,7 +84,6 @@ class Scoreboard implements DrawableObject {
 
     //Resets all original values on reset.
     private backToMainMenu(){
-        console.log("restart game")
         this.hasRun = false;
         this.delayOver = false;
         this.fadeCounter = 0;
