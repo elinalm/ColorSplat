@@ -1,40 +1,25 @@
 class Scoreboard implements DrawableObject {
     private hasRun: boolean = false
     private target: TargetGameCanvas
-    delayOver: boolean = false
+    private delayOver: boolean = false
     private fadeCounter: number = 0
-    restartGame: boolean = false
-    targetCanvasCutoutImage: p5.Image = new p5.Image();
+    private restartGame: boolean = false
+    private targetCanvasCutoutImage: p5.Image = new p5.Image();
     private totalPixelsInCanvas: number = 0
     private scoreBarCounter: number = 0
-
     private colorScoreList: Array<{playerColor: string, pixelCount: number}> = []
 
     constructor(target: TargetGameCanvas){
         this.target = target
     }
-    // Class attributes
-    // private goToScoreBoardTrue: boolean;
-    // private button = new Button();
 
-    // Class constructor
-    // constructor(goToScoreBoardTrue: boolean) {
-    //     this.goToScoreBoardTrue = goToScoreBoardTrue;
-    // }
     // Class functions
     public draw(): void {
-        // Insert draw logic here
-        // if(this.goToScoreBoardTrue === true) {
-        //     console.log("Test")
-        // }
-        
+
         if(!this.hasRun){ //run once when started
             this.target.draw()// draw one last clean targetCanvas for scoreboard.
             this.targetCanvasCutoutImage = this.target.getCutoutImage;
             this.countPixelsInTarget(this.targetCanvasCutoutImage)
-
-            //console.log('blue purple green yellow other ' + this.target.findPixelColorInTargetCanvas()+ ' from scoreboard')
-
             this.hasRun = true;
             this.restartGame = false // reset from restart
             setTimeout( () =>{this.delayOver = true;}, 3000);
@@ -112,22 +97,15 @@ class Scoreboard implements DrawableObject {
         return this.restartGame;
     }
 
-
-
     private countPixelsInTarget(targetImage: p5.Image){
         targetImage.loadPixels()
-        //console.log('target nr of pixels ' + targetImage.pixels.length/4)
         this.totalPixelsInCanvas =  targetImage.pixels.length/4
-        let otherColor = 0
         let blue = 0
         let green = 0
         let purple = 0
         let yellow = 0
 
         for(let i = 0; targetImage.pixels.length > i; i += 4){
-            if(targetImage.pixels[i] !== 255 && targetImage.pixels[i+1] !== 255 && targetImage.pixels[i+2] !== 255){
-                otherColor ++
-            }
             if(targetImage.pixels[i] === 74 && targetImage.pixels[i+1] === 124 && targetImage.pixels[i+2] === 221){
                 blue ++
             }
@@ -141,7 +119,6 @@ class Scoreboard implements DrawableObject {
                 yellow ++
             }
         }
-        console.log('blue: ' + blue + ' purple: ' + purple + ' green: ' + green  + ' yellow: ' + yellow + ' other ' + otherColor)
         
         this.colorScoreList.push({playerColor: 'blue', pixelCount: blue})
         this.colorScoreList.push({playerColor: 'green', pixelCount: green})
@@ -149,7 +126,6 @@ class Scoreboard implements DrawableObject {
         this.colorScoreList.push({playerColor: 'yellow', pixelCount: yellow})
         
         this.colorScoreList.sort((a,b) => (b.pixelCount - a.pixelCount))
-        console.log(this.colorScoreList)
     }
 
     private drawWinnerList(){
@@ -212,7 +188,7 @@ class Scoreboard implements DrawableObject {
         pop()
     }
 
-    //return percent whit fixed decimal points.
+    //return percent with fixed decimal points.
     private calcPercentPixels(inPixels:number): string{
         let percentOut = inPixels / this.totalPixelsInCanvas
         percentOut = percentOut * 100
