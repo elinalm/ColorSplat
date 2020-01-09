@@ -108,7 +108,6 @@ namespace _ply {
             if (keyIsDown(this.fireButton[1])) {
                 
                 if (this.projectileExists === true && !this.shouldFire) {
-                    console.log('exploding projectile');
                     this.explodeProjectile()
                 }
                 
@@ -133,15 +132,15 @@ namespace _ply {
 
                 if (projectile.color === this.color && projectile.getHasExploded() === false) {
                     projectile.setHasExploded(true)
+                    let splash: Splash = {posX: projectile.x, posY: projectile.y, color: projectile.color, splashDiameter: this.blastRadius}
 
                     if(this.hasSuperBlastPowerUp === true){
-                        this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, this.blastRadius*2)
-                        this.hasSuperBlastPowerUp = false
-                        console.log('add power splash')                                                        
+                        splash.splashDiameter = splash.splashDiameter*2
+                        this.cOM.target.addSplashToTargetCanvas(splash)
+                        this.hasSuperBlastPowerUp = false                                                      
                     }
                     else{
-                        this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, this.blastRadius) 
-                        console.log('normal splash')
+                        this.cOM.target.addSplashToTargetCanvas(splash) 
                     }
                     this.coolDownTime = (this.speedCannonPowerUp > 0) ? 30 : 60
 
@@ -185,12 +184,9 @@ namespace _ply {
         }
         
         private shootProjectile() {
-            console.log('shooting projectile');
             const projectile = new PlayerProjectile((this.angle-180)*(this.barrelPos*-.015),(this.barrelPos),this.color,this.barrelPoint.x, this.barrelPoint.y, 10, this)
             this.cOM.addCollidableObjectToList(projectile)
-            this.speedCannonPowerUp = (this.speedCannonPowerUp <= 0) ? this.speedCannonPowerUp = 0 : this.speedCannonPowerUp -= 1
-            console.log(this.speedCannonPowerUp);
-            
+            this.speedCannonPowerUp = (this.speedCannonPowerUp <= 0) ? this.speedCannonPowerUp = 0 : this.speedCannonPowerUp -= 1            
         }     
            
         // Gets called from PlayerProjectile in checkCollision if projectile collides with PowerUp

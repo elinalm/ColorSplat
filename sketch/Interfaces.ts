@@ -36,7 +36,7 @@ interface PassByFire {
 }
 
 interface DrawExplosions {
-    addSplashToTargetCanvas:(hitPosX: number, hitPosY: number, splashColor: string, splashDiameter: number) => void
+    addSplashToTargetCanvas:(splash: Splash) => void
 }
 
 interface HitBoxRect {
@@ -46,4 +46,11 @@ interface HitBoxRect {
     height: number
     rhs: number
     bhs: number
+}
+
+interface Splash {
+    posX: number
+    posY: number
+    color: string
+    splashDiameter: number
 }
