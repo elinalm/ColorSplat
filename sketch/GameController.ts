@@ -66,7 +66,6 @@ class GameController {
     private restartGame(){
         this.isGameOver = false;
         this.isGameStarted = false;
-        this.scoreboard.restartGame = false;
         this.target = new TargetGameCanvas(windowWidth / 2, windowHeight / 2);
         this.timer = new Timer(50, width / 2, height * 1 / 6);
         this.builtPlayers = false;

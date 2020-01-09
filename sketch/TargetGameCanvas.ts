@@ -10,7 +10,6 @@ class TargetGameCanvas implements MovingObject {
     private targetCanvasHeight: number = 0;
     private targetCanvasDirection: boolean = false;
     private cutOutImage: p5.Image = new p5.Image();
-    //private pixelInCanvas: any
 
     // Class constructor
     constructor (velX: number, velY: number) {
@@ -23,44 +22,20 @@ class TargetGameCanvas implements MovingObject {
     
     // Class functions
     public draw(): void {
-        // Insert draw logic here
-        
         this.updatePos();
-        this.drawTargetBoard();     //empty target canvas drawn first
-        this.drawSplash();          //then splashes
-        this.drawFrameAroundTargetCanvas();
-
-        this.drawCloud(windowWidth*0.75 , this.targetCanvasPosY/2)
-        this.drawLogo(windowWidth/4, windowHeight/8)
-
-        //this.cutOutTargetCanvas();  //canvas is cut out to remove splashes outside target canvas
-        //this.drawBackground();      //background is drawn over target canvas
-        //this.drawTargetCutOutOnBackground();    //the cutout is added on top of background.
-
-        //test remove later, draws blobs on canvas
-        if(mouseIsPressed){
-            this.mouseClicked();
-        }
+        this.drawTargetBoard();     //Center white target.
+        this.drawSplash();          //Redraw all splashes on target.
+        this.drawFrameAroundTargetCanvas(); //draw frame ho cover splash overflow outside of canvas.
+        this.drawCloud(windowWidth*0.75 , this.targetCanvasPosY/2) //Cloud upper right corner.
+        this.drawLogo(windowWidth/4, windowHeight/8)    //Logo upper left corner.
     }
 
+    //set target start position and size.
     private setTargetCanvasSize(){
         this.targetCanvasWidth = windowWidth/2;
         this.targetCanvasHeight = windowHeight/2;
         this.targetCanvasPosY = windowHeight/4;
     }
-
-    // private drawBackground(){
-    //     let i:number = 0;
-    //     let stepHeight:number = 10;
-    //     push();
-    //     noStroke();
-    //     while(i< windowHeight){
-    //         fill(i/9,i/5,i/2);
-    //         rect(0,i,windowWidth,i+stepHeight);
-    //         i += stepHeight;
-    //     }
-    //     pop();
-    // }
 
     private drawTargetBoard(){
         push();
@@ -131,19 +106,7 @@ class TargetGameCanvas implements MovingObject {
         text("Color", logoX - 10, logoY - 25);
         pop()
     }
-
-    // private drawTargetCutOutOnBackground(){
-    //     push();
-    //     noStroke();
-    //     image(this.cutOutImage,this.targetCanvasPosX,this.targetCanvasPosY);
-    //     pop();
-    // }
-
-    //test for splash input TODO remove when done.
-    public mouseClicked(){
-        this.addSplashToTargetCanvas(mouseX, mouseY, 'green', random(30,120));
-    }
-
+    
     //Move target canvas left to right.
     public updatePos(){
         let moveBand = windowWidth/2
@@ -200,63 +163,4 @@ class TargetGameCanvas implements MovingObject {
     public getSplashList() {
         return this.splashList
     }
-    
-    // public findPixelColorInTargetCanvas() {
-    //     this.pixelInCanvas = get(this.targetCanvasPosX,this.targetCanvasPosY)
-    //     let targetPixelX = this.targetCanvasPosX
-    //     let targetPixelY = this.targetCanvasPosY
-    //     let blue = 0;
-    //     let purple = 0;
-    //     let green = 0;
-    //     let yellow = 0;
-    //     let otherColor = 0
-    //     targetPixelX --
-    //     targetPixelY --
-
-        
-
-    //     for(let i=0; targetPixelX <= this.targetCanvasPosX + this.targetCanvasWidth; i++) {
-    //         targetPixelY = this.targetCanvasPosY
-    //         targetPixelX ++
-    //         this.pixelInCanvas = get(targetPixelX,targetPixelY)
-        
-    //         for (let j=0; targetPixelY <= this.targetCanvasPosY + this.targetCanvasHeight; j++) {
-
-    //             targetPixelY ++
-    //             this.pixelInCanvas = get(targetPixelX, targetPixelY)
-    //             if (this.pixelInCanvas[0] === 74 && this.pixelInCanvas[1] === 124 && this.pixelInCanvas[2] === 221 ) {
-    //                 blue ++
-                    
-    //             } else if (this.pixelInCanvas[0] === 202 && this.pixelInCanvas[1] === 94 && this.pixelInCanvas[2] === 211 ) {
-    //                 purple ++
-    //             } else if (this.pixelInCanvas[0] === 102 && this.pixelInCanvas[1] === 233 && this.pixelInCanvas[2] === 69 ) {
-    //                 green ++
-    //             } else if (this.pixelInCanvas[0] === 231 && this.pixelInCanvas[1] === 255 && this.pixelInCanvas[2] === 87 ) {
-    //                 yellow ++
-    //             }
-
-    //             if(this.pixelInCanvas[0] !== 255 && this.pixelInCanvas[1] !== 255 && this.pixelInCanvas[2] !== 255){
-    //                 otherColor ++
-    //             }
-    //         }
-            
-            
-
-    //     }
-
-        // for(let j = 0; this.targetCanvasHeight > j; j++){
-
-        //     for(let i = 0; this.targetCanvasWidth > i; i++){
-        //         if(get(this.targetCanvasPosX + i, this.targetCanvasPosY + j )[0] !== 255 ){
-        //             console.log(get(this.targetCanvasPosX + i, this.targetCanvasPosY + j) + 'line j '+ (j + this.targetCanvasPosY) +  " x "+ this.targetCanvasPosX + i)
-        //         }  
-        //     }      
-        // }
-
-
-
-    //     return [blue , purple, green, yellow, otherColor]
-        
-    // }
-
 }
