@@ -3,7 +3,7 @@ class TargetGameCanvas implements MovingObject {
     velX: number
     velY: number
     
-    private splashList: Array<{posX:number, posY:number, color: string, splashDiameter: number}>
+    private splashList: Array<Splash>
     private targetCanvasPosX: number = 0;
     private targetCanvasPosY: number = 0;
     private targetCanvasWidth: number = 0;
@@ -146,8 +146,8 @@ class TargetGameCanvas implements MovingObject {
     }
 
     // Call this to add splashes to canvas.
-    public addSplashToTargetCanvas(hitPosX: number, hitPosY: number, splashColor: string, splashDiameter: number){
-        this.isMissileInsideTarget(hitPosX, hitPosY, splashColor, splashDiameter);
+    public addSplashToTargetCanvas(splash: Splash){
+        this.isMissileInsideTarget(splash.posX, splash.posY, splash.color, splash.splashDiameter);
     }
 
     private cutOutTargetCanvas(){

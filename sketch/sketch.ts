@@ -1,6 +1,4 @@
 let gameController: GameController;
-let gravity = 0.003
-
 
 /**
  * Built in setup function in P5
@@ -25,7 +23,6 @@ function draw() {
     gameController.updateGame()
 
 }
-
 
 
 /**

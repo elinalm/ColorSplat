@@ -133,14 +133,16 @@ namespace _ply {
 
                 if (projectile.color === this.color && projectile.getHasExploded() === false) {
                     projectile.setHasExploded(true)
+                    let splash: Splash = {posX: projectile.x, posY: projectile.y, color: projectile.color, splashDiameter: this.blastRadius}
 
                     if(this.hasSuperBlastPowerUp === true){
-                        this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, this.blastRadius*2)
+                        splash.splashDiameter = splash.splashDiameter*2
+                        this.cOM.target.addSplashToTargetCanvas(splash)
                         this.hasSuperBlastPowerUp = false
                         console.log('add power splash')                                                        
                     }
                     else{
-                        this.cOM.target.addSplashToTargetCanvas(projectile.x, projectile.y, projectile.color, this.blastRadius) 
+                        this.cOM.target.addSplashToTargetCanvas(splash) 
                         console.log('normal splash')
                     }
                     this.coolDownTime = (this.speedCannonPowerUp > 0) ? 30 : 60
