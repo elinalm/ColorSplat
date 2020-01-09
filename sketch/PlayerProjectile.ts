@@ -12,20 +12,17 @@ class PlayerProjectile implements MovingObject, CollidableObject {
     ownerPlayer: PlayerFromProjectile
     hasExploded: boolean = false
     shouldBeRemoved: boolean = false
-    // applyPowerUpCallback: () => void
     
     // Class constructor
-    constructor (velX: number, velY: number, /*player:ApplyPowerUp,*/ color: string , x: number, y: number, blastRadius: number, player: PlayerFromProjectile)/* applyPowerUpCallback: () => void) */{
+    constructor (velX: number, velY: number, color: string , x: number, y: number, blastRadius: number, player: PlayerFromProjectile)/* applyPowerUpCallback: () => void) */{
         this.velX = velX
         this.velY = velY + (velX*velX)*.03
         this.color = color
-        //player.applyPowerUp
         this.x = x
         this.y = y
         this.radius = 15
         this.blastRadius = blastRadius
         this.ownerPlayer = player
-        // this.applyPowerUpCallback = applyPowerUpCallback
     }
 
     public getOwnerPlayer(): PlayerFromProjectile {
@@ -40,26 +37,6 @@ class PlayerProjectile implements MovingObject, CollidableObject {
         this.hasExploded = status
     }
     
-    // public get _x(): number {
-    //     return this.x
-    // }
-
-    // public get _y(): number {
-    //     return this.y
-    // }
-
-    // public get _color(): string {
-    //     return this.color
-    // }
-
-    // public get _radius(): number{
-    //     return this.radius
-    // }
-
-    // public get _blastRadius(): number{
-    //     return this.blastRadius
-    // }
-
     
     public checkCollision(otherObjectList: CollidableObject[]): void{        
 
@@ -69,8 +46,6 @@ class PlayerProjectile implements MovingObject, CollidableObject {
                 if(this !== otherObject && pointDist < this.radius + otherObject.radius){
 
                     if(otherObject instanceof PlayerProjectile){
-                        // let pointDist = dist(this.x, this.y, otherObject.x, otherObject.y)
-                        // if(this !== otherObject && pointDist < this.radius + otherObject.radius){
                     
                             // Make sure that projectiles doesn't get stuck inside eachother
                             const overlap = (this.radius + otherObject.radius) - pointDist // Find out overlap

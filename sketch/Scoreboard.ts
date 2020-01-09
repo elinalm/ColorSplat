@@ -7,34 +7,20 @@ class Scoreboard implements DrawableObject {
     targetCanvasCutoutImage: p5.Image = new p5.Image();
     private totalPixelsInCanvas: number = 0
     private scoreBarCounter: number = 0
-
     private colorScoreList: Array<{playerColor: string, pixelCount: number}> = []
 
     constructor(target: TargetGameCanvas){
         this.target = target
     }
-    // Class attributes
-    // private goToScoreBoardTrue: boolean;
-    // private button = new Button();
 
-    // Class constructor
-    // constructor(goToScoreBoardTrue: boolean) {
-    //     this.goToScoreBoardTrue = goToScoreBoardTrue;
-    // }
     // Class functions
     public draw(): void {
         // Insert draw logic here
-        // if(this.goToScoreBoardTrue === true) {
-        //     console.log("Test")
-        // }
         
         if(!this.hasRun){ //run once when started
             this.target.draw()// draw one last clean targetCanvas for scoreboard.
             this.targetCanvasCutoutImage = this.target.getCutoutImage;
             this.countPixelsInTarget(this.targetCanvasCutoutImage)
-
-            //console.log('blue purple green yellow other ' + this.target.findPixelColorInTargetCanvas()+ ' from scoreboard')
-
             this.hasRun = true;
             this.restartGame = false // reset from restart
             setTimeout( () =>{this.delayOver = true;}, 3000);
@@ -116,7 +102,6 @@ class Scoreboard implements DrawableObject {
 
     private countPixelsInTarget(targetImage: p5.Image){
         targetImage.loadPixels()
-        //console.log('target nr of pixels ' + targetImage.pixels.length/4)
         this.totalPixelsInCanvas =  targetImage.pixels.length/4
         let otherColor = 0
         let blue = 0

@@ -56,16 +56,9 @@ class Timer implements DrawableObject {
         else {
           textAlign(CENTER)
           text('Game over', this.posX, this.posY+18)
-          //setTimeout(GameController, 3000);
         }
 
-
-        // let downloadTimer = setInterval(function(){
-        // timeleft--;
-        // if(timeleft <= 0)
-        //     clearInterval(downloadTimer);
-        // },1000);
-        }
+      }
 
         public get getTimeLeft(): number{
           return this.timer

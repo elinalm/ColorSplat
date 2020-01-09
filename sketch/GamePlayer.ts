@@ -24,10 +24,6 @@ namespace _ply {
             this.yPos = position.y
         }
 
-        // getProjectileExists() {
-        //     return this.projectileExists
-        // }
-
         setProjectileExists(status: boolean): void {
             this.projectileExists = status
         }
@@ -95,7 +91,6 @@ namespace _ply {
              
         }
 
-        // handleControls(): void {
         public handleControls() {
             // Controls for aiming left
             if (keyIsDown(this.aimLeft[1])) {
@@ -167,7 +162,6 @@ namespace _ply {
                             // Remove projectile
                             this.projectileExists = false
                             projectile.shouldBeRemoved = true
-                            // this.cOM.removeCollidableObjectFromList(i)
                         }
                     }, 10)
                 }
@@ -175,7 +169,6 @@ namespace _ply {
         }
         
         private loadBarrel() {
-            // console.log('loading barrel', this.barrelPos);
             if (this.barrelPos > -20) {
                         
                 if (this.barrelPos > -10) {

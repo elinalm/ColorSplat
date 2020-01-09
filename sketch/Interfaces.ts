@@ -19,7 +19,6 @@ interface CollidableObject extends MovingObject{
     radius: number
     color: string
     shouldBeRemoved: boolean
-    // checkCollision: (otherObject: CollidableObject[]) => void
     setHasExploded?:(status: boolean) => void
     getHasExploded?:() => boolean
 }
