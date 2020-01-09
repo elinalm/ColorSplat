@@ -15,9 +15,6 @@ class CollidableObjectManager {
             }
         }
         this.removeCollidedObjects(); //remove missiles and draw splash
-
-        // this.printList()
-        //this.generatePowerUps()
     }
 
     private removeCollidedObjects(){
@@ -26,7 +23,6 @@ class CollidableObjectManager {
             const object = this.collidableObjectList[i]
             // If Projectile has collided with PowerUp
             if(object.shouldBeRemoved){
-                // console.log(this.collidableObjectList[i]);
                 this.removeCollidableObjectFromList(i)
                 
             }
@@ -43,15 +39,6 @@ class CollidableObjectManager {
                 object.shouldBeRemoved = true
                 
             }
-
-            // if (this.collidableObjectList[i] instanceof PowerUp) {
-            //     if(this.collidableObjectList[i].x > windowWidth || this.collidableObjectList[i].x < 0 || this.collidableObjectList[i].y > windowHeight) {
-
-            //         this.removeCollidableObjectFromList(i)  
-            //         console.log('removed powerUp')     
-            //         //Tar bort powerUps som inte syns på skärmen längre
-            //     }
-            // }
         }
     }
 

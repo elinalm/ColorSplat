@@ -1,12 +1,6 @@
 ///<reference path="abstract-btn.ts" />
 namespace _btn {
     export class BoolButton extends Button implements DrawableObject{
-        // x: number
-        // y: number
-        // width: number
-        // height: number
-        // color: string
-        // isMouseDown: boolean
         private text: string
     
         constructor(x: number, y: number, width: number, height: number, color: string, text: string, isMouseDown: boolean) {
@@ -52,20 +46,6 @@ namespace _btn {
                 height: this.height
             }
         }
-        // private checkCollision() {
-        //     const x1 = 10;
-        //     const y1 = 10;
-        //     const r1 = 5;
-            
-        //     const x2 = 30;
-        //     const y2 = 30;
-        //     const r2 = 10;
-    
-        //     const distance = dist(x1, y1, x2, y2);
-    
-        //     if (distance < r1 + r2) {
-        //         // Booooom
-        //     }
-        // }  
+        
     }
 }

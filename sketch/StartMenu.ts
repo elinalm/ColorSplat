@@ -12,18 +12,12 @@ class StartMenu implements DrawableObject {
     private timerSelectButton = new _btn.RadioButton(windowWidth/2, windowHeight*.72, windowWidth/2, 100, this.bgColor, this.isTimerPressed, [45, 60, 90, 120], this.timerValue)
     private x: number
     private y: number
-
-    //private twoPlayersButton: Button
-
-    //private playerButton = new Button();
     
     // Class constructor
     constructor (x: number, y: number, playerFactory: PlayerFactory) {
-        // this.startButton = new Button(width/2, height/2 + 110, 100, 50, "Start", this.startGame, 'blue')
         this.x = x
         this.y = y
         this.playerFactory = playerFactory
-        //this.twoPlayersButton = new Button(width/2, height/2 + 70, 100, 50, "2", this.startGame, 'blue')
     }
 
     public getStartGame(): boolean{

@@ -15,7 +15,7 @@ class Scoreboard implements DrawableObject {
 
     // Class functions
     public draw(): void {
-
+        // Insert draw logic here
         if(!this.hasRun){ //run once when started
             this.target.draw()// draw one last clean targetCanvas for scoreboard.
             this.targetCanvasCutoutImage = this.target.getCutoutImage;
