@@ -48,9 +48,7 @@ class TargetGameCanvas implements MovingObject {
     private drawSplash(){
         push();
         for(let splash of this.splashList){
-            noStroke();
-            fill(`rgb(${splash.color})`);
-            circle(splash.posX + this.targetCanvasPosX, splash.posY,splash.splashDiameter);
+            splash.draw(this.targetCanvasPosX)
         }
         pop();
     }
@@ -132,7 +130,8 @@ class TargetGameCanvas implements MovingObject {
         if(hitPosX > this.targetCanvasPosX - splashDiameter/2 && hitPosX < this.targetCanvasPosX + this.targetCanvasWidth + splashDiameter/2
             && hitPosY > this.targetCanvasPosY - splashDiameter/2 && hitPosY < this.targetCanvasPosY + this.targetCanvasHeight + splashDiameter/2)
         {
-            this.splashList.push({posX:hitPosX - this.targetCanvasPosX,posY:hitPosY,color: splashColor,splashDiameter: splashDiameter})
+            const splash: Splash = new Splash(hitPosX - this.targetCanvasPosX, hitPosY, splashColor, splashDiameter)
+            this.splashList.push(splash)
         }
         else{
             //this.splashList.push({posX:mouseX - this.targetCanvasPosX,posY:mouseY,color:'blue',splashDiameter: 40})
@@ -146,8 +145,8 @@ class TargetGameCanvas implements MovingObject {
     }
 
     // Call this to add splashes to canvas.
-    public addSplashToTargetCanvas(splash: Splash){
-        this.isMissileInsideTarget(splash.posX, splash.posY, splash.color, splash.splashDiameter);
+    public addSplashToTargetCanvas(hitPosX:number, hitPosY:number, splashColor: string, splashDiameter: number){
+        this.isMissileInsideTarget(hitPosX, hitPosY, splashColor, splashDiameter);
     }
 
     private cutOutTargetCanvas(){
